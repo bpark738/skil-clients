@@ -1,0 +1,543 @@
+---
+swagger: "2.0"
+info:
+  description: "Endpoints API for classification and other prediction services in\
+    \ SKIL"
+  version: "1.0.3"
+  title: "Predict"
+host: "localhost:9008"
+basePath: "/endpoints"
+schemes:
+- "https"
+paths:
+  /{deploymentName}/model/{modelName}/default/predict:
+    post:
+      summary: "Run inference on the input array."
+      operationId: "predict"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "The input NDArray"
+        required: true
+        schema:
+          $ref: "#/definitions/Prediction"
+        x-exportParamName: "Body"
+      - name: "deploymentName"
+        in: "path"
+        description: "Name of the deployment group"
+        required: true
+        type: "string"
+        x-exportParamName: "DeploymentName"
+      - name: "modelName"
+        in: "path"
+        description: "ID or name of the deployed model"
+        required: true
+        type: "string"
+        x-exportParamName: "ModelName"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/Prediction"
+        400:
+          description: "Invalid input"
+        500:
+          description: "Invalid deployment or model name"
+  /{deploymentName}/model/{modelName}/default/classify:
+    post:
+      summary: "Use the deployed model to classify the input"
+      operationId: "classify"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "The input NDArray"
+        required: true
+        schema:
+          $ref: "#/definitions/Prediction"
+        x-exportParamName: "Body"
+      - name: "deploymentName"
+        in: "path"
+        description: "Name of the deployment group"
+        required: true
+        type: "string"
+        x-exportParamName: "DeploymentName"
+      - name: "modelName"
+        in: "path"
+        description: "ID or name of the deployed model"
+        required: true
+        type: "string"
+        x-exportParamName: "ModelName"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/ClassificationResult"
+        400:
+          description: "Invalid input"
+        500:
+          description: "Invalid deployment or model name"
+  /{deploymentName}/model/{modelName}/default/classifyarray:
+    post:
+      summary: "Same as /classify but returns the output as Base64NDArrayBody"
+      operationId: "classifyarray"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "The input NDArray"
+        required: true
+        schema:
+          $ref: "#/definitions/Prediction"
+        x-exportParamName: "Body"
+      - name: "deploymentName"
+        in: "path"
+        description: "Name of the deployment group"
+        required: true
+        type: "string"
+        x-exportParamName: "DeploymentName"
+      - name: "modelName"
+        in: "path"
+        description: "ID or name of the deployed model"
+        required: true
+        type: "string"
+        x-exportParamName: "ModelName"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/Base64NDArrayBody"
+        400:
+          description: "Invalid input"
+        500:
+          description: "Invalid deployment or model name"
+  /{deploymentName}/model/{modelName}/default/multiclassify:
+    post:
+      summary: "Represents all of the labels for a given classification"
+      operationId: "multiclassify"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "The input NDArray"
+        required: true
+        schema:
+          $ref: "#/definitions/Prediction"
+        x-exportParamName: "Body"
+      - name: "deploymentName"
+        in: "path"
+        description: "Name of the deployment group"
+        required: true
+        type: "string"
+        x-exportParamName: "DeploymentName"
+      - name: "modelName"
+        in: "path"
+        description: "ID or name of the deployed model"
+        required: true
+        type: "string"
+        x-exportParamName: "ModelName"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/MultiClassClassificationResult"
+        400:
+          description: "Invalid input"
+        500:
+          description: "Invalid deployment or model name"
+  /{deploymentName}/model/{modelName}/default/modelset:
+    post:
+      summary: "Set the model to be served"
+      operationId: "modelset"
+      consumes:
+      - "multipart/form-data"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "file"
+        in: "formData"
+        description: "The model file to upload (.pb file)"
+        required: false
+        type: "file"
+        x-exportParamName: "File"
+      - name: "deploymentName"
+        in: "path"
+        description: "Name of the deployment group"
+        required: true
+        type: "string"
+        x-exportParamName: "DeploymentName"
+      - name: "modelName"
+        in: "path"
+        description: "ID or name of the deployed model"
+        required: true
+        type: "string"
+        x-exportParamName: "ModelName"
+      responses:
+        200:
+          description: "Model set successfully"
+          schema:
+            $ref: "#/definitions/ModelStatus"
+        500:
+          description: "Error setting model"
+  /{deploymentName}/model/{modelName}/default/modelupdate:
+    post:
+      summary: "Update the model to be served"
+      operationId: "modelupdate"
+      consumes:
+      - "multipart/form-data"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "file"
+        in: "formData"
+        description: "The model file to update with (.pb file)"
+        required: false
+        type: "file"
+        x-exportParamName: "File"
+      - name: "deploymentName"
+        in: "path"
+        description: "Name of the deployment group"
+        required: true
+        type: "string"
+        x-exportParamName: "DeploymentName"
+      - name: "modelName"
+        in: "path"
+        description: "ID or name of the deployed model"
+        required: true
+        type: "string"
+        x-exportParamName: "ModelName"
+      responses:
+        200:
+          description: "Model updated successfully or model update failed"
+          schema:
+            $ref: "#/definitions/ModelStatus"
+        500:
+          description: "Error updating model"
+  /{deploymentName}/model/{modelName}/default/jsonarray:
+    post:
+      summary: "Run inference on the input and returns it as a JsonArrayResponse"
+      operationId: "jsonarray"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "The input NDArray"
+        required: true
+        schema:
+          $ref: "#/definitions/Prediction"
+        x-exportParamName: "Body"
+      - name: "deploymentName"
+        in: "path"
+        description: "Name of the deployment group"
+        required: true
+        type: "string"
+        x-exportParamName: "DeploymentName"
+      - name: "modelName"
+        in: "path"
+        description: "ID or name of the deployed model"
+        required: true
+        type: "string"
+        x-exportParamName: "ModelName"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/JsonArrayResponse"
+        500:
+          description: "Error generating array prediction"
+  /{deploymentName}/model/{modelName}/default/predictwithpreprocess:
+    post:
+      summary: "Preprocesses the input and run inference on it"
+      operationId: "predictwithpreprocess"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "The input array"
+        required: true
+        schema:
+          type: "array"
+          items:
+            type: "string"
+        x-exportParamName: "Body"
+      - name: "deploymentName"
+        in: "path"
+        description: "Name of the deployment group"
+        required: true
+        type: "string"
+        x-exportParamName: "DeploymentName"
+      - name: "modelName"
+        in: "path"
+        description: "ID or name of the deployed model"
+        required: true
+        type: "string"
+        x-exportParamName: "ModelName"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/Prediction"
+        500:
+          description: "Error executing predictPreProcess"
+  /{deploymentName}/model/{modelName}/default/predictwithpreprocessjson:
+    post:
+      summary: "Preprocesses the input and run inference on it and returns it as a\
+        \ JsonArrayResponse"
+      operationId: "predictwithpreprocessjson"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "The input array"
+        required: true
+        schema:
+          type: "array"
+          items:
+            type: "string"
+        x-exportParamName: "Body"
+      - name: "deploymentName"
+        in: "path"
+        description: "Name of the deployment group"
+        required: true
+        type: "string"
+        x-exportParamName: "DeploymentName"
+      - name: "modelName"
+        in: "path"
+        description: "ID or name of the deployed model"
+        required: true
+        type: "string"
+        x-exportParamName: "ModelName"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/JsonArrayResponse"
+        500:
+          description: "Error executing predictPreProcessJson"
+  /{deploymentName}/model/{modelName}/default/logs:
+    post:
+      summary: "Get logs"
+      operationId: "logs"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "the the log request"
+        required: true
+        schema:
+          $ref: "#/definitions/LogRequest"
+        x-exportParamName: "Body"
+      - name: "deploymentName"
+        in: "path"
+        description: "Name of the deployment group"
+        required: true
+        type: "string"
+        x-exportParamName: "DeploymentName"
+      - name: "modelName"
+        in: "path"
+        description: "ID or name of the deployed model"
+        required: true
+        type: "string"
+        x-exportParamName: "ModelName"
+      responses:
+        200:
+          description: "logs obtained successfully"
+          schema:
+            $ref: "#/definitions/LogBatch"
+        500:
+          description: "Error retrieving logs"
+  /{deploymentName}/model/{modelName}/default/logfilepath:
+    get:
+      summary: "Get logs file path"
+      operationId: "logfilepath"
+      produces:
+      - "text"
+      parameters:
+      - name: "deploymentName"
+        in: "path"
+        description: "Name of the deployment group"
+        required: true
+        type: "string"
+        x-exportParamName: "DeploymentName"
+      - name: "modelName"
+        in: "path"
+        description: "ID or name of the deployed model"
+        required: true
+        type: "string"
+        x-exportParamName: "ModelName"
+      responses:
+        200:
+          description: "the retrieved log file path"
+          schema:
+            type: "string"
+            example: "log_file_path"
+        500:
+          description: "Error retrieving log file path"
+securityDefinitions:
+  Bearer:
+    description: "For accessing the API a valid JWT token must be passed in all the\
+      \ queries in\nthe 'Authorization' header.\n\n\nA valid JWT token is generated\
+      \ by the API and retourned as answer of a call\nto the route /login giving a\
+      \ valid user & password.\n\n\nThe following syntax must be used in the 'Authorization'\
+      \ header :\n\n    Bearer xxxxxx.yyyyyyy.zzzzzz\n"
+    type: "apiKey"
+    name: "Authorization"
+    in: "header"
+definitions:
+  INDArray:
+    type: "object"
+    properties:
+      array:
+        type: "string"
+        format: "base64"
+    example:
+      array: "array"
+  Prediction:
+    type: "object"
+    properties:
+      id:
+        type: "string"
+        format: "guid"
+      needsPreProcessing:
+        type: "boolean"
+      prediction:
+        $ref: "#/definitions/INDArray"
+    example:
+      needsPreProcessing: true
+      prediction:
+        array: "array"
+      id: "id"
+  ClassificationResult:
+    properties:
+      results:
+        type: "array"
+        description: "index classification results for the minibatch"
+        items:
+          type: "integer"
+      probabilities:
+        type: "array"
+        description: "max probabilities for the batch items"
+        items:
+          type: "number"
+          example: 0.452
+      minibatchId:
+        type: "string"
+        description: "minibatch ID"
+    example:
+      minibatchId: "minibatchId"
+      results:
+      - 0
+      - 0
+      probabilities:
+      - 0.452
+      - 0.452
+  Base64NDArrayBody:
+    properties:
+      ndarray:
+        type: "string"
+    example:
+      ndarray: "ndarray"
+  MultiClassClassificationResult:
+    properties:
+      rankedOutcomes:
+        type: "array"
+        items:
+          type: "array"
+          items:
+            type: "string"
+      maxOutcomes:
+        type: "array"
+        items:
+          type: "string"
+      probabilities:
+        type: "array"
+        items:
+          type: "array"
+          items:
+            type: "number"
+            example: 0.4
+    description: "Represents all of the labels for a given classification"
+    example:
+      maxOutcomes:
+      - "maxOutcomes"
+      - "maxOutcomes"
+      rankedOutcomes:
+      - - "rankedOutcomes"
+        - "rankedOutcomes"
+      - - "rankedOutcomes"
+        - "rankedOutcomes"
+      probabilities:
+      - - 0.4
+        - 0.4
+      - - 0.4
+        - 0.4
+  ModelStatus:
+    properties:
+      status:
+        type: "integer"
+        example: 100
+        description: "100 - Model set successfully \n200 - Model Updated Successfully\
+          \ \n201 - Model Update Failed\n"
+    example:
+      status: 100
+  JsonArrayResponse:
+    properties:
+      array:
+        $ref: "#/definitions/INDArray"
+    example:
+      array:
+        array: "array"
+  LogRequest:
+    properties:
+      offset:
+        type: "integer"
+        example: 0
+      rowCount:
+        type: "integer"
+        example: 2
+      head:
+        type: "boolean"
+        example: false
+    example:
+      head: false
+      offset: 0
+      rowCount: 2
+  LogBatch:
+    properties:
+      offset:
+        type: "integer"
+        example: 0
+      rowCount:
+        type: "integer"
+        example: 2
+      logs:
+        type: "string"
+    example:
+      offset: 0
+      rowCount: 2
+      logs: "logs"

@@ -1,0 +1,7 @@
+{
+  "projectName": "skil-client",
+  "projectVersion": "1.0.3-1",
+  "apiPackage": "ai/skymind/skil",
+  "modelPackage": "ai/skymind/skil/model",
+  "licenseName": "Apache 2.0"
+}
