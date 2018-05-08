@@ -23,6 +23,3 @@ swagger-codegen generate -i swagger.yaml -l csharp -o csharp -c config/csharp.js
 
 # rust
 swagger-codegen generate -i swagger.yaml -l rust -o rust -c config/rust.json
-
-# nodejs
-swagger-codegen generate -i swagger.yaml -l nodejs-server -o nodejs
