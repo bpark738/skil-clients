@@ -23,3 +23,12 @@ swagger-codegen generate -i swagger.yaml -l csharp -o csharp -c config/csharp.js
 
 # rust
 swagger-codegen generate -i swagger.yaml -l rust -o rust -c config/rust.json
+
+# android
+swagger-codegen generate -i swagger.yaml -l android -o android -c config/android.json
+
+# flash
+swagger-codegen generate -i swagger.yaml -l flash -o flash -c config/flash.json
+
+# swift3
+swagger-codegen generate -i swagger.yaml -l swift3 -o swift3 -c config/swift3.json
