@@ -1,4 +1,4 @@
-# IO.Swagger.Model.JsonArrayResponse
+# AI.Skymind.SKIL.Model.JsonArrayResponse
 ## Properties
 
 Name | Type | Description | Notes

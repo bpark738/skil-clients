@@ -1,4 +1,4 @@
-# IO.Swagger.Model.ModelStatus
+# AI.Skymind.SKIL.Model.ModelStatus
 ## Properties
 
 Name | Type | Description | Notes

@@ -1,4 +1,4 @@
-# IO.Swagger.Api.DefaultApi
+# AI.Skymind.SKIL.Api.DefaultApi
 
 All URIs are relative to *https://localhost:9008/endpoints*
 
@@ -27,9 +27,9 @@ Use the deployed model to classify the input
 ```csharp
 using System;
 using System.Diagnostics;
-using IO.Swagger.Api;
-using IO.Swagger.Client;
-using IO.Swagger.Model;
+using AI.Skymind.SKIL.Api;
+using AI.Skymind.SKIL.Client;
+using AI.Skymind.SKIL.Model;
 
 namespace Example
 {
@@ -90,9 +90,9 @@ Same as /classify but returns the output as Base64NDArrayBody
 ```csharp
 using System;
 using System.Diagnostics;
-using IO.Swagger.Api;
-using IO.Swagger.Client;
-using IO.Swagger.Model;
+using AI.Skymind.SKIL.Api;
+using AI.Skymind.SKIL.Client;
+using AI.Skymind.SKIL.Model;
 
 namespace Example
 {
@@ -153,9 +153,9 @@ Run inference on the input and returns it as a JsonArrayResponse
 ```csharp
 using System;
 using System.Diagnostics;
-using IO.Swagger.Api;
-using IO.Swagger.Client;
-using IO.Swagger.Model;
+using AI.Skymind.SKIL.Api;
+using AI.Skymind.SKIL.Client;
+using AI.Skymind.SKIL.Model;
 
 namespace Example
 {
@@ -216,9 +216,9 @@ Get logs file path
 ```csharp
 using System;
 using System.Diagnostics;
-using IO.Swagger.Api;
-using IO.Swagger.Client;
-using IO.Swagger.Model;
+using AI.Skymind.SKIL.Api;
+using AI.Skymind.SKIL.Client;
+using AI.Skymind.SKIL.Model;
 
 namespace Example
 {
@@ -277,9 +277,9 @@ Get logs
 ```csharp
 using System;
 using System.Diagnostics;
-using IO.Swagger.Api;
-using IO.Swagger.Client;
-using IO.Swagger.Model;
+using AI.Skymind.SKIL.Api;
+using AI.Skymind.SKIL.Client;
+using AI.Skymind.SKIL.Model;
 
 namespace Example
 {
@@ -340,9 +340,9 @@ Set the model to be served
 ```csharp
 using System;
 using System.Diagnostics;
-using IO.Swagger.Api;
-using IO.Swagger.Client;
-using IO.Swagger.Model;
+using AI.Skymind.SKIL.Api;
+using AI.Skymind.SKIL.Client;
+using AI.Skymind.SKIL.Model;
 
 namespace Example
 {
@@ -403,9 +403,9 @@ Update the model to be served
 ```csharp
 using System;
 using System.Diagnostics;
-using IO.Swagger.Api;
-using IO.Swagger.Client;
-using IO.Swagger.Model;
+using AI.Skymind.SKIL.Api;
+using AI.Skymind.SKIL.Client;
+using AI.Skymind.SKIL.Model;
 
 namespace Example
 {
@@ -466,9 +466,9 @@ Represents all of the labels for a given classification
 ```csharp
 using System;
 using System.Diagnostics;
-using IO.Swagger.Api;
-using IO.Swagger.Client;
-using IO.Swagger.Model;
+using AI.Skymind.SKIL.Api;
+using AI.Skymind.SKIL.Client;
+using AI.Skymind.SKIL.Model;
 
 namespace Example
 {
@@ -529,9 +529,9 @@ Run inference on the input array.
 ```csharp
 using System;
 using System.Diagnostics;
-using IO.Swagger.Api;
-using IO.Swagger.Client;
-using IO.Swagger.Model;
+using AI.Skymind.SKIL.Api;
+using AI.Skymind.SKIL.Client;
+using AI.Skymind.SKIL.Model;
 
 namespace Example
 {
@@ -592,9 +592,9 @@ Preprocesses the input and run inference on it
 ```csharp
 using System;
 using System.Diagnostics;
-using IO.Swagger.Api;
-using IO.Swagger.Client;
-using IO.Swagger.Model;
+using AI.Skymind.SKIL.Api;
+using AI.Skymind.SKIL.Client;
+using AI.Skymind.SKIL.Model;
 
 namespace Example
 {
@@ -655,9 +655,9 @@ Preprocesses the input and run inference on it and returns it as a JsonArrayResp
 ```csharp
 using System;
 using System.Diagnostics;
-using IO.Swagger.Api;
-using IO.Swagger.Client;
-using IO.Swagger.Model;
+using AI.Skymind.SKIL.Api;
+using AI.Skymind.SKIL.Client;
+using AI.Skymind.SKIL.Model;
 
 namespace Example
 {

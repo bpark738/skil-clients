@@ -1,4 +1,4 @@
-# IO.Swagger.Model.MultiClassClassificationResult
+# AI.Skymind.SKIL.Model.MultiClassClassificationResult
 ## Properties
 
 Name | Type | Description | Notes

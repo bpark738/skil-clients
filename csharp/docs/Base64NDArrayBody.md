@@ -1,4 +1,4 @@
-# IO.Swagger.Model.Base64NDArrayBody
+# AI.Skymind.SKIL.Model.Base64NDArrayBody
 ## Properties
 
 Name | Type | Description | Notes

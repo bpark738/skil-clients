@@ -1,4 +1,4 @@
-# IO.Swagger.Model.Prediction
+# AI.Skymind.SKIL.Model.Prediction
 ## Properties
 
 Name | Type | Description | Notes

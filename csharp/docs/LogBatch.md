@@ -1,4 +1,4 @@
-# IO.Swagger.Model.LogBatch
+# AI.Skymind.SKIL.Model.LogBatch
 ## Properties
 
 Name | Type | Description | Notes

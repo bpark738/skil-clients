@@ -1,4 +1,4 @@
-# IO.Swagger.Model.LogRequest
+# AI.Skymind.SKIL.Model.LogRequest
 ## Properties
 
 Name | Type | Description | Notes

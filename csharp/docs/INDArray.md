@@ -1,4 +1,4 @@
-# IO.Swagger.Model.INDArray
+# AI.Skymind.SKIL.Model.INDArray
 ## Properties
 
 Name | Type | Description | Notes
