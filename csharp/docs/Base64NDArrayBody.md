@@ -1,4 +1,4 @@
-# AI.Skymind.SKIL.Model.Base64NDArrayBody
+# Skymind.SKIL.Model.Base64NDArrayBody
 ## Properties
 
 Name | Type | Description | Notes

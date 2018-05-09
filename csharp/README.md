@@ -1,4 +1,4 @@
-# AI.Skymind.SKIL - the C# library for the Predict
+# Skymind.SKIL - the C# library for the Predict
 
 Endpoints API for classification and other prediction services in SKIL
 
@@ -36,9 +36,9 @@ Run the following command to generate the DLL
 
 Then include the DLL (under the `bin` folder) in the C# project, and use the namespaces:
 ```csharp
-using AI.Skymind.SKIL.Api;
-using AI.Skymind.SKIL.Client;
-using AI.Skymind.SKIL.Model;
+using Skymind.SKIL.Api;
+using Skymind.SKIL.Client;
+using Skymind.SKIL.Model;
 ```
 <a name="packaging"></a>
 ## Packaging
@@ -48,7 +48,7 @@ A `.nuspec` is included with the project. You can follow the Nuget quickstart to
 This `.nuspec` uses placeholders from the `.csproj`, so build the `.csproj` directly:
 
 ```
-nuget pack -Build -OutputDirectory out AI.Skymind.SKIL.csproj
+nuget pack -Build -OutputDirectory out Skymind.SKIL.csproj
 ```
 
 Then, publish to a [local feed](https://docs.microsoft.com/en-us/nuget/hosting-packages/local-feeds) or [other host](https://docs.microsoft.com/en-us/nuget/hosting-packages/overview) and consume the new package via Nuget as usual.
@@ -59,9 +59,9 @@ Then, publish to a [local feed](https://docs.microsoft.com/en-us/nuget/hosting-p
 ```csharp
 using System;
 using System.Diagnostics;
-using AI.Skymind.SKIL.Api;
-using AI.Skymind.SKIL.Client;
-using AI.Skymind.SKIL.Model;
+using Skymind.SKIL.Api;
+using Skymind.SKIL.Client;
+using Skymind.SKIL.Model;
 
 namespace Example
 {

@@ -1,4 +1,4 @@
-# AI.Skymind.SKIL.Model.INDArray
+# Skymind.SKIL.Model.INDArray
 ## Properties
 
 Name | Type | Description | Notes

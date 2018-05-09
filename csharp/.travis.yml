@@ -4,6 +4,6 @@
 language: csharp
 mono:
   - latest
-solution: AI.Skymind.SKIL.sln
+solution: Skymind.SKIL.sln
 script:
   - /bin/sh ./mono_nunit_test.sh

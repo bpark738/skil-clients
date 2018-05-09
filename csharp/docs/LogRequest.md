@@ -1,4 +1,4 @@
-# AI.Skymind.SKIL.Model.LogRequest
+# Skymind.SKIL.Model.LogRequest
 ## Properties
 
 Name | Type | Description | Notes

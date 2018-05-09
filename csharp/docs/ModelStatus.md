@@ -1,4 +1,4 @@
-# AI.Skymind.SKIL.Model.ModelStatus
+# Skymind.SKIL.Model.ModelStatus
 ## Properties
 
 Name | Type | Description | Notes
