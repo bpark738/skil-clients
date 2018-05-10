@@ -33,6 +33,7 @@ impl<C: hyper::client::Connect> DefaultApiClient<C> {
 pub trait DefaultApi {
     fn classify(&self, body: ::models::Prediction, deployment_name: &str, model_name: &str) -> Box<Future<Item = ::models::ClassificationResult, Error = Error>>;
     fn classifyarray(&self, body: ::models::Prediction, deployment_name: &str, model_name: &str) -> Box<Future<Item = ::models::Base64NdArrayBody, Error = Error>>;
+    fn classifyimage(&self, deployment_name: &str, model_name: &str, image: ::models::File) -> Box<Future<Item = ::models::ClassificationResult, Error = Error>>;
     fn jsonarray(&self, body: ::models::Prediction, deployment_name: &str, model_name: &str) -> Box<Future<Item = ::models::JsonArrayResponse, Error = Error>>;
     fn logfilepath(&self, deployment_name: &str, model_name: &str) -> Box<Future<Item = String, Error = Error>>;
     fn logs(&self, body: ::models::LogRequest, deployment_name: &str, model_name: &str) -> Box<Future<Item = ::models::LogBatch, Error = Error>>;
@@ -40,6 +41,7 @@ pub trait DefaultApi {
     fn modelupdate(&self, deployment_name: &str, model_name: &str, file: ::models::File) -> Box<Future<Item = ::models::ModelStatus, Error = Error>>;
     fn multiclassify(&self, body: ::models::Prediction, deployment_name: &str, model_name: &str) -> Box<Future<Item = ::models::MultiClassClassificationResult, Error = Error>>;
     fn predict(&self, body: ::models::Prediction, deployment_name: &str, model_name: &str) -> Box<Future<Item = ::models::Prediction, Error = Error>>;
+    fn predict_0(&self, deployment_name: &str, model_name: &str, image: ::models::File) -> Box<Future<Item = ::models::Prediction, Error = Error>>;
     fn predictwithpreprocess(&self, body: Vec<String>, deployment_name: &str, model_name: &str) -> Box<Future<Item = ::models::Prediction, Error = Error>>;
     fn predictwithpreprocessjson(&self, body: Vec<String>, deployment_name: &str, model_name: &str) -> Box<Future<Item = ::models::JsonArrayResponse, Error = Error>>;
 }
@@ -103,6 +105,33 @@ impl<C: hyper::client::Connect>DefaultApi for DefaultApiClient<C> {
             .map_err(|e| Error::from(e))
             .and_then(|body| {
                 let parsed: Result<::models::Base64NdArrayBody, _> = serde_json::from_slice(&body);
+                parsed.map_err(|e| Error::from(e))
+            }).map_err(|e| Error::from(e))
+        )
+    }
+
+    fn classifyimage(&self, deployment_name: &str, model_name: &str, image: ::models::File) -> Box<Future<Item = ::models::ClassificationResult, Error = Error>> {
+        let configuration: &configuration::Configuration<C> = self.configuration.borrow();
+
+        let method = hyper::Method::Post;
+
+        let uri_str = format!("{}/{deploymentName}/model/{modelName}/default/classifyimage", configuration.base_path, deploymentName=deployment_name, modelName=model_name);
+
+        let uri = uri_str.parse();
+        // TODO(farcaller): handle error
+        // if let Err(e) = uri {
+        //     return Box::new(futures::future::err(e));
+        // }
+        let mut req = hyper::Request::new(method, uri.unwrap());
+
+
+
+        // send request
+        Box::new(
+            configuration.client.request(req).and_then(|res| { res.body().concat2() })
+            .map_err(|e| Error::from(e))
+            .and_then(|body| {
+                let parsed: Result<::models::ClassificationResult, _> = serde_json::from_slice(&body);
                 parsed.map_err(|e| Error::from(e))
             }).map_err(|e| Error::from(e))
         )
@@ -301,6 +330,33 @@ impl<C: hyper::client::Connect>DefaultApi for DefaultApiClient<C> {
         req.headers_mut().set(hyper::header::ContentType::json());
         req.headers_mut().set(hyper::header::ContentLength(serialized.len() as u64));
         req.set_body(serialized);
+
+        // send request
+        Box::new(
+            configuration.client.request(req).and_then(|res| { res.body().concat2() })
+            .map_err(|e| Error::from(e))
+            .and_then(|body| {
+                let parsed: Result<::models::Prediction, _> = serde_json::from_slice(&body);
+                parsed.map_err(|e| Error::from(e))
+            }).map_err(|e| Error::from(e))
+        )
+    }
+
+    fn predict_0(&self, deployment_name: &str, model_name: &str, image: ::models::File) -> Box<Future<Item = ::models::Prediction, Error = Error>> {
+        let configuration: &configuration::Configuration<C> = self.configuration.borrow();
+
+        let method = hyper::Method::Post;
+
+        let uri_str = format!("{}/{deploymentName}/model/{modelName}/default/predictimage", configuration.base_path, deploymentName=deployment_name, modelName=model_name);
+
+        let uri = uri_str.parse();
+        // TODO(farcaller): handle error
+        // if let Err(e) = uri {
+        //     return Box::new(futures::future::err(e));
+        // }
+        let mut req = hyper::Request::new(method, uri.unwrap());
+
+
 
         // send request
         Box::new(

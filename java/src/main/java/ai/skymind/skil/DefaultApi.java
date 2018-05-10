@@ -347,6 +347,145 @@ public class DefaultApi {
         return call;
     }
     /**
+     * Build call for classifyimage
+     * @param deploymentName Name of the deployment group (required)
+     * @param modelName ID or name of the deployed model (required)
+     * @param image The file to upload. (optional)
+     * @param progressListener Progress listener
+     * @param progressRequestListener Progress request listener
+     * @return Call to execute
+     * @throws ApiException If fail to serialize the request body object
+     */
+    public com.squareup.okhttp.Call classifyimageCall(String deploymentName, String modelName, File image, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+        Object localVarPostBody = null;
+
+        // create path and map variables
+        String localVarPath = "/{deploymentName}/model/{modelName}/default/classifyimage"
+            .replaceAll("\\{" + "deploymentName" + "\\}", apiClient.escapeString(deploymentName.toString()))
+            .replaceAll("\\{" + "modelName" + "\\}", apiClient.escapeString(modelName.toString()));
+
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
+
+        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+        if (image != null)
+        localVarFormParams.put("image", image);
+
+        final String[] localVarAccepts = {
+            "application/json"
+        };
+        final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+        if (localVarAccept != null) localVarHeaderParams.put("Accept", localVarAccept);
+
+        final String[] localVarContentTypes = {
+            "multipart/form-data"
+        };
+        final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+        localVarHeaderParams.put("Content-Type", localVarContentType);
+
+        if(progressListener != null) {
+            apiClient.getHttpClient().networkInterceptors().add(new com.squareup.okhttp.Interceptor() {
+                @Override
+                public com.squareup.okhttp.Response intercept(com.squareup.okhttp.Interceptor.Chain chain) throws IOException {
+                    com.squareup.okhttp.Response originalResponse = chain.proceed(chain.request());
+                    return originalResponse.newBuilder()
+                    .body(new ProgressResponseBody(originalResponse.body(), progressListener))
+                    .build();
+                }
+            });
+        }
+
+        String[] localVarAuthNames = new String[] {  };
+        return apiClient.buildCall(localVarPath, "POST", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAuthNames, progressRequestListener);
+    }
+
+    @SuppressWarnings("rawtypes")
+    private com.squareup.okhttp.Call classifyimageValidateBeforeCall(String deploymentName, String modelName, File image, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+        
+        // verify the required parameter 'deploymentName' is set
+        if (deploymentName == null) {
+            throw new ApiException("Missing the required parameter 'deploymentName' when calling classifyimage(Async)");
+        }
+        
+        // verify the required parameter 'modelName' is set
+        if (modelName == null) {
+            throw new ApiException("Missing the required parameter 'modelName' when calling classifyimage(Async)");
+        }
+        
+
+        com.squareup.okhttp.Call call = classifyimageCall(deploymentName, modelName, image, progressListener, progressRequestListener);
+        return call;
+
+    }
+
+    /**
+     * Use the deployed model to classify the input, using input image file from multipart form data.
+     * 
+     * @param deploymentName Name of the deployment group (required)
+     * @param modelName ID or name of the deployed model (required)
+     * @param image The file to upload. (optional)
+     * @return ClassificationResult
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     */
+    public ClassificationResult classifyimage(String deploymentName, String modelName, File image) throws ApiException {
+        ApiResponse<ClassificationResult> resp = classifyimageWithHttpInfo(deploymentName, modelName, image);
+        return resp.getData();
+    }
+
+    /**
+     * Use the deployed model to classify the input, using input image file from multipart form data.
+     * 
+     * @param deploymentName Name of the deployment group (required)
+     * @param modelName ID or name of the deployed model (required)
+     * @param image The file to upload. (optional)
+     * @return ApiResponse&lt;ClassificationResult&gt;
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     */
+    public ApiResponse<ClassificationResult> classifyimageWithHttpInfo(String deploymentName, String modelName, File image) throws ApiException {
+        com.squareup.okhttp.Call call = classifyimageValidateBeforeCall(deploymentName, modelName, image, null, null);
+        Type localVarReturnType = new TypeToken<ClassificationResult>(){}.getType();
+        return apiClient.execute(call, localVarReturnType);
+    }
+
+    /**
+     * Use the deployed model to classify the input, using input image file from multipart form data. (asynchronously)
+     * 
+     * @param deploymentName Name of the deployment group (required)
+     * @param modelName ID or name of the deployed model (required)
+     * @param image The file to upload. (optional)
+     * @param callback The callback to be executed when the API call finishes
+     * @return The request call
+     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+     */
+    public com.squareup.okhttp.Call classifyimageAsync(String deploymentName, String modelName, File image, final ApiCallback<ClassificationResult> callback) throws ApiException {
+
+        ProgressResponseBody.ProgressListener progressListener = null;
+        ProgressRequestBody.ProgressRequestListener progressRequestListener = null;
+
+        if (callback != null) {
+            progressListener = new ProgressResponseBody.ProgressListener() {
+                @Override
+                public void update(long bytesRead, long contentLength, boolean done) {
+                    callback.onDownloadProgress(bytesRead, contentLength, done);
+                }
+            };
+
+            progressRequestListener = new ProgressRequestBody.ProgressRequestListener() {
+                @Override
+                public void onRequestProgress(long bytesWritten, long contentLength, boolean done) {
+                    callback.onUploadProgress(bytesWritten, contentLength, done);
+                }
+            };
+        }
+
+        com.squareup.okhttp.Call call = classifyimageValidateBeforeCall(deploymentName, modelName, image, progressListener, progressRequestListener);
+        Type localVarReturnType = new TypeToken<ClassificationResult>(){}.getType();
+        apiClient.executeAsync(call, localVarReturnType, callback);
+        return call;
+    }
+    /**
      * Build call for jsonarray
      * @param body The input NDArray (required)
      * @param deploymentName Name of the deployment group (required)
@@ -1321,6 +1460,145 @@ public class DefaultApi {
         }
 
         com.squareup.okhttp.Call call = predictValidateBeforeCall(body, deploymentName, modelName, progressListener, progressRequestListener);
+        Type localVarReturnType = new TypeToken<Prediction>(){}.getType();
+        apiClient.executeAsync(call, localVarReturnType, callback);
+        return call;
+    }
+    /**
+     * Build call for predict_0
+     * @param deploymentName Name of the deployment group (required)
+     * @param modelName ID or name of the deployed model (required)
+     * @param image The file to upload. (optional)
+     * @param progressListener Progress listener
+     * @param progressRequestListener Progress request listener
+     * @return Call to execute
+     * @throws ApiException If fail to serialize the request body object
+     */
+    public com.squareup.okhttp.Call predict_0Call(String deploymentName, String modelName, File image, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+        Object localVarPostBody = null;
+
+        // create path and map variables
+        String localVarPath = "/{deploymentName}/model/{modelName}/default/predictimage"
+            .replaceAll("\\{" + "deploymentName" + "\\}", apiClient.escapeString(deploymentName.toString()))
+            .replaceAll("\\{" + "modelName" + "\\}", apiClient.escapeString(modelName.toString()));
+
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
+
+        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+        if (image != null)
+        localVarFormParams.put("image", image);
+
+        final String[] localVarAccepts = {
+            "application/json"
+        };
+        final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+        if (localVarAccept != null) localVarHeaderParams.put("Accept", localVarAccept);
+
+        final String[] localVarContentTypes = {
+            "multipart/form-data"
+        };
+        final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+        localVarHeaderParams.put("Content-Type", localVarContentType);
+
+        if(progressListener != null) {
+            apiClient.getHttpClient().networkInterceptors().add(new com.squareup.okhttp.Interceptor() {
+                @Override
+                public com.squareup.okhttp.Response intercept(com.squareup.okhttp.Interceptor.Chain chain) throws IOException {
+                    com.squareup.okhttp.Response originalResponse = chain.proceed(chain.request());
+                    return originalResponse.newBuilder()
+                    .body(new ProgressResponseBody(originalResponse.body(), progressListener))
+                    .build();
+                }
+            });
+        }
+
+        String[] localVarAuthNames = new String[] {  };
+        return apiClient.buildCall(localVarPath, "POST", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAuthNames, progressRequestListener);
+    }
+
+    @SuppressWarnings("rawtypes")
+    private com.squareup.okhttp.Call predict_0ValidateBeforeCall(String deploymentName, String modelName, File image, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+        
+        // verify the required parameter 'deploymentName' is set
+        if (deploymentName == null) {
+            throw new ApiException("Missing the required parameter 'deploymentName' when calling predict_0(Async)");
+        }
+        
+        // verify the required parameter 'modelName' is set
+        if (modelName == null) {
+            throw new ApiException("Missing the required parameter 'modelName' when calling predict_0(Async)");
+        }
+        
+
+        com.squareup.okhttp.Call call = predict_0Call(deploymentName, modelName, image, progressListener, progressRequestListener);
+        return call;
+
+    }
+
+    /**
+     * Run inference on the input array, using input image file from multipart form data.
+     * 
+     * @param deploymentName Name of the deployment group (required)
+     * @param modelName ID or name of the deployed model (required)
+     * @param image The file to upload. (optional)
+     * @return Prediction
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     */
+    public Prediction predict_0(String deploymentName, String modelName, File image) throws ApiException {
+        ApiResponse<Prediction> resp = predict_0WithHttpInfo(deploymentName, modelName, image);
+        return resp.getData();
+    }
+
+    /**
+     * Run inference on the input array, using input image file from multipart form data.
+     * 
+     * @param deploymentName Name of the deployment group (required)
+     * @param modelName ID or name of the deployed model (required)
+     * @param image The file to upload. (optional)
+     * @return ApiResponse&lt;Prediction&gt;
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     */
+    public ApiResponse<Prediction> predict_0WithHttpInfo(String deploymentName, String modelName, File image) throws ApiException {
+        com.squareup.okhttp.Call call = predict_0ValidateBeforeCall(deploymentName, modelName, image, null, null);
+        Type localVarReturnType = new TypeToken<Prediction>(){}.getType();
+        return apiClient.execute(call, localVarReturnType);
+    }
+
+    /**
+     * Run inference on the input array, using input image file from multipart form data. (asynchronously)
+     * 
+     * @param deploymentName Name of the deployment group (required)
+     * @param modelName ID or name of the deployed model (required)
+     * @param image The file to upload. (optional)
+     * @param callback The callback to be executed when the API call finishes
+     * @return The request call
+     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+     */
+    public com.squareup.okhttp.Call predict_0Async(String deploymentName, String modelName, File image, final ApiCallback<Prediction> callback) throws ApiException {
+
+        ProgressResponseBody.ProgressListener progressListener = null;
+        ProgressRequestBody.ProgressRequestListener progressRequestListener = null;
+
+        if (callback != null) {
+            progressListener = new ProgressResponseBody.ProgressListener() {
+                @Override
+                public void update(long bytesRead, long contentLength, boolean done) {
+                    callback.onDownloadProgress(bytesRead, contentLength, done);
+                }
+            };
+
+            progressRequestListener = new ProgressRequestBody.ProgressRequestListener() {
+                @Override
+                public void onRequestProgress(long bytesWritten, long contentLength, boolean done) {
+                    callback.onUploadProgress(bytesWritten, contentLength, done);
+                }
+            };
+        }
+
+        com.squareup.okhttp.Call call = predict_0ValidateBeforeCall(deploymentName, modelName, image, progressListener, progressRequestListener);
         Type localVarReturnType = new TypeToken<Prediction>(){}.getType();
         apiClient.executeAsync(call, localVarReturnType, callback);
         return call;

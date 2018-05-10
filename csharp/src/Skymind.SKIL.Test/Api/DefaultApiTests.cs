@@ -93,6 +93,20 @@ namespace Skymind.SKIL.Test
         }
         
         /// <summary>
+        /// Test Classifyimage
+        /// </summary>
+        [Test]
+        public void ClassifyimageTest()
+        {
+            // TODO uncomment below to test the method and replace null with proper value
+            //string deploymentName = null;
+            //string modelName = null;
+            //System.IO.Stream image = null;
+            //var response = instance.Classifyimage(deploymentName, modelName, image);
+            //Assert.IsInstanceOf<ClassificationResult> (response, "response is ClassificationResult");
+        }
+        
+        /// <summary>
         /// Test Jsonarray
         /// </summary>
         [Test]
@@ -186,6 +200,20 @@ namespace Skymind.SKIL.Test
             //string deploymentName = null;
             //string modelName = null;
             //var response = instance.Predict(body, deploymentName, modelName);
+            //Assert.IsInstanceOf<Prediction> (response, "response is Prediction");
+        }
+        
+        /// <summary>
+        /// Test Predict_0
+        /// </summary>
+        [Test]
+        public void Predict_0Test()
+        {
+            // TODO uncomment below to test the method and replace null with proper value
+            //string deploymentName = null;
+            //string modelName = null;
+            //System.IO.Stream image = null;
+            //var response = instance.Predict_0(deploymentName, modelName, image);
             //Assert.IsInstanceOf<Prediction> (response, "response is Prediction");
         }
         

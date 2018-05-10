@@ -6,6 +6,7 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**Classify**](DefaultApi.md#classify) | **POST** /{deploymentName}/model/{modelName}/default/classify | Use the deployed model to classify the input
 [**Classifyarray**](DefaultApi.md#classifyarray) | **POST** /{deploymentName}/model/{modelName}/default/classifyarray | Same as /classify but returns the output as Base64NDArrayBody
+[**Classifyimage**](DefaultApi.md#classifyimage) | **POST** /{deploymentName}/model/{modelName}/default/classifyimage | Use the deployed model to classify the input, using input image file from multipart form data.
 [**Jsonarray**](DefaultApi.md#jsonarray) | **POST** /{deploymentName}/model/{modelName}/default/jsonarray | Run inference on the input and returns it as a JsonArrayResponse
 [**Logfilepath**](DefaultApi.md#logfilepath) | **GET** /{deploymentName}/model/{modelName}/default/logfilepath | Get logs file path
 [**Logs**](DefaultApi.md#logs) | **POST** /{deploymentName}/model/{modelName}/default/logs | Get logs
@@ -13,6 +14,7 @@ Method | HTTP request | Description
 [**Modelupdate**](DefaultApi.md#modelupdate) | **POST** /{deploymentName}/model/{modelName}/default/modelupdate | Update the model to be served
 [**Multiclassify**](DefaultApi.md#multiclassify) | **POST** /{deploymentName}/model/{modelName}/default/multiclassify | Represents all of the labels for a given classification
 [**Predict**](DefaultApi.md#predict) | **POST** /{deploymentName}/model/{modelName}/default/predict | Run inference on the input array.
+[**Predict_0**](DefaultApi.md#predict_0) | **POST** /{deploymentName}/model/{modelName}/default/predictimage | Run inference on the input array, using input image file from multipart form data.
 [**Predictwithpreprocess**](DefaultApi.md#predictwithpreprocess) | **POST** /{deploymentName}/model/{modelName}/default/predictwithpreprocess | Preprocesses the input and run inference on it
 [**Predictwithpreprocessjson**](DefaultApi.md#predictwithpreprocessjson) | **POST** /{deploymentName}/model/{modelName}/default/predictwithpreprocessjson | Preprocesses the input and run inference on it and returns it as a JsonArrayResponse
 
@@ -139,6 +141,69 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: application/json
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+<a name="classifyimage"></a>
+# **Classifyimage**
+> ClassificationResult Classifyimage (string deploymentName, string modelName, System.IO.Stream image = null)
+
+Use the deployed model to classify the input, using input image file from multipart form data.
+
+### Example
+```csharp
+using System;
+using System.Diagnostics;
+using Skymind.SKIL.Api;
+using Skymind.SKIL.Client;
+using Skymind.SKIL.Model;
+
+namespace Example
+{
+    public class ClassifyimageExample
+    {
+        public void main()
+        {
+            var apiInstance = new DefaultApi();
+            var deploymentName = deploymentName_example;  // string | Name of the deployment group
+            var modelName = modelName_example;  // string | ID or name of the deployed model
+            var image = new System.IO.Stream(); // System.IO.Stream | The file to upload. (optional) 
+
+            try
+            {
+                // Use the deployed model to classify the input, using input image file from multipart form data.
+                ClassificationResult result = apiInstance.Classifyimage(deploymentName, modelName, image);
+                Debug.WriteLine(result);
+            }
+            catch (Exception e)
+            {
+                Debug.Print("Exception when calling DefaultApi.Classifyimage: " + e.Message );
+            }
+        }
+    }
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **deploymentName** | **string**| Name of the deployment group | 
+ **modelName** | **string**| ID or name of the deployed model | 
+ **image** | **System.IO.Stream**| The file to upload. | [optional] 
+
+### Return type
+
+[**ClassificationResult**](ClassificationResult.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: multipart/form-data
  - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -578,6 +643,69 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: application/json
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+<a name="predict_0"></a>
+# **Predict_0**
+> Prediction Predict_0 (string deploymentName, string modelName, System.IO.Stream image = null)
+
+Run inference on the input array, using input image file from multipart form data.
+
+### Example
+```csharp
+using System;
+using System.Diagnostics;
+using Skymind.SKIL.Api;
+using Skymind.SKIL.Client;
+using Skymind.SKIL.Model;
+
+namespace Example
+{
+    public class Predict_0Example
+    {
+        public void main()
+        {
+            var apiInstance = new DefaultApi();
+            var deploymentName = deploymentName_example;  // string | Name of the deployment group
+            var modelName = modelName_example;  // string | ID or name of the deployed model
+            var image = new System.IO.Stream(); // System.IO.Stream | The file to upload. (optional) 
+
+            try
+            {
+                // Run inference on the input array, using input image file from multipart form data.
+                Prediction result = apiInstance.Predict_0(deploymentName, modelName, image);
+                Debug.WriteLine(result);
+            }
+            catch (Exception e)
+            {
+                Debug.Print("Exception when calling DefaultApi.Predict_0: " + e.Message );
+            }
+        }
+    }
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **deploymentName** | **string**| Name of the deployment group | 
+ **modelName** | **string**| ID or name of the deployed model | 
+ **image** | **System.IO.Stream**| The file to upload. | [optional] 
+
+### Return type
+
+[**Prediction**](Prediction.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: multipart/form-data
  - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)

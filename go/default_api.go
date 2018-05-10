@@ -166,6 +166,84 @@ func (a *DefaultApiService) Classifyarray(ctx context.Context, body Prediction, 
 	return successPayload, localVarHttpResponse, err
 }
 
+/* DefaultApiService Use the deployed model to classify the input, using input image file from multipart form data.
+ * @param ctx context.Context for authentication, logging, tracing, etc.
+ @param deploymentName Name of the deployment group
+ @param modelName ID or name of the deployed model
+ @param optional (nil or map[string]interface{}) with one or more of:
+     @param "image" (*os.File) The file to upload.
+ @return ClassificationResult*/
+func (a *DefaultApiService) Classifyimage(ctx context.Context, deploymentName string, modelName string, localVarOptionals map[string]interface{}) (ClassificationResult,  *http.Response, error) {
+	var (
+		localVarHttpMethod = strings.ToUpper("Post")
+		localVarPostBody interface{}
+		localVarFileName string
+		localVarFileBytes []byte
+	 	successPayload  ClassificationResult
+	)
+
+	// create path and map variables
+	localVarPath := a.client.cfg.BasePath + "/{deploymentName}/model/{modelName}/default/classifyimage"
+	localVarPath = strings.Replace(localVarPath, "{"+"deploymentName"+"}", fmt.Sprintf("%v", deploymentName), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"modelName"+"}", fmt.Sprintf("%v", modelName), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+
+	// to determine the Content-Type header
+	localVarHttpContentTypes := []string{ "multipart/form-data",  }
+
+	// set Content-Type header
+	localVarHttpContentType := selectHeaderContentType(localVarHttpContentTypes)
+	if localVarHttpContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHttpContentType
+	}
+
+	// to determine the Accept header
+	localVarHttpHeaderAccepts := []string{
+		"application/json",
+		}
+
+	// set Accept header
+	localVarHttpHeaderAccept := selectHeaderAccept(localVarHttpHeaderAccepts)
+	if localVarHttpHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHttpHeaderAccept
+	}
+	var localVarFile (*os.File)
+	if localVarTempParam, localVarOk := localVarOptionals["image"].(*os.File); localVarOk {
+		localVarFile = localVarTempParam
+	}
+	if localVarFile != nil {
+		fbs, _ := ioutil.ReadAll(localVarFile)
+		localVarFileBytes = fbs
+		localVarFileName = localVarFile.Name()
+		localVarFile.Close()
+	}
+	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
+	if err != nil {
+		return successPayload, nil, err
+	}
+
+	localVarHttpResponse, err := a.client.callAPI(r)
+	if err != nil || localVarHttpResponse == nil {
+		return successPayload, localVarHttpResponse, err
+	}
+	defer localVarHttpResponse.Body.Close()
+	if localVarHttpResponse.StatusCode >= 300 {
+		bodyBytes, _ := ioutil.ReadAll(localVarHttpResponse.Body)
+		return successPayload, localVarHttpResponse, reportError("Status: %v, Body: %s", localVarHttpResponse.Status, bodyBytes)
+	}
+
+	if err = json.NewDecoder(localVarHttpResponse.Body).Decode(&successPayload); err != nil {
+		return successPayload, localVarHttpResponse, err
+	}
+
+
+	return successPayload, localVarHttpResponse, err
+}
+
 /* DefaultApiService Run inference on the input and returns it as a JsonArrayResponse
  * @param ctx context.Context for authentication, logging, tracing, etc.
  @param body The input NDArray
@@ -641,6 +719,84 @@ func (a *DefaultApiService) Predict(ctx context.Context, body Prediction, deploy
 	}
 	// body params
 	localVarPostBody = &body
+	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
+	if err != nil {
+		return successPayload, nil, err
+	}
+
+	localVarHttpResponse, err := a.client.callAPI(r)
+	if err != nil || localVarHttpResponse == nil {
+		return successPayload, localVarHttpResponse, err
+	}
+	defer localVarHttpResponse.Body.Close()
+	if localVarHttpResponse.StatusCode >= 300 {
+		bodyBytes, _ := ioutil.ReadAll(localVarHttpResponse.Body)
+		return successPayload, localVarHttpResponse, reportError("Status: %v, Body: %s", localVarHttpResponse.Status, bodyBytes)
+	}
+
+	if err = json.NewDecoder(localVarHttpResponse.Body).Decode(&successPayload); err != nil {
+		return successPayload, localVarHttpResponse, err
+	}
+
+
+	return successPayload, localVarHttpResponse, err
+}
+
+/* DefaultApiService Run inference on the input array, using input image file from multipart form data.
+ * @param ctx context.Context for authentication, logging, tracing, etc.
+ @param deploymentName Name of the deployment group
+ @param modelName ID or name of the deployed model
+ @param optional (nil or map[string]interface{}) with one or more of:
+     @param "image" (*os.File) The file to upload.
+ @return Prediction*/
+func (a *DefaultApiService) Predict_1(ctx context.Context, deploymentName string, modelName string, localVarOptionals map[string]interface{}) (Prediction,  *http.Response, error) {
+	var (
+		localVarHttpMethod = strings.ToUpper("Post")
+		localVarPostBody interface{}
+		localVarFileName string
+		localVarFileBytes []byte
+	 	successPayload  Prediction
+	)
+
+	// create path and map variables
+	localVarPath := a.client.cfg.BasePath + "/{deploymentName}/model/{modelName}/default/predictimage"
+	localVarPath = strings.Replace(localVarPath, "{"+"deploymentName"+"}", fmt.Sprintf("%v", deploymentName), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"modelName"+"}", fmt.Sprintf("%v", modelName), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+
+	// to determine the Content-Type header
+	localVarHttpContentTypes := []string{ "multipart/form-data",  }
+
+	// set Content-Type header
+	localVarHttpContentType := selectHeaderContentType(localVarHttpContentTypes)
+	if localVarHttpContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHttpContentType
+	}
+
+	// to determine the Accept header
+	localVarHttpHeaderAccepts := []string{
+		"application/json",
+		}
+
+	// set Accept header
+	localVarHttpHeaderAccept := selectHeaderAccept(localVarHttpHeaderAccepts)
+	if localVarHttpHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHttpHeaderAccept
+	}
+	var localVarFile (*os.File)
+	if localVarTempParam, localVarOk := localVarOptionals["image"].(*os.File); localVarOk {
+		localVarFile = localVarTempParam
+	}
+	if localVarFile != nil {
+		fbs, _ := ioutil.ReadAll(localVarFile)
+		localVarFileBytes = fbs
+		localVarFileName = localVarFile.Name()
+		localVarFile.Close()
+	}
 	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return successPayload, nil, err

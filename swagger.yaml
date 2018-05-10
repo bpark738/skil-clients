@@ -69,6 +69,10 @@ paths:
       produces:
       - application/json
       parameters:
+      - name: image
+        in: formData
+        type: file
+        description: The file to upload.
       - name: deploymentName
         in: path
         description: Name of the deployment group
@@ -129,6 +133,10 @@ paths:
       produces:
       - application/json
       parameters:
+      - name: image
+        in: formData
+        type: file
+        description: The file to upload.
       - name: deploymentName
         in: path
         description: Name of the deployment group

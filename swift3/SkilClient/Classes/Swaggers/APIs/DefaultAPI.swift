@@ -101,6 +101,57 @@ open class DefaultAPI: APIBase {
     }
 
     /**
+     Use the deployed model to classify the input, using input image file from multipart form data.
+     - parameter deploymentName: (path) Name of the deployment group 
+     - parameter modelName: (path) ID or name of the deployed model 
+     - parameter image: (form) The file to upload. (optional)
+     - parameter completion: completion handler to receive the data and the error objects
+     */
+    open class func classifyimage(deploymentName: String, modelName: String, image: URL? = nil, completion: @escaping ((_ data: ClassificationResult?, _ error: ErrorResponse?) -> Void)) {
+        classifyimageWithRequestBuilder(deploymentName: deploymentName, modelName: modelName, image: image).execute { (response, error) -> Void in
+            completion(response?.body, error)
+        }
+    }
+
+
+    /**
+     Use the deployed model to classify the input, using input image file from multipart form data.
+     - POST /{deploymentName}/model/{modelName}/default/classifyimage
+
+     - examples: [{contentType=application/json, example={
+  "minibatchId" : "minibatchId",
+  "results" : [ 0, 0 ],
+  "probabilities" : [ 0.452, 0.452 ]
+}}]
+     - parameter deploymentName: (path) Name of the deployment group 
+     - parameter modelName: (path) ID or name of the deployed model 
+     - parameter image: (form) The file to upload. (optional)
+     - returns: RequestBuilder<ClassificationResult> 
+     */
+    open class func classifyimageWithRequestBuilder(deploymentName: String, modelName: String, image: URL? = nil) -> RequestBuilder<ClassificationResult> {
+        var path = "/{deploymentName}/model/{modelName}/default/classifyimage"
+        let deploymentNamePreEscape = "\(deploymentName)"
+        let deploymentNamePostEscape = deploymentNamePreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
+        path = path.replacingOccurrences(of: "{deploymentName}", with: deploymentNamePostEscape, options: .literal, range: nil)
+        let modelNamePreEscape = "\(modelName)"
+        let modelNamePostEscape = modelNamePreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
+        path = path.replacingOccurrences(of: "{modelName}", with: modelNamePostEscape, options: .literal, range: nil)
+        let URLString = SkilClientAPI.basePath + path
+        let formParams: [String:Any?] = [
+            "image": image
+        ]
+
+        let nonNullParameters = APIHelper.rejectNil(formParams)
+        let parameters = APIHelper.convertBoolToString(nonNullParameters)
+
+        let url = NSURLComponents(string: URLString)
+
+        let requestBuilder: RequestBuilder<ClassificationResult>.Type = SkilClientAPI.requestBuilderFactory.getBuilder()
+
+        return requestBuilder.init(method: "POST", URLString: (url?.string ?? URLString), parameters: parameters, isBody: false)
+    }
+
+    /**
      Run inference on the input and returns it as a JsonArrayResponse
      - parameter body: (body) The input NDArray 
      - parameter deploymentName: (path) Name of the deployment group 
@@ -422,6 +473,59 @@ open class DefaultAPI: APIBase {
         let requestBuilder: RequestBuilder<Prediction>.Type = SkilClientAPI.requestBuilderFactory.getBuilder()
 
         return requestBuilder.init(method: "POST", URLString: (url?.string ?? URLString), parameters: parameters, isBody: true)
+    }
+
+    /**
+     Run inference on the input array, using input image file from multipart form data.
+     - parameter deploymentName: (path) Name of the deployment group 
+     - parameter modelName: (path) ID or name of the deployed model 
+     - parameter image: (form) The file to upload. (optional)
+     - parameter completion: completion handler to receive the data and the error objects
+     */
+    open class func predict_0(deploymentName: String, modelName: String, image: URL? = nil, completion: @escaping ((_ data: Prediction?, _ error: ErrorResponse?) -> Void)) {
+        predict_0WithRequestBuilder(deploymentName: deploymentName, modelName: modelName, image: image).execute { (response, error) -> Void in
+            completion(response?.body, error)
+        }
+    }
+
+
+    /**
+     Run inference on the input array, using input image file from multipart form data.
+     - POST /{deploymentName}/model/{modelName}/default/predictimage
+
+     - examples: [{contentType=application/json, example={
+  "needsPreProcessing" : true,
+  "prediction" : {
+    "array" : "array"
+  },
+  "id" : "id"
+}}]
+     - parameter deploymentName: (path) Name of the deployment group 
+     - parameter modelName: (path) ID or name of the deployed model 
+     - parameter image: (form) The file to upload. (optional)
+     - returns: RequestBuilder<Prediction> 
+     */
+    open class func predict_0WithRequestBuilder(deploymentName: String, modelName: String, image: URL? = nil) -> RequestBuilder<Prediction> {
+        var path = "/{deploymentName}/model/{modelName}/default/predictimage"
+        let deploymentNamePreEscape = "\(deploymentName)"
+        let deploymentNamePostEscape = deploymentNamePreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
+        path = path.replacingOccurrences(of: "{deploymentName}", with: deploymentNamePostEscape, options: .literal, range: nil)
+        let modelNamePreEscape = "\(modelName)"
+        let modelNamePostEscape = modelNamePreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
+        path = path.replacingOccurrences(of: "{modelName}", with: modelNamePostEscape, options: .literal, range: nil)
+        let URLString = SkilClientAPI.basePath + path
+        let formParams: [String:Any?] = [
+            "image": image
+        ]
+
+        let nonNullParameters = APIHelper.rejectNil(formParams)
+        let parameters = APIHelper.convertBoolToString(nonNullParameters)
+
+        let url = NSURLComponents(string: URLString)
+
+        let requestBuilder: RequestBuilder<Prediction>.Type = SkilClientAPI.requestBuilderFactory.getBuilder()
+
+        return requestBuilder.init(method: "POST", URLString: (url?.string ?? URLString), parameters: parameters, isBody: false)
     }
 
     /**

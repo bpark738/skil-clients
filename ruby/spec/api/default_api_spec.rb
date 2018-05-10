@@ -60,6 +60,20 @@ describe 'DefaultApi' do
     end
   end
 
+  # unit tests for classifyimage
+  # Use the deployed model to classify the input, using input image file from multipart form data.
+  # 
+  # @param deployment_name Name of the deployment group
+  # @param model_name ID or name of the deployed model
+  # @param [Hash] opts the optional parameters
+  # @option opts [File] :image The file to upload.
+  # @return [ClassificationResult]
+  describe 'classifyimage test' do
+    it "should work" do
+      # assertion here. ref: https://www.relishapp.com/rspec/rspec-expectations/docs/built-in-matchers
+    end
+  end
+
   # unit tests for jsonarray
   # Run inference on the input and returns it as a JsonArrayResponse
   # 
@@ -152,6 +166,20 @@ describe 'DefaultApi' do
   # @param [Hash] opts the optional parameters
   # @return [Prediction]
   describe 'predict test' do
+    it "should work" do
+      # assertion here. ref: https://www.relishapp.com/rspec/rspec-expectations/docs/built-in-matchers
+    end
+  end
+
+  # unit tests for predict_0
+  # Run inference on the input array, using input image file from multipart form data.
+  # 
+  # @param deployment_name Name of the deployment group
+  # @param model_name ID or name of the deployed model
+  # @param [Hash] opts the optional parameters
+  # @option opts [File] :image The file to upload.
+  # @return [Prediction]
+  describe 'predict_0 test' do
     it "should work" do
       # assertion here. ref: https://www.relishapp.com/rspec/rspec-expectations/docs/built-in-matchers
     end

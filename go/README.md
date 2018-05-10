@@ -23,6 +23,7 @@ Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
 *DefaultApi* | [**Classify**](docs/DefaultApi.md#classify) | **Post** /{deploymentName}/model/{modelName}/default/classify | Use the deployed model to classify the input
 *DefaultApi* | [**Classifyarray**](docs/DefaultApi.md#classifyarray) | **Post** /{deploymentName}/model/{modelName}/default/classifyarray | Same as /classify but returns the output as Base64NDArrayBody
+*DefaultApi* | [**Classifyimage**](docs/DefaultApi.md#classifyimage) | **Post** /{deploymentName}/model/{modelName}/default/classifyimage | Use the deployed model to classify the input, using input image file from multipart form data.
 *DefaultApi* | [**Jsonarray**](docs/DefaultApi.md#jsonarray) | **Post** /{deploymentName}/model/{modelName}/default/jsonarray | Run inference on the input and returns it as a JsonArrayResponse
 *DefaultApi* | [**Logfilepath**](docs/DefaultApi.md#logfilepath) | **Get** /{deploymentName}/model/{modelName}/default/logfilepath | Get logs file path
 *DefaultApi* | [**Logs**](docs/DefaultApi.md#logs) | **Post** /{deploymentName}/model/{modelName}/default/logs | Get logs
@@ -30,6 +31,7 @@ Class | Method | HTTP request | Description
 *DefaultApi* | [**Modelupdate**](docs/DefaultApi.md#modelupdate) | **Post** /{deploymentName}/model/{modelName}/default/modelupdate | Update the model to be served
 *DefaultApi* | [**Multiclassify**](docs/DefaultApi.md#multiclassify) | **Post** /{deploymentName}/model/{modelName}/default/multiclassify | Represents all of the labels for a given classification
 *DefaultApi* | [**Predict**](docs/DefaultApi.md#predict) | **Post** /{deploymentName}/model/{modelName}/default/predict | Run inference on the input array.
+*DefaultApi* | [**Predict_0**](docs/DefaultApi.md#predict_0) | **Post** /{deploymentName}/model/{modelName}/default/predictimage | Run inference on the input array, using input image file from multipart form data.
 *DefaultApi* | [**Predictwithpreprocess**](docs/DefaultApi.md#predictwithpreprocess) | **Post** /{deploymentName}/model/{modelName}/default/predictwithpreprocess | Preprocesses the input and run inference on it
 *DefaultApi* | [**Predictwithpreprocessjson**](docs/DefaultApi.md#predictwithpreprocessjson) | **Post** /{deploymentName}/model/{modelName}/default/predictwithpreprocessjson | Preprocesses the input and run inference on it and returns it as a JsonArrayResponse
 
