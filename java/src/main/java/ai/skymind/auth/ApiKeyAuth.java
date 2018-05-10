@@ -18,7 +18,7 @@ import ai.skymind.Pair;
 import java.util.Map;
 import java.util.List;
 
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2018-05-08T10:59:10.248-07:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2018-05-10T16:10:47.581-07:00")
 public class ApiKeyAuth implements Authentication {
   private final String location;
   private final String paramName;

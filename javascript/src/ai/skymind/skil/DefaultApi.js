@@ -168,6 +168,64 @@
     }
 
     /**
+     * Callback function to receive the result of the classifyimage operation.
+     * @callback module:ai/skymind/skil/DefaultApi~classifyimageCallback
+     * @param {String} error Error message, if any.
+     * @param {module:ai/skymind/skil/model/ClassificationResult} data The data returned by the service call.
+     * @param {String} response The complete HTTP response.
+     */
+
+    /**
+     * Use the deployed model to classify the input, using input image file from multipart form data.
+     * @param {String} deploymentName Name of the deployment group
+     * @param {String} modelName ID or name of the deployed model
+     * @param {Object} opts Optional parameters
+     * @param {File} opts.image The file to upload.
+     * @param {module:ai/skymind/skil/DefaultApi~classifyimageCallback} callback The callback function, accepting three arguments: error, data, response
+     * data is of type: {@link module:ai/skymind/skil/model/ClassificationResult}
+     */
+    this.classifyimage = function(deploymentName, modelName, opts, callback) {
+      opts = opts || {};
+      var postBody = null;
+
+      // verify the required parameter 'deploymentName' is set
+      if (deploymentName === undefined || deploymentName === null) {
+        throw new Error("Missing the required parameter 'deploymentName' when calling classifyimage");
+      }
+
+      // verify the required parameter 'modelName' is set
+      if (modelName === undefined || modelName === null) {
+        throw new Error("Missing the required parameter 'modelName' when calling classifyimage");
+      }
+
+
+      var pathParams = {
+        'deploymentName': deploymentName,
+        'modelName': modelName
+      };
+      var queryParams = {
+      };
+      var collectionQueryParams = {
+      };
+      var headerParams = {
+      };
+      var formParams = {
+        'image': opts['image']
+      };
+
+      var authNames = [];
+      var contentTypes = ['multipart/form-data'];
+      var accepts = ['application/json'];
+      var returnType = ClassificationResult;
+
+      return this.apiClient.callApi(
+        '/{deploymentName}/model/{modelName}/default/classifyimage', 'POST',
+        pathParams, queryParams, collectionQueryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, callback
+      );
+    }
+
+    /**
      * Callback function to receive the result of the jsonarray operation.
      * @callback module:ai/skymind/skil/DefaultApi~jsonarrayCallback
      * @param {String} error Error message, if any.
@@ -572,6 +630,64 @@
 
       return this.apiClient.callApi(
         '/{deploymentName}/model/{modelName}/default/predict', 'POST',
+        pathParams, queryParams, collectionQueryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, callback
+      );
+    }
+
+    /**
+     * Callback function to receive the result of the predict_0 operation.
+     * @callback module:ai/skymind/skil/DefaultApi~predict_0Callback
+     * @param {String} error Error message, if any.
+     * @param {module:ai/skymind/skil/model/Prediction} data The data returned by the service call.
+     * @param {String} response The complete HTTP response.
+     */
+
+    /**
+     * Run inference on the input array, using input image file from multipart form data.
+     * @param {String} deploymentName Name of the deployment group
+     * @param {String} modelName ID or name of the deployed model
+     * @param {Object} opts Optional parameters
+     * @param {File} opts.image The file to upload.
+     * @param {module:ai/skymind/skil/DefaultApi~predict_0Callback} callback The callback function, accepting three arguments: error, data, response
+     * data is of type: {@link module:ai/skymind/skil/model/Prediction}
+     */
+    this.predict_0 = function(deploymentName, modelName, opts, callback) {
+      opts = opts || {};
+      var postBody = null;
+
+      // verify the required parameter 'deploymentName' is set
+      if (deploymentName === undefined || deploymentName === null) {
+        throw new Error("Missing the required parameter 'deploymentName' when calling predict_0");
+      }
+
+      // verify the required parameter 'modelName' is set
+      if (modelName === undefined || modelName === null) {
+        throw new Error("Missing the required parameter 'modelName' when calling predict_0");
+      }
+
+
+      var pathParams = {
+        'deploymentName': deploymentName,
+        'modelName': modelName
+      };
+      var queryParams = {
+      };
+      var collectionQueryParams = {
+      };
+      var headerParams = {
+      };
+      var formParams = {
+        'image': opts['image']
+      };
+
+      var authNames = [];
+      var contentTypes = ['multipart/form-data'];
+      var accepts = ['application/json'];
+      var returnType = Prediction;
+
+      return this.apiClient.callApi(
+        '/{deploymentName}/model/{modelName}/default/predictimage', 'POST',
         pathParams, queryParams, collectionQueryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType, callback
       );

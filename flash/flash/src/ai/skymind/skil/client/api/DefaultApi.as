@@ -33,6 +33,7 @@ public class DefaultApi extends SwaggerApi {
 
         public static const event_classify: String = "classify";
         public static const event_classifyarray: String = "classifyarray";
+        public static const event_classifyimage: String = "classifyimage";
         public static const event_jsonarray: String = "jsonarray";
         public static const event_logfilepath: String = "logfilepath";
         public static const event_logs: String = "logs";
@@ -40,6 +41,7 @@ public class DefaultApi extends SwaggerApi {
         public static const event_modelupdate: String = "modelupdate";
         public static const event_multiclassify: String = "multiclassify";
         public static const event_predict: String = "predict";
+        public static const event_predict_1: String = "predict_1";
         public static const event_predictwithpreprocess: String = "predictwithpreprocess";
         public static const event_predictwithpreprocessjson: String = "predictwithpreprocessjson";
 
@@ -116,6 +118,44 @@ public class DefaultApi extends SwaggerApi {
         token.completionEventType = "classifyarray";
 
         token.returnType = Base64NDArrayBody;
+        return requestId;
+
+    }
+
+    /*
+     * Returns ClassificationResult 
+     */
+    public function classifyimage (deploymentName: String, modelName: String, image: File): String {
+        // create path and map variables
+        var path: String = "/{deploymentName}/model/{modelName}/default/classifyimage".replace(/{format}/g,"xml").replace("{" + "deploymentName" + "}", getApiInvoker().escapeString(deploymentName)).replace("{" + "modelName" + "}", getApiInvoker().escapeString(modelName));
+
+        // query params
+        var queryParams: Dictionary = new Dictionary();
+        var headerParams: Dictionary = new Dictionary();
+
+        // verify required params are set
+        if(        // verify required params are set
+        if(        // verify required params are set
+        if() {
+            throw new ApiError(400, "missing required params");
+        }
+) {
+            throw new ApiError(400, "missing required params");
+        }
+) {
+            throw new ApiError(400, "missing required params");
+        }
+
+        
+        
+        var token:AsyncToken = getApiInvoker().invokeAPI(path, "POST", queryParams, null, headerParams);
+
+        var requestId: String = getUniqueId();
+
+        token.requestId = requestId;
+        token.completionEventType = "classifyimage";
+
+        token.returnType = ClassificationResult;
         return requestId;
 
     }
@@ -376,6 +416,44 @@ public class DefaultApi extends SwaggerApi {
 
         token.requestId = requestId;
         token.completionEventType = "predict";
+
+        token.returnType = Prediction;
+        return requestId;
+
+    }
+
+    /*
+     * Returns Prediction 
+     */
+    public function predict_1 (deploymentName: String, modelName: String, image: File): String {
+        // create path and map variables
+        var path: String = "/{deploymentName}/model/{modelName}/default/predictimage".replace(/{format}/g,"xml").replace("{" + "deploymentName" + "}", getApiInvoker().escapeString(deploymentName)).replace("{" + "modelName" + "}", getApiInvoker().escapeString(modelName));
+
+        // query params
+        var queryParams: Dictionary = new Dictionary();
+        var headerParams: Dictionary = new Dictionary();
+
+        // verify required params are set
+        if(        // verify required params are set
+        if(        // verify required params are set
+        if() {
+            throw new ApiError(400, "missing required params");
+        }
+) {
+            throw new ApiError(400, "missing required params");
+        }
+) {
+            throw new ApiError(400, "missing required params");
+        }
+
+        
+        
+        var token:AsyncToken = getApiInvoker().invokeAPI(path, "POST", queryParams, null, headerParams);
+
+        var requestId: String = getUniqueId();
+
+        token.requestId = requestId;
+        token.completionEventType = "predict_1";
 
         token.returnType = Prediction;
         return requestId;

@@ -81,6 +81,7 @@ Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
 *SkilCient::DefaultApi* | [**classify**](docs/DefaultApi.md#classify) | **POST** /{deploymentName}/model/{modelName}/default/classify | Use the deployed model to classify the input
 *SkilCient::DefaultApi* | [**classifyarray**](docs/DefaultApi.md#classifyarray) | **POST** /{deploymentName}/model/{modelName}/default/classifyarray | Same as /classify but returns the output as Base64NDArrayBody
+*SkilCient::DefaultApi* | [**classifyimage**](docs/DefaultApi.md#classifyimage) | **POST** /{deploymentName}/model/{modelName}/default/classifyimage | Use the deployed model to classify the input, using input image file from multipart form data.
 *SkilCient::DefaultApi* | [**jsonarray**](docs/DefaultApi.md#jsonarray) | **POST** /{deploymentName}/model/{modelName}/default/jsonarray | Run inference on the input and returns it as a JsonArrayResponse
 *SkilCient::DefaultApi* | [**logfilepath**](docs/DefaultApi.md#logfilepath) | **GET** /{deploymentName}/model/{modelName}/default/logfilepath | Get logs file path
 *SkilCient::DefaultApi* | [**logs**](docs/DefaultApi.md#logs) | **POST** /{deploymentName}/model/{modelName}/default/logs | Get logs
@@ -88,6 +89,7 @@ Class | Method | HTTP request | Description
 *SkilCient::DefaultApi* | [**modelupdate**](docs/DefaultApi.md#modelupdate) | **POST** /{deploymentName}/model/{modelName}/default/modelupdate | Update the model to be served
 *SkilCient::DefaultApi* | [**multiclassify**](docs/DefaultApi.md#multiclassify) | **POST** /{deploymentName}/model/{modelName}/default/multiclassify | Represents all of the labels for a given classification
 *SkilCient::DefaultApi* | [**predict**](docs/DefaultApi.md#predict) | **POST** /{deploymentName}/model/{modelName}/default/predict | Run inference on the input array.
+*SkilCient::DefaultApi* | [**predict_0**](docs/DefaultApi.md#predict_0) | **POST** /{deploymentName}/model/{modelName}/default/predictimage | Run inference on the input array, using input image file from multipart form data.
 *SkilCient::DefaultApi* | [**predictwithpreprocess**](docs/DefaultApi.md#predictwithpreprocess) | **POST** /{deploymentName}/model/{modelName}/default/predictwithpreprocess | Preprocesses the input and run inference on it
 *SkilCient::DefaultApi* | [**predictwithpreprocessjson**](docs/DefaultApi.md#predictwithpreprocessjson) | **POST** /{deploymentName}/model/{modelName}/default/predictwithpreprocessjson | Preprocesses the input and run inference on it and returns it as a JsonArrayResponse
 

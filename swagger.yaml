@@ -60,6 +60,36 @@ paths:
           description: Invalid input
         500:
           description: Invalid deployment or model name
+  /{deploymentName}/model/{modelName}/default/predictimage:
+    post:
+      operationId: predict
+      summary: Run inference on the input array, using input image file from multipart form data.
+      consumes:
+      - multipart/form-data
+      produces:
+      - application/json
+      parameters:
+      - name: image
+        in: formData
+        type: file
+        description: The file to upload.
+      - name: deploymentName
+        in: path
+        description: Name of the deployment group
+        required: true
+        type: string
+      - name: modelName
+        in: path
+        description: ID or name of the deployed model
+        required: true
+        type: string
+      responses:
+        200:
+          description: successful operation
+          schema:
+            $ref: '#/definitions/Prediction'
+        500:
+          description: Error generating prediction
   /{deploymentName}/model/{modelName}/default/classify:
     post:
       operationId: classify
@@ -94,6 +124,36 @@ paths:
           description: Invalid input
         500:
           description: Invalid deployment or model name
+  /{deploymentName}/model/{modelName}/default/classifyimage:
+    post:
+      operationId: classifyimage
+      summary: Use the deployed model to classify the input, using input image file from multipart form data.
+      consumes:
+      - multipart/form-data
+      produces:
+      - application/json
+      parameters:
+      - name: image
+        in: formData
+        type: file
+        description: The file to upload.
+      - name: deploymentName
+        in: path
+        description: Name of the deployment group
+        required: true
+        type: string
+      - name: modelName
+        in: path
+        description: ID or name of the deployed model
+        required: true
+        type: string
+      responses:
+        200:
+          description: successful operation
+          schema:
+            $ref: '#/definitions/ClassificationResult'
+        500:
+          description: Error generating classification
   /{deploymentName}/model/{modelName}/default/classifyarray:
     post:
       operationId: classifyarray

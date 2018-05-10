@@ -154,6 +154,70 @@ module SkilCient
       return data, status_code, headers
     end
 
+    # Use the deployed model to classify the input, using input image file from multipart form data.
+    # 
+    # @param deployment_name Name of the deployment group
+    # @param model_name ID or name of the deployed model
+    # @param [Hash] opts the optional parameters
+    # @option opts [File] :image The file to upload.
+    # @return [ClassificationResult]
+    def classifyimage(deployment_name, model_name, opts = {})
+      data, _status_code, _headers = classifyimage_with_http_info(deployment_name, model_name, opts)
+      return data
+    end
+
+    # Use the deployed model to classify the input, using input image file from multipart form data.
+    # 
+    # @param deployment_name Name of the deployment group
+    # @param model_name ID or name of the deployed model
+    # @param [Hash] opts the optional parameters
+    # @option opts [File] :image The file to upload.
+    # @return [Array<(ClassificationResult, Fixnum, Hash)>] ClassificationResult data, response status code and response headers
+    def classifyimage_with_http_info(deployment_name, model_name, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "Calling API: DefaultApi.classifyimage ..."
+      end
+      # verify the required parameter 'deployment_name' is set
+      if @api_client.config.client_side_validation && deployment_name.nil?
+        fail ArgumentError, "Missing the required parameter 'deployment_name' when calling DefaultApi.classifyimage"
+      end
+      # verify the required parameter 'model_name' is set
+      if @api_client.config.client_side_validation && model_name.nil?
+        fail ArgumentError, "Missing the required parameter 'model_name' when calling DefaultApi.classifyimage"
+      end
+      # resource path
+      local_var_path = "/{deploymentName}/model/{modelName}/default/classifyimage".sub('{' + 'deploymentName' + '}', deployment_name.to_s).sub('{' + 'modelName' + '}', model_name.to_s)
+
+      # query parameters
+      query_params = {}
+
+      # header parameters
+      header_params = {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      header_params['Content-Type'] = @api_client.select_header_content_type(['multipart/form-data'])
+
+      # form parameters
+      form_params = {}
+      form_params["image"] = opts[:'image'] if !opts[:'image'].nil?
+
+      # http body (model)
+      post_body = nil
+      auth_names = []
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path,
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => 'ClassificationResult')
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: DefaultApi#classifyimage\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
     # Run inference on the input and returns it as a JsonArrayResponse
     # 
     # @param body The input NDArray
@@ -605,6 +669,70 @@ module SkilCient
         :return_type => 'Prediction')
       if @api_client.config.debugging
         @api_client.config.logger.debug "API called: DefaultApi#predict\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Run inference on the input array, using input image file from multipart form data.
+    # 
+    # @param deployment_name Name of the deployment group
+    # @param model_name ID or name of the deployed model
+    # @param [Hash] opts the optional parameters
+    # @option opts [File] :image The file to upload.
+    # @return [Prediction]
+    def predict_0(deployment_name, model_name, opts = {})
+      data, _status_code, _headers = predict_0_with_http_info(deployment_name, model_name, opts)
+      return data
+    end
+
+    # Run inference on the input array, using input image file from multipart form data.
+    # 
+    # @param deployment_name Name of the deployment group
+    # @param model_name ID or name of the deployed model
+    # @param [Hash] opts the optional parameters
+    # @option opts [File] :image The file to upload.
+    # @return [Array<(Prediction, Fixnum, Hash)>] Prediction data, response status code and response headers
+    def predict_0_with_http_info(deployment_name, model_name, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "Calling API: DefaultApi.predict_0 ..."
+      end
+      # verify the required parameter 'deployment_name' is set
+      if @api_client.config.client_side_validation && deployment_name.nil?
+        fail ArgumentError, "Missing the required parameter 'deployment_name' when calling DefaultApi.predict_0"
+      end
+      # verify the required parameter 'model_name' is set
+      if @api_client.config.client_side_validation && model_name.nil?
+        fail ArgumentError, "Missing the required parameter 'model_name' when calling DefaultApi.predict_0"
+      end
+      # resource path
+      local_var_path = "/{deploymentName}/model/{modelName}/default/predictimage".sub('{' + 'deploymentName' + '}', deployment_name.to_s).sub('{' + 'modelName' + '}', model_name.to_s)
+
+      # query parameters
+      query_params = {}
+
+      # header parameters
+      header_params = {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      header_params['Content-Type'] = @api_client.select_header_content_type(['multipart/form-data'])
+
+      # form parameters
+      form_params = {}
+      form_params["image"] = opts[:'image'] if !opts[:'image'].nil?
+
+      # http body (model)
+      post_body = nil
+      auth_names = []
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path,
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => 'Prediction')
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: DefaultApi#predict_0\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
       end
       return data, status_code, headers
     end

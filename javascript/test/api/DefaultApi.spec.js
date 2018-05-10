@@ -70,6 +70,16 @@
         done();
       });
     });
+    describe('classifyimage', function() {
+      it('should call classifyimage successfully', function(done) {
+        //uncomment below and update the code to test classifyimage
+        //instance.classifyimage(function(error) {
+        //  if (error) throw error;
+        //expect().to.be();
+        //});
+        done();
+      });
+    });
     describe('jsonarray', function() {
       it('should call jsonarray successfully', function(done) {
         //uncomment below and update the code to test jsonarray
@@ -134,6 +144,16 @@
       it('should call predict successfully', function(done) {
         //uncomment below and update the code to test predict
         //instance.predict(function(error) {
+        //  if (error) throw error;
+        //expect().to.be();
+        //});
+        done();
+      });
+    });
+    describe('predict_0', function() {
+      it('should call predict_0 successfully', function(done) {
+        //uncomment below and update the code to test predict_0
+        //instance.predict_0(function(error) {
         //  if (error) throw error;
         //expect().to.be();
         //});

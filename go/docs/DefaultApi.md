@@ -6,6 +6,7 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**Classify**](DefaultApi.md#Classify) | **Post** /{deploymentName}/model/{modelName}/default/classify | Use the deployed model to classify the input
 [**Classifyarray**](DefaultApi.md#Classifyarray) | **Post** /{deploymentName}/model/{modelName}/default/classifyarray | Same as /classify but returns the output as Base64NDArrayBody
+[**Classifyimage**](DefaultApi.md#Classifyimage) | **Post** /{deploymentName}/model/{modelName}/default/classifyimage | Use the deployed model to classify the input, using input image file from multipart form data.
 [**Jsonarray**](DefaultApi.md#Jsonarray) | **Post** /{deploymentName}/model/{modelName}/default/jsonarray | Run inference on the input and returns it as a JsonArrayResponse
 [**Logfilepath**](DefaultApi.md#Logfilepath) | **Get** /{deploymentName}/model/{modelName}/default/logfilepath | Get logs file path
 [**Logs**](DefaultApi.md#Logs) | **Post** /{deploymentName}/model/{modelName}/default/logs | Get logs
@@ -13,6 +14,7 @@ Method | HTTP request | Description
 [**Modelupdate**](DefaultApi.md#Modelupdate) | **Post** /{deploymentName}/model/{modelName}/default/modelupdate | Update the model to be served
 [**Multiclassify**](DefaultApi.md#Multiclassify) | **Post** /{deploymentName}/model/{modelName}/default/multiclassify | Represents all of the labels for a given classification
 [**Predict**](DefaultApi.md#Predict) | **Post** /{deploymentName}/model/{modelName}/default/predict | Run inference on the input array.
+[**Predict_0**](DefaultApi.md#Predict_0) | **Post** /{deploymentName}/model/{modelName}/default/predictimage | Run inference on the input array, using input image file from multipart form data.
 [**Predictwithpreprocess**](DefaultApi.md#Predictwithpreprocess) | **Post** /{deploymentName}/model/{modelName}/default/predictwithpreprocess | Preprocesses the input and run inference on it
 [**Predictwithpreprocessjson**](DefaultApi.md#Predictwithpreprocessjson) | **Post** /{deploymentName}/model/{modelName}/default/predictwithpreprocessjson | Preprocesses the input and run inference on it and returns it as a JsonArrayResponse
 
@@ -69,6 +71,43 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: application/json
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **Classifyimage**
+> ClassificationResult Classifyimage(ctx, deploymentName, modelName, optional)
+Use the deployed model to classify the input, using input image file from multipart form data.
+
+### Required Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **ctx** | **context.Context** | context for logging, tracing, authentication, etc.
+  **deploymentName** | **string**| Name of the deployment group | 
+  **modelName** | **string**| ID or name of the deployed model | 
+ **optional** | **map[string]interface{}** | optional parameters | nil if no parameters
+
+### Optional Parameters
+Optional parameters are passed through a map[string]interface{}.
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **deploymentName** | **string**| Name of the deployment group | 
+ **modelName** | **string**| ID or name of the deployed model | 
+ **image** | ***os.File**| The file to upload. | 
+
+### Return type
+
+[**ClassificationResult**](ClassificationResult.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: multipart/form-data
  - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -282,6 +321,43 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: application/json
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **Predict_0**
+> Prediction Predict_0(ctx, deploymentName, modelName, optional)
+Run inference on the input array, using input image file from multipart form data.
+
+### Required Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **ctx** | **context.Context** | context for logging, tracing, authentication, etc.
+  **deploymentName** | **string**| Name of the deployment group | 
+  **modelName** | **string**| ID or name of the deployed model | 
+ **optional** | **map[string]interface{}** | optional parameters | nil if no parameters
+
+### Optional Parameters
+Optional parameters are passed through a map[string]interface{}.
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **deploymentName** | **string**| Name of the deployment group | 
+ **modelName** | **string**| ID or name of the deployed model | 
+ **image** | ***os.File**| The file to upload. | 
+
+### Return type
+
+[**Prediction**](Prediction.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: multipart/form-data
  - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)

@@ -365,6 +365,154 @@ public class DefaultApi {
     }
   }
   /**
+  * Use the deployed model to classify the input, using input image file from multipart form data.
+  * 
+   * @param deploymentName Name of the deployment group
+   * @param modelName ID or name of the deployed model
+   * @param image The file to upload.
+   * @return ClassificationResult
+  */
+  public ClassificationResult classifyimage (String deploymentName, String modelName, File image) throws TimeoutException, ExecutionException, InterruptedException, ApiException {
+    Object postBody = null;
+    // verify the required parameter 'deploymentName' is set
+    if (deploymentName == null) {
+      VolleyError error = new VolleyError("Missing the required parameter 'deploymentName' when calling classifyimage",
+        new ApiException(400, "Missing the required parameter 'deploymentName' when calling classifyimage"));
+    }
+    // verify the required parameter 'modelName' is set
+    if (modelName == null) {
+      VolleyError error = new VolleyError("Missing the required parameter 'modelName' when calling classifyimage",
+        new ApiException(400, "Missing the required parameter 'modelName' when calling classifyimage"));
+    }
+
+    // create path and map variables
+    String path = "/{deploymentName}/model/{modelName}/default/classifyimage".replaceAll("\\{" + "deploymentName" + "\\}", apiInvoker.escapeString(deploymentName.toString())).replaceAll("\\{" + "modelName" + "\\}", apiInvoker.escapeString(modelName.toString()));
+
+    // query params
+    List<Pair> queryParams = new ArrayList<Pair>();
+    // header params
+    Map<String, String> headerParams = new HashMap<String, String>();
+    // form params
+    Map<String, String> formParams = new HashMap<String, String>();
+    String[] contentTypes = {
+      "multipart/form-data"
+    };
+    String contentType = contentTypes.length > 0 ? contentTypes[0] : "application/json";
+
+    if (contentType.startsWith("multipart/form-data")) {
+      // file uploading
+      MultipartEntityBuilder localVarBuilder = MultipartEntityBuilder.create();
+      if (image != null) {
+        localVarBuilder.addBinaryBody("image", image);
+      }
+      HttpEntity httpEntity = localVarBuilder.build();
+      postBody = httpEntity;
+    } else {
+      // normal form params
+    }
+
+    String[] authNames = new String[] {  };
+
+    try {
+      String localVarResponse = apiInvoker.invokeAPI (basePath, path, "POST", queryParams, postBody, headerParams, formParams, contentType, authNames);
+      if (localVarResponse != null) {
+         return (ClassificationResult) ApiInvoker.deserialize(localVarResponse, "", ClassificationResult.class);
+      } else {
+         return null;
+      }
+    } catch (ApiException ex) {
+       throw ex;
+    } catch (InterruptedException ex) {
+       throw ex;
+    } catch (ExecutionException ex) {
+      if (ex.getCause() instanceof VolleyError) {
+        VolleyError volleyError = (VolleyError)ex.getCause();
+        if (volleyError.networkResponse != null) {
+          throw new ApiException(volleyError.networkResponse.statusCode, volleyError.getMessage());
+        }
+      }
+      throw ex;
+    } catch (TimeoutException ex) {
+      throw ex;
+    }
+  }
+
+      /**
+   * Use the deployed model to classify the input, using input image file from multipart form data.
+   * 
+   * @param deploymentName Name of the deployment group   * @param modelName ID or name of the deployed model   * @param image The file to upload.
+  */
+  public void classifyimage (String deploymentName, String modelName, File image, final Response.Listener<ClassificationResult> responseListener, final Response.ErrorListener errorListener) {
+    Object postBody = null;
+
+    // verify the required parameter 'deploymentName' is set
+    if (deploymentName == null) {
+      VolleyError error = new VolleyError("Missing the required parameter 'deploymentName' when calling classifyimage",
+        new ApiException(400, "Missing the required parameter 'deploymentName' when calling classifyimage"));
+    }
+    // verify the required parameter 'modelName' is set
+    if (modelName == null) {
+      VolleyError error = new VolleyError("Missing the required parameter 'modelName' when calling classifyimage",
+        new ApiException(400, "Missing the required parameter 'modelName' when calling classifyimage"));
+    }
+
+    // create path and map variables
+    String path = "/{deploymentName}/model/{modelName}/default/classifyimage".replaceAll("\\{format\\}","json").replaceAll("\\{" + "deploymentName" + "\\}", apiInvoker.escapeString(deploymentName.toString())).replaceAll("\\{" + "modelName" + "\\}", apiInvoker.escapeString(modelName.toString()));
+
+    // query params
+    List<Pair> queryParams = new ArrayList<Pair>();
+    // header params
+    Map<String, String> headerParams = new HashMap<String, String>();
+    // form params
+    Map<String, String> formParams = new HashMap<String, String>();
+
+
+
+    String[] contentTypes = {
+      "multipart/form-data"
+    };
+    String contentType = contentTypes.length > 0 ? contentTypes[0] : "application/json";
+
+    if (contentType.startsWith("multipart/form-data")) {
+      // file uploading
+      MultipartEntityBuilder localVarBuilder = MultipartEntityBuilder.create();
+      
+      if (image != null) {
+        localVarBuilder.addBinaryBody("image", image);
+      }
+      
+
+      HttpEntity httpEntity = localVarBuilder.build();
+      postBody = httpEntity;
+    } else {
+      // normal form params
+      
+    }
+
+    String[] authNames = new String[] {  };
+
+    try {
+      apiInvoker.invokeAPI(basePath, path, "POST", queryParams, postBody, headerParams, formParams, contentType, authNames,
+        new Response.Listener<String>() {
+          @Override
+          public void onResponse(String localVarResponse) {
+            try {
+              responseListener.onResponse((ClassificationResult) ApiInvoker.deserialize(localVarResponse,  "", ClassificationResult.class));
+            } catch (ApiException exception) {
+               errorListener.onErrorResponse(new VolleyError(exception));
+            }
+          }
+      }, new Response.ErrorListener() {
+          @Override
+          public void onErrorResponse(VolleyError error) {
+            errorListener.onErrorResponse(error);
+          }
+      });
+    } catch (ApiException ex) {
+      errorListener.onErrorResponse(new VolleyError(ex));
+    }
+  }
+  /**
   * Run inference on the input and returns it as a JsonArrayResponse
   * 
    * @param body The input NDArray
@@ -1374,6 +1522,154 @@ public class DefaultApi {
     } else {
       // normal form params
           }
+
+    String[] authNames = new String[] {  };
+
+    try {
+      apiInvoker.invokeAPI(basePath, path, "POST", queryParams, postBody, headerParams, formParams, contentType, authNames,
+        new Response.Listener<String>() {
+          @Override
+          public void onResponse(String localVarResponse) {
+            try {
+              responseListener.onResponse((Prediction) ApiInvoker.deserialize(localVarResponse,  "", Prediction.class));
+            } catch (ApiException exception) {
+               errorListener.onErrorResponse(new VolleyError(exception));
+            }
+          }
+      }, new Response.ErrorListener() {
+          @Override
+          public void onErrorResponse(VolleyError error) {
+            errorListener.onErrorResponse(error);
+          }
+      });
+    } catch (ApiException ex) {
+      errorListener.onErrorResponse(new VolleyError(ex));
+    }
+  }
+  /**
+  * Run inference on the input array, using input image file from multipart form data.
+  * 
+   * @param deploymentName Name of the deployment group
+   * @param modelName ID or name of the deployed model
+   * @param image The file to upload.
+   * @return Prediction
+  */
+  public Prediction predict_1 (String deploymentName, String modelName, File image) throws TimeoutException, ExecutionException, InterruptedException, ApiException {
+    Object postBody = null;
+    // verify the required parameter 'deploymentName' is set
+    if (deploymentName == null) {
+      VolleyError error = new VolleyError("Missing the required parameter 'deploymentName' when calling predict_1",
+        new ApiException(400, "Missing the required parameter 'deploymentName' when calling predict_1"));
+    }
+    // verify the required parameter 'modelName' is set
+    if (modelName == null) {
+      VolleyError error = new VolleyError("Missing the required parameter 'modelName' when calling predict_1",
+        new ApiException(400, "Missing the required parameter 'modelName' when calling predict_1"));
+    }
+
+    // create path and map variables
+    String path = "/{deploymentName}/model/{modelName}/default/predictimage".replaceAll("\\{" + "deploymentName" + "\\}", apiInvoker.escapeString(deploymentName.toString())).replaceAll("\\{" + "modelName" + "\\}", apiInvoker.escapeString(modelName.toString()));
+
+    // query params
+    List<Pair> queryParams = new ArrayList<Pair>();
+    // header params
+    Map<String, String> headerParams = new HashMap<String, String>();
+    // form params
+    Map<String, String> formParams = new HashMap<String, String>();
+    String[] contentTypes = {
+      "multipart/form-data"
+    };
+    String contentType = contentTypes.length > 0 ? contentTypes[0] : "application/json";
+
+    if (contentType.startsWith("multipart/form-data")) {
+      // file uploading
+      MultipartEntityBuilder localVarBuilder = MultipartEntityBuilder.create();
+      if (image != null) {
+        localVarBuilder.addBinaryBody("image", image);
+      }
+      HttpEntity httpEntity = localVarBuilder.build();
+      postBody = httpEntity;
+    } else {
+      // normal form params
+    }
+
+    String[] authNames = new String[] {  };
+
+    try {
+      String localVarResponse = apiInvoker.invokeAPI (basePath, path, "POST", queryParams, postBody, headerParams, formParams, contentType, authNames);
+      if (localVarResponse != null) {
+         return (Prediction) ApiInvoker.deserialize(localVarResponse, "", Prediction.class);
+      } else {
+         return null;
+      }
+    } catch (ApiException ex) {
+       throw ex;
+    } catch (InterruptedException ex) {
+       throw ex;
+    } catch (ExecutionException ex) {
+      if (ex.getCause() instanceof VolleyError) {
+        VolleyError volleyError = (VolleyError)ex.getCause();
+        if (volleyError.networkResponse != null) {
+          throw new ApiException(volleyError.networkResponse.statusCode, volleyError.getMessage());
+        }
+      }
+      throw ex;
+    } catch (TimeoutException ex) {
+      throw ex;
+    }
+  }
+
+      /**
+   * Run inference on the input array, using input image file from multipart form data.
+   * 
+   * @param deploymentName Name of the deployment group   * @param modelName ID or name of the deployed model   * @param image The file to upload.
+  */
+  public void predict_1 (String deploymentName, String modelName, File image, final Response.Listener<Prediction> responseListener, final Response.ErrorListener errorListener) {
+    Object postBody = null;
+
+    // verify the required parameter 'deploymentName' is set
+    if (deploymentName == null) {
+      VolleyError error = new VolleyError("Missing the required parameter 'deploymentName' when calling predict_1",
+        new ApiException(400, "Missing the required parameter 'deploymentName' when calling predict_1"));
+    }
+    // verify the required parameter 'modelName' is set
+    if (modelName == null) {
+      VolleyError error = new VolleyError("Missing the required parameter 'modelName' when calling predict_1",
+        new ApiException(400, "Missing the required parameter 'modelName' when calling predict_1"));
+    }
+
+    // create path and map variables
+    String path = "/{deploymentName}/model/{modelName}/default/predictimage".replaceAll("\\{format\\}","json").replaceAll("\\{" + "deploymentName" + "\\}", apiInvoker.escapeString(deploymentName.toString())).replaceAll("\\{" + "modelName" + "\\}", apiInvoker.escapeString(modelName.toString()));
+
+    // query params
+    List<Pair> queryParams = new ArrayList<Pair>();
+    // header params
+    Map<String, String> headerParams = new HashMap<String, String>();
+    // form params
+    Map<String, String> formParams = new HashMap<String, String>();
+
+
+
+    String[] contentTypes = {
+      "multipart/form-data"
+    };
+    String contentType = contentTypes.length > 0 ? contentTypes[0] : "application/json";
+
+    if (contentType.startsWith("multipart/form-data")) {
+      // file uploading
+      MultipartEntityBuilder localVarBuilder = MultipartEntityBuilder.create();
+      
+      if (image != null) {
+        localVarBuilder.addBinaryBody("image", image);
+      }
+      
+
+      HttpEntity httpEntity = localVarBuilder.build();
+      postBody = httpEntity;
+    } else {
+      // normal form params
+      
+    }
 
     String[] authNames = new String[] {  };
 

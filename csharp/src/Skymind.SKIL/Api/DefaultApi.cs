@@ -75,6 +75,31 @@ namespace Skymind.SKIL.Api
         /// <returns>ApiResponse of Base64NDArrayBody</returns>
         ApiResponse<Base64NDArrayBody> ClassifyarrayWithHttpInfo (Prediction body, string deploymentName, string modelName);
         /// <summary>
+        /// Use the deployed model to classify the input, using input image file from multipart form data.
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="Skymind.SKIL.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="deploymentName">Name of the deployment group</param>
+        /// <param name="modelName">ID or name of the deployed model</param>
+        /// <param name="image">The file to upload. (optional)</param>
+        /// <returns>ClassificationResult</returns>
+        ClassificationResult Classifyimage (string deploymentName, string modelName, System.IO.Stream image = null);
+
+        /// <summary>
+        /// Use the deployed model to classify the input, using input image file from multipart form data.
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="Skymind.SKIL.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="deploymentName">Name of the deployment group</param>
+        /// <param name="modelName">ID or name of the deployed model</param>
+        /// <param name="image">The file to upload. (optional)</param>
+        /// <returns>ApiResponse of ClassificationResult</returns>
+        ApiResponse<ClassificationResult> ClassifyimageWithHttpInfo (string deploymentName, string modelName, System.IO.Stream image = null);
+        /// <summary>
         /// Run inference on the input and returns it as a JsonArrayResponse
         /// </summary>
         /// <remarks>
@@ -248,6 +273,31 @@ namespace Skymind.SKIL.Api
         /// <returns>ApiResponse of Prediction</returns>
         ApiResponse<Prediction> PredictWithHttpInfo (Prediction body, string deploymentName, string modelName);
         /// <summary>
+        /// Run inference on the input array, using input image file from multipart form data.
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="Skymind.SKIL.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="deploymentName">Name of the deployment group</param>
+        /// <param name="modelName">ID or name of the deployed model</param>
+        /// <param name="image">The file to upload. (optional)</param>
+        /// <returns>Prediction</returns>
+        Prediction Predict_0 (string deploymentName, string modelName, System.IO.Stream image = null);
+
+        /// <summary>
+        /// Run inference on the input array, using input image file from multipart form data.
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="Skymind.SKIL.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="deploymentName">Name of the deployment group</param>
+        /// <param name="modelName">ID or name of the deployed model</param>
+        /// <param name="image">The file to upload. (optional)</param>
+        /// <returns>ApiResponse of Prediction</returns>
+        ApiResponse<Prediction> Predict_0WithHttpInfo (string deploymentName, string modelName, System.IO.Stream image = null);
+        /// <summary>
         /// Preprocesses the input and run inference on it
         /// </summary>
         /// <remarks>
@@ -349,6 +399,31 @@ namespace Skymind.SKIL.Api
         /// <param name="modelName">ID or name of the deployed model</param>
         /// <returns>Task of ApiResponse (Base64NDArrayBody)</returns>
         System.Threading.Tasks.Task<ApiResponse<Base64NDArrayBody>> ClassifyarrayAsyncWithHttpInfo (Prediction body, string deploymentName, string modelName);
+        /// <summary>
+        /// Use the deployed model to classify the input, using input image file from multipart form data.
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="Skymind.SKIL.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="deploymentName">Name of the deployment group</param>
+        /// <param name="modelName">ID or name of the deployed model</param>
+        /// <param name="image">The file to upload. (optional)</param>
+        /// <returns>Task of ClassificationResult</returns>
+        System.Threading.Tasks.Task<ClassificationResult> ClassifyimageAsync (string deploymentName, string modelName, System.IO.Stream image = null);
+
+        /// <summary>
+        /// Use the deployed model to classify the input, using input image file from multipart form data.
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="Skymind.SKIL.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="deploymentName">Name of the deployment group</param>
+        /// <param name="modelName">ID or name of the deployed model</param>
+        /// <param name="image">The file to upload. (optional)</param>
+        /// <returns>Task of ApiResponse (ClassificationResult)</returns>
+        System.Threading.Tasks.Task<ApiResponse<ClassificationResult>> ClassifyimageAsyncWithHttpInfo (string deploymentName, string modelName, System.IO.Stream image = null);
         /// <summary>
         /// Run inference on the input and returns it as a JsonArrayResponse
         /// </summary>
@@ -522,6 +597,31 @@ namespace Skymind.SKIL.Api
         /// <param name="modelName">ID or name of the deployed model</param>
         /// <returns>Task of ApiResponse (Prediction)</returns>
         System.Threading.Tasks.Task<ApiResponse<Prediction>> PredictAsyncWithHttpInfo (Prediction body, string deploymentName, string modelName);
+        /// <summary>
+        /// Run inference on the input array, using input image file from multipart form data.
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="Skymind.SKIL.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="deploymentName">Name of the deployment group</param>
+        /// <param name="modelName">ID or name of the deployed model</param>
+        /// <param name="image">The file to upload. (optional)</param>
+        /// <returns>Task of Prediction</returns>
+        System.Threading.Tasks.Task<Prediction> Predict_0Async (string deploymentName, string modelName, System.IO.Stream image = null);
+
+        /// <summary>
+        /// Run inference on the input array, using input image file from multipart form data.
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="Skymind.SKIL.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="deploymentName">Name of the deployment group</param>
+        /// <param name="modelName">ID or name of the deployed model</param>
+        /// <param name="image">The file to upload. (optional)</param>
+        /// <returns>Task of ApiResponse (Prediction)</returns>
+        System.Threading.Tasks.Task<ApiResponse<Prediction>> Predict_0AsyncWithHttpInfo (string deploymentName, string modelName, System.IO.Stream image = null);
         /// <summary>
         /// Preprocesses the input and run inference on it
         /// </summary>
@@ -1016,6 +1116,159 @@ namespace Skymind.SKIL.Api
             return new ApiResponse<Base64NDArrayBody>(localVarStatusCode,
                 localVarResponse.Headers.ToDictionary(x => x.Name, x => x.Value.ToString()),
                 (Base64NDArrayBody) Configuration.ApiClient.Deserialize(localVarResponse, typeof(Base64NDArrayBody)));
+        }
+
+        /// <summary>
+        /// Use the deployed model to classify the input, using input image file from multipart form data. 
+        /// </summary>
+        /// <exception cref="Skymind.SKIL.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="deploymentName">Name of the deployment group</param>
+        /// <param name="modelName">ID or name of the deployed model</param>
+        /// <param name="image">The file to upload. (optional)</param>
+        /// <returns>ClassificationResult</returns>
+        public ClassificationResult Classifyimage (string deploymentName, string modelName, System.IO.Stream image = null)
+        {
+             ApiResponse<ClassificationResult> localVarResponse = ClassifyimageWithHttpInfo(deploymentName, modelName, image);
+             return localVarResponse.Data;
+        }
+
+        /// <summary>
+        /// Use the deployed model to classify the input, using input image file from multipart form data. 
+        /// </summary>
+        /// <exception cref="Skymind.SKIL.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="deploymentName">Name of the deployment group</param>
+        /// <param name="modelName">ID or name of the deployed model</param>
+        /// <param name="image">The file to upload. (optional)</param>
+        /// <returns>ApiResponse of ClassificationResult</returns>
+        public ApiResponse< ClassificationResult > ClassifyimageWithHttpInfo (string deploymentName, string modelName, System.IO.Stream image = null)
+        {
+            // verify the required parameter 'deploymentName' is set
+            if (deploymentName == null)
+                throw new ApiException(400, "Missing required parameter 'deploymentName' when calling DefaultApi->Classifyimage");
+            // verify the required parameter 'modelName' is set
+            if (modelName == null)
+                throw new ApiException(400, "Missing required parameter 'modelName' when calling DefaultApi->Classifyimage");
+
+            var localVarPath = "/{deploymentName}/model/{modelName}/default/classifyimage";
+            var localVarPathParams = new Dictionary<String, String>();
+            var localVarQueryParams = new List<KeyValuePair<String, String>>();
+            var localVarHeaderParams = new Dictionary<String, String>(Configuration.DefaultHeader);
+            var localVarFormParams = new Dictionary<String, String>();
+            var localVarFileParams = new Dictionary<String, FileParameter>();
+            Object localVarPostBody = null;
+
+            // to determine the Content-Type header
+            String[] localVarHttpContentTypes = new String[] {
+                "multipart/form-data"
+            };
+            String localVarHttpContentType = Configuration.ApiClient.SelectHeaderContentType(localVarHttpContentTypes);
+
+            // to determine the Accept header
+            String[] localVarHttpHeaderAccepts = new String[] {
+                "application/json"
+            };
+            String localVarHttpHeaderAccept = Configuration.ApiClient.SelectHeaderAccept(localVarHttpHeaderAccepts);
+            if (localVarHttpHeaderAccept != null)
+                localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
+
+            if (deploymentName != null) localVarPathParams.Add("deploymentName", Configuration.ApiClient.ParameterToString(deploymentName)); // path parameter
+            if (modelName != null) localVarPathParams.Add("modelName", Configuration.ApiClient.ParameterToString(modelName)); // path parameter
+            if (image != null) localVarFileParams.Add("image", Configuration.ApiClient.ParameterToFile("image", image));
+
+
+            // make the HTTP request
+            IRestResponse localVarResponse = (IRestResponse) Configuration.ApiClient.CallApi(localVarPath,
+                Method.POST, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
+                localVarPathParams, localVarHttpContentType);
+
+            int localVarStatusCode = (int) localVarResponse.StatusCode;
+
+            if (ExceptionFactory != null)
+            {
+                Exception exception = ExceptionFactory("Classifyimage", localVarResponse);
+                if (exception != null) throw exception;
+            }
+
+            return new ApiResponse<ClassificationResult>(localVarStatusCode,
+                localVarResponse.Headers.ToDictionary(x => x.Name, x => x.Value.ToString()),
+                (ClassificationResult) Configuration.ApiClient.Deserialize(localVarResponse, typeof(ClassificationResult)));
+        }
+
+        /// <summary>
+        /// Use the deployed model to classify the input, using input image file from multipart form data. 
+        /// </summary>
+        /// <exception cref="Skymind.SKIL.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="deploymentName">Name of the deployment group</param>
+        /// <param name="modelName">ID or name of the deployed model</param>
+        /// <param name="image">The file to upload. (optional)</param>
+        /// <returns>Task of ClassificationResult</returns>
+        public async System.Threading.Tasks.Task<ClassificationResult> ClassifyimageAsync (string deploymentName, string modelName, System.IO.Stream image = null)
+        {
+             ApiResponse<ClassificationResult> localVarResponse = await ClassifyimageAsyncWithHttpInfo(deploymentName, modelName, image);
+             return localVarResponse.Data;
+
+        }
+
+        /// <summary>
+        /// Use the deployed model to classify the input, using input image file from multipart form data. 
+        /// </summary>
+        /// <exception cref="Skymind.SKIL.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="deploymentName">Name of the deployment group</param>
+        /// <param name="modelName">ID or name of the deployed model</param>
+        /// <param name="image">The file to upload. (optional)</param>
+        /// <returns>Task of ApiResponse (ClassificationResult)</returns>
+        public async System.Threading.Tasks.Task<ApiResponse<ClassificationResult>> ClassifyimageAsyncWithHttpInfo (string deploymentName, string modelName, System.IO.Stream image = null)
+        {
+            // verify the required parameter 'deploymentName' is set
+            if (deploymentName == null)
+                throw new ApiException(400, "Missing required parameter 'deploymentName' when calling DefaultApi->Classifyimage");
+            // verify the required parameter 'modelName' is set
+            if (modelName == null)
+                throw new ApiException(400, "Missing required parameter 'modelName' when calling DefaultApi->Classifyimage");
+
+            var localVarPath = "/{deploymentName}/model/{modelName}/default/classifyimage";
+            var localVarPathParams = new Dictionary<String, String>();
+            var localVarQueryParams = new List<KeyValuePair<String, String>>();
+            var localVarHeaderParams = new Dictionary<String, String>(Configuration.DefaultHeader);
+            var localVarFormParams = new Dictionary<String, String>();
+            var localVarFileParams = new Dictionary<String, FileParameter>();
+            Object localVarPostBody = null;
+
+            // to determine the Content-Type header
+            String[] localVarHttpContentTypes = new String[] {
+                "multipart/form-data"
+            };
+            String localVarHttpContentType = Configuration.ApiClient.SelectHeaderContentType(localVarHttpContentTypes);
+
+            // to determine the Accept header
+            String[] localVarHttpHeaderAccepts = new String[] {
+                "application/json"
+            };
+            String localVarHttpHeaderAccept = Configuration.ApiClient.SelectHeaderAccept(localVarHttpHeaderAccepts);
+            if (localVarHttpHeaderAccept != null)
+                localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
+
+            if (deploymentName != null) localVarPathParams.Add("deploymentName", Configuration.ApiClient.ParameterToString(deploymentName)); // path parameter
+            if (modelName != null) localVarPathParams.Add("modelName", Configuration.ApiClient.ParameterToString(modelName)); // path parameter
+            if (image != null) localVarFileParams.Add("image", Configuration.ApiClient.ParameterToFile("image", image));
+
+
+            // make the HTTP request
+            IRestResponse localVarResponse = (IRestResponse) await Configuration.ApiClient.CallApiAsync(localVarPath,
+                Method.POST, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
+                localVarPathParams, localVarHttpContentType);
+
+            int localVarStatusCode = (int) localVarResponse.StatusCode;
+
+            if (ExceptionFactory != null)
+            {
+                Exception exception = ExceptionFactory("Classifyimage", localVarResponse);
+                if (exception != null) throw exception;
+            }
+
+            return new ApiResponse<ClassificationResult>(localVarStatusCode,
+                localVarResponse.Headers.ToDictionary(x => x.Name, x => x.Value.ToString()),
+                (ClassificationResult) Configuration.ApiClient.Deserialize(localVarResponse, typeof(ClassificationResult)));
         }
 
         /// <summary>
@@ -2153,6 +2406,159 @@ namespace Skymind.SKIL.Api
             if (ExceptionFactory != null)
             {
                 Exception exception = ExceptionFactory("Predict", localVarResponse);
+                if (exception != null) throw exception;
+            }
+
+            return new ApiResponse<Prediction>(localVarStatusCode,
+                localVarResponse.Headers.ToDictionary(x => x.Name, x => x.Value.ToString()),
+                (Prediction) Configuration.ApiClient.Deserialize(localVarResponse, typeof(Prediction)));
+        }
+
+        /// <summary>
+        /// Run inference on the input array, using input image file from multipart form data. 
+        /// </summary>
+        /// <exception cref="Skymind.SKIL.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="deploymentName">Name of the deployment group</param>
+        /// <param name="modelName">ID or name of the deployed model</param>
+        /// <param name="image">The file to upload. (optional)</param>
+        /// <returns>Prediction</returns>
+        public Prediction Predict_0 (string deploymentName, string modelName, System.IO.Stream image = null)
+        {
+             ApiResponse<Prediction> localVarResponse = Predict_0WithHttpInfo(deploymentName, modelName, image);
+             return localVarResponse.Data;
+        }
+
+        /// <summary>
+        /// Run inference on the input array, using input image file from multipart form data. 
+        /// </summary>
+        /// <exception cref="Skymind.SKIL.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="deploymentName">Name of the deployment group</param>
+        /// <param name="modelName">ID or name of the deployed model</param>
+        /// <param name="image">The file to upload. (optional)</param>
+        /// <returns>ApiResponse of Prediction</returns>
+        public ApiResponse< Prediction > Predict_0WithHttpInfo (string deploymentName, string modelName, System.IO.Stream image = null)
+        {
+            // verify the required parameter 'deploymentName' is set
+            if (deploymentName == null)
+                throw new ApiException(400, "Missing required parameter 'deploymentName' when calling DefaultApi->Predict_0");
+            // verify the required parameter 'modelName' is set
+            if (modelName == null)
+                throw new ApiException(400, "Missing required parameter 'modelName' when calling DefaultApi->Predict_0");
+
+            var localVarPath = "/{deploymentName}/model/{modelName}/default/predictimage";
+            var localVarPathParams = new Dictionary<String, String>();
+            var localVarQueryParams = new List<KeyValuePair<String, String>>();
+            var localVarHeaderParams = new Dictionary<String, String>(Configuration.DefaultHeader);
+            var localVarFormParams = new Dictionary<String, String>();
+            var localVarFileParams = new Dictionary<String, FileParameter>();
+            Object localVarPostBody = null;
+
+            // to determine the Content-Type header
+            String[] localVarHttpContentTypes = new String[] {
+                "multipart/form-data"
+            };
+            String localVarHttpContentType = Configuration.ApiClient.SelectHeaderContentType(localVarHttpContentTypes);
+
+            // to determine the Accept header
+            String[] localVarHttpHeaderAccepts = new String[] {
+                "application/json"
+            };
+            String localVarHttpHeaderAccept = Configuration.ApiClient.SelectHeaderAccept(localVarHttpHeaderAccepts);
+            if (localVarHttpHeaderAccept != null)
+                localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
+
+            if (deploymentName != null) localVarPathParams.Add("deploymentName", Configuration.ApiClient.ParameterToString(deploymentName)); // path parameter
+            if (modelName != null) localVarPathParams.Add("modelName", Configuration.ApiClient.ParameterToString(modelName)); // path parameter
+            if (image != null) localVarFileParams.Add("image", Configuration.ApiClient.ParameterToFile("image", image));
+
+
+            // make the HTTP request
+            IRestResponse localVarResponse = (IRestResponse) Configuration.ApiClient.CallApi(localVarPath,
+                Method.POST, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
+                localVarPathParams, localVarHttpContentType);
+
+            int localVarStatusCode = (int) localVarResponse.StatusCode;
+
+            if (ExceptionFactory != null)
+            {
+                Exception exception = ExceptionFactory("Predict_0", localVarResponse);
+                if (exception != null) throw exception;
+            }
+
+            return new ApiResponse<Prediction>(localVarStatusCode,
+                localVarResponse.Headers.ToDictionary(x => x.Name, x => x.Value.ToString()),
+                (Prediction) Configuration.ApiClient.Deserialize(localVarResponse, typeof(Prediction)));
+        }
+
+        /// <summary>
+        /// Run inference on the input array, using input image file from multipart form data. 
+        /// </summary>
+        /// <exception cref="Skymind.SKIL.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="deploymentName">Name of the deployment group</param>
+        /// <param name="modelName">ID or name of the deployed model</param>
+        /// <param name="image">The file to upload. (optional)</param>
+        /// <returns>Task of Prediction</returns>
+        public async System.Threading.Tasks.Task<Prediction> Predict_0Async (string deploymentName, string modelName, System.IO.Stream image = null)
+        {
+             ApiResponse<Prediction> localVarResponse = await Predict_0AsyncWithHttpInfo(deploymentName, modelName, image);
+             return localVarResponse.Data;
+
+        }
+
+        /// <summary>
+        /// Run inference on the input array, using input image file from multipart form data. 
+        /// </summary>
+        /// <exception cref="Skymind.SKIL.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="deploymentName">Name of the deployment group</param>
+        /// <param name="modelName">ID or name of the deployed model</param>
+        /// <param name="image">The file to upload. (optional)</param>
+        /// <returns>Task of ApiResponse (Prediction)</returns>
+        public async System.Threading.Tasks.Task<ApiResponse<Prediction>> Predict_0AsyncWithHttpInfo (string deploymentName, string modelName, System.IO.Stream image = null)
+        {
+            // verify the required parameter 'deploymentName' is set
+            if (deploymentName == null)
+                throw new ApiException(400, "Missing required parameter 'deploymentName' when calling DefaultApi->Predict_0");
+            // verify the required parameter 'modelName' is set
+            if (modelName == null)
+                throw new ApiException(400, "Missing required parameter 'modelName' when calling DefaultApi->Predict_0");
+
+            var localVarPath = "/{deploymentName}/model/{modelName}/default/predictimage";
+            var localVarPathParams = new Dictionary<String, String>();
+            var localVarQueryParams = new List<KeyValuePair<String, String>>();
+            var localVarHeaderParams = new Dictionary<String, String>(Configuration.DefaultHeader);
+            var localVarFormParams = new Dictionary<String, String>();
+            var localVarFileParams = new Dictionary<String, FileParameter>();
+            Object localVarPostBody = null;
+
+            // to determine the Content-Type header
+            String[] localVarHttpContentTypes = new String[] {
+                "multipart/form-data"
+            };
+            String localVarHttpContentType = Configuration.ApiClient.SelectHeaderContentType(localVarHttpContentTypes);
+
+            // to determine the Accept header
+            String[] localVarHttpHeaderAccepts = new String[] {
+                "application/json"
+            };
+            String localVarHttpHeaderAccept = Configuration.ApiClient.SelectHeaderAccept(localVarHttpHeaderAccepts);
+            if (localVarHttpHeaderAccept != null)
+                localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
+
+            if (deploymentName != null) localVarPathParams.Add("deploymentName", Configuration.ApiClient.ParameterToString(deploymentName)); // path parameter
+            if (modelName != null) localVarPathParams.Add("modelName", Configuration.ApiClient.ParameterToString(modelName)); // path parameter
+            if (image != null) localVarFileParams.Add("image", Configuration.ApiClient.ParameterToFile("image", image));
+
+
+            // make the HTTP request
+            IRestResponse localVarResponse = (IRestResponse) await Configuration.ApiClient.CallApiAsync(localVarPath,
+                Method.POST, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
+                localVarPathParams, localVarHttpContentType);
+
+            int localVarStatusCode = (int) localVarResponse.StatusCode;
+
+            if (ExceptionFactory != null)
+            {
+                Exception exception = ExceptionFactory("Predict_0", localVarResponse);
                 if (exception != null) throw exception;
             }
 

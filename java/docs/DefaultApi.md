@@ -6,6 +6,7 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**classify**](DefaultApi.md#classify) | **POST** /{deploymentName}/model/{modelName}/default/classify | Use the deployed model to classify the input
 [**classifyarray**](DefaultApi.md#classifyarray) | **POST** /{deploymentName}/model/{modelName}/default/classifyarray | Same as /classify but returns the output as Base64NDArrayBody
+[**classifyimage**](DefaultApi.md#classifyimage) | **POST** /{deploymentName}/model/{modelName}/default/classifyimage | Use the deployed model to classify the input, using input image file from multipart form data.
 [**jsonarray**](DefaultApi.md#jsonarray) | **POST** /{deploymentName}/model/{modelName}/default/jsonarray | Run inference on the input and returns it as a JsonArrayResponse
 [**logfilepath**](DefaultApi.md#logfilepath) | **GET** /{deploymentName}/model/{modelName}/default/logfilepath | Get logs file path
 [**logs**](DefaultApi.md#logs) | **POST** /{deploymentName}/model/{modelName}/default/logs | Get logs
@@ -13,6 +14,7 @@ Method | HTTP request | Description
 [**modelupdate**](DefaultApi.md#modelupdate) | **POST** /{deploymentName}/model/{modelName}/default/modelupdate | Update the model to be served
 [**multiclassify**](DefaultApi.md#multiclassify) | **POST** /{deploymentName}/model/{modelName}/default/multiclassify | Represents all of the labels for a given classification
 [**predict**](DefaultApi.md#predict) | **POST** /{deploymentName}/model/{modelName}/default/predict | Run inference on the input array.
+[**predict_0**](DefaultApi.md#predict_0) | **POST** /{deploymentName}/model/{modelName}/default/predictimage | Run inference on the input array, using input image file from multipart form data.
 [**predictwithpreprocess**](DefaultApi.md#predictwithpreprocess) | **POST** /{deploymentName}/model/{modelName}/default/predictwithpreprocess | Preprocesses the input and run inference on it
 [**predictwithpreprocessjson**](DefaultApi.md#predictwithpreprocessjson) | **POST** /{deploymentName}/model/{modelName}/default/predictwithpreprocessjson | Preprocesses the input and run inference on it and returns it as a JsonArrayResponse
 
@@ -109,6 +111,53 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: application/json
+ - **Accept**: application/json
+
+<a name="classifyimage"></a>
+# **classifyimage**
+> ClassificationResult classifyimage(deploymentName, modelName, image)
+
+Use the deployed model to classify the input, using input image file from multipart form data.
+
+### Example
+```java
+// Import classes:
+//import ai.skymind.ApiException;
+//import ai.skymind.skil.DefaultApi;
+
+
+DefaultApi apiInstance = new DefaultApi();
+String deploymentName = "deploymentName_example"; // String | Name of the deployment group
+String modelName = "modelName_example"; // String | ID or name of the deployed model
+File image = new File("/path/to/file.txt"); // File | The file to upload.
+try {
+    ClassificationResult result = apiInstance.classifyimage(deploymentName, modelName, image);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling DefaultApi#classifyimage");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **deploymentName** | **String**| Name of the deployment group |
+ **modelName** | **String**| ID or name of the deployed model |
+ **image** | **File**| The file to upload. | [optional]
+
+### Return type
+
+[**ClassificationResult**](ClassificationResult.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: multipart/form-data
  - **Accept**: application/json
 
 <a name="jsonarray"></a>
@@ -436,6 +485,53 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: application/json
+ - **Accept**: application/json
+
+<a name="predict_0"></a>
+# **predict_0**
+> Prediction predict_0(deploymentName, modelName, image)
+
+Run inference on the input array, using input image file from multipart form data.
+
+### Example
+```java
+// Import classes:
+//import ai.skymind.ApiException;
+//import ai.skymind.skil.DefaultApi;
+
+
+DefaultApi apiInstance = new DefaultApi();
+String deploymentName = "deploymentName_example"; // String | Name of the deployment group
+String modelName = "modelName_example"; // String | ID or name of the deployed model
+File image = new File("/path/to/file.txt"); // File | The file to upload.
+try {
+    Prediction result = apiInstance.predict_0(deploymentName, modelName, image);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling DefaultApi#predict_0");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **deploymentName** | **String**| Name of the deployment group |
+ **modelName** | **String**| ID or name of the deployed model |
+ **image** | **File**| The file to upload. | [optional]
+
+### Return type
+
+[**Prediction**](Prediction.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: multipart/form-data
  - **Accept**: application/json
 
 <a name="predictwithpreprocess"></a>

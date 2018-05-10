@@ -77,6 +77,24 @@ public class DefaultApiTest {
     }
     
     /**
+     * Use the deployed model to classify the input, using input image file from multipart form data.
+     *
+     * 
+     *
+     * @throws ApiException
+     *          if the Api call fails
+     */
+    @Test
+    public void classifyimageTest() throws ApiException {
+        String deploymentName = null;
+        String modelName = null;
+        File image = null;
+        ClassificationResult response = api.classifyimage(deploymentName, modelName, image);
+
+        // TODO: test validations
+    }
+    
+    /**
      * Run inference on the input and returns it as a JsonArrayResponse
      *
      * 
@@ -197,6 +215,24 @@ public class DefaultApiTest {
         String deploymentName = null;
         String modelName = null;
         Prediction response = api.predict(body, deploymentName, modelName);
+
+        // TODO: test validations
+    }
+    
+    /**
+     * Run inference on the input array, using input image file from multipart form data.
+     *
+     * 
+     *
+     * @throws ApiException
+     *          if the Api call fails
+     */
+    @Test
+    public void predict_0Test() throws ApiException {
+        String deploymentName = null;
+        String modelName = null;
+        File image = null;
+        Prediction response = api.predict_0(deploymentName, modelName, image);
 
         // TODO: test validations
     }

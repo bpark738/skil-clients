@@ -148,6 +148,36 @@ class DefaultApi(
   }
 
   /**
+   * Use the deployed model to classify the input, using input image file from multipart form data.
+   * 
+   *
+   * @param DeploymentName Name of the deployment group 
+   * @param ModelName ID or name of the deployed model 
+   * @param Image The file to upload. (optional)
+   * @return ClassificationResult
+   */
+  def classifyimage(DeploymentName: String, ModelName: String, Image: Option[File] = None): Option[ClassificationResult] = {
+    val await = Try(Await.result(classifyimageAsync(DeploymentName, ModelName, Image), Duration.Inf))
+    await match {
+      case Success(i) => Some(await.get)
+      case Failure(t) => None
+    }
+  }
+
+  /**
+   * Use the deployed model to classify the input, using input image file from multipart form data. asynchronously
+   * 
+   *
+   * @param DeploymentName Name of the deployment group 
+   * @param ModelName ID or name of the deployed model 
+   * @param Image The file to upload. (optional)
+   * @return Future(ClassificationResult)
+   */
+  def classifyimageAsync(DeploymentName: String, ModelName: String, Image: Option[File] = None): Future[ClassificationResult] = {
+      helper.classifyimage(DeploymentName, ModelName, Image)
+  }
+
+  /**
    * Run inference on the input and returns it as a JsonArrayResponse
    * 
    *
@@ -356,6 +386,36 @@ class DefaultApi(
   }
 
   /**
+   * Run inference on the input array, using input image file from multipart form data.
+   * 
+   *
+   * @param DeploymentName Name of the deployment group 
+   * @param ModelName ID or name of the deployed model 
+   * @param Image The file to upload. (optional)
+   * @return Prediction
+   */
+  def predict_0(DeploymentName: String, ModelName: String, Image: Option[File] = None): Option[Prediction] = {
+    val await = Try(Await.result(predict_0Async(DeploymentName, ModelName, Image), Duration.Inf))
+    await match {
+      case Success(i) => Some(await.get)
+      case Failure(t) => None
+    }
+  }
+
+  /**
+   * Run inference on the input array, using input image file from multipart form data. asynchronously
+   * 
+   *
+   * @param DeploymentName Name of the deployment group 
+   * @param ModelName ID or name of the deployed model 
+   * @param Image The file to upload. (optional)
+   * @return Future(Prediction)
+   */
+  def predict_0Async(DeploymentName: String, ModelName: String, Image: Option[File] = None): Future[Prediction] = {
+      helper.predict_0(DeploymentName, ModelName, Image)
+  }
+
+  /**
    * Preprocesses the input and run inference on it
    * 
    *
@@ -462,6 +522,30 @@ class DefaultApiAsyncHelper(client: TransportClient, config: SwaggerConfig) exte
 
 
     val resFuture = client.submit("POST", path, queryParams.toMap, headerParams.toMap, writer.write(Body))
+    resFuture flatMap { resp =>
+      process(reader.read(resp))
+    }
+  }
+
+  def classifyimage(DeploymentName: String,
+    ModelName: String,
+    Image: Option[File] = None
+    )(implicit reader: ClientResponseReader[ClassificationResult]): Future[ClassificationResult] = {
+    // create path and map variables
+    val path = (addFmt("/{deploymentName}/model/{modelName}/default/classifyimage")
+      replaceAll("\\{" + "deploymentName" + "\\}", DeploymentName.toString)
+      replaceAll("\\{" + "modelName" + "\\}", ModelName.toString))
+
+    // query params
+    val queryParams = new mutable.HashMap[String, String]
+    val headerParams = new mutable.HashMap[String, String]
+
+    if (DeploymentName == null) throw new Exception("Missing required parameter 'DeploymentName' when calling DefaultApi->classifyimage")
+
+    if (ModelName == null) throw new Exception("Missing required parameter 'ModelName' when calling DefaultApi->classifyimage")
+
+
+    val resFuture = client.submit("POST", path, queryParams.toMap, headerParams.toMap, "")
     resFuture flatMap { resp =>
       process(reader.read(resp))
     }
@@ -628,6 +712,30 @@ class DefaultApiAsyncHelper(client: TransportClient, config: SwaggerConfig) exte
 
 
     val resFuture = client.submit("POST", path, queryParams.toMap, headerParams.toMap, writer.write(Body))
+    resFuture flatMap { resp =>
+      process(reader.read(resp))
+    }
+  }
+
+  def predict_0(DeploymentName: String,
+    ModelName: String,
+    Image: Option[File] = None
+    )(implicit reader: ClientResponseReader[Prediction]): Future[Prediction] = {
+    // create path and map variables
+    val path = (addFmt("/{deploymentName}/model/{modelName}/default/predictimage")
+      replaceAll("\\{" + "deploymentName" + "\\}", DeploymentName.toString)
+      replaceAll("\\{" + "modelName" + "\\}", ModelName.toString))
+
+    // query params
+    val queryParams = new mutable.HashMap[String, String]
+    val headerParams = new mutable.HashMap[String, String]
+
+    if (DeploymentName == null) throw new Exception("Missing required parameter 'DeploymentName' when calling DefaultApi->predict_0")
+
+    if (ModelName == null) throw new Exception("Missing required parameter 'ModelName' when calling DefaultApi->predict_0")
+
+
+    val resFuture = client.submit("POST", path, queryParams.toMap, headerParams.toMap, "")
     resFuture flatMap { resp =>
       process(reader.read(resp))
     }

@@ -43,6 +43,13 @@ class TestDefaultApi(unittest.TestCase):
         """
         pass
 
+    def test_classifyimage(self):
+        """Test case for classifyimage
+
+        Use the deployed model to classify the input, using input image file from multipart form data.  # noqa: E501
+        """
+        pass
+
     def test_jsonarray(self):
         """Test case for jsonarray
 
@@ -89,6 +96,13 @@ class TestDefaultApi(unittest.TestCase):
         """Test case for predict
 
         Run inference on the input array.  # noqa: E501
+        """
+        pass
+
+    def test_predict_0(self):
+        """Test case for predict_0
+
+        Run inference on the input array, using input image file from multipart form data.  # noqa: E501
         """
         pass
 

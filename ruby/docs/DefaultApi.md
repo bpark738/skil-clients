@@ -6,6 +6,7 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**classify**](DefaultApi.md#classify) | **POST** /{deploymentName}/model/{modelName}/default/classify | Use the deployed model to classify the input
 [**classifyarray**](DefaultApi.md#classifyarray) | **POST** /{deploymentName}/model/{modelName}/default/classifyarray | Same as /classify but returns the output as Base64NDArrayBody
+[**classifyimage**](DefaultApi.md#classifyimage) | **POST** /{deploymentName}/model/{modelName}/default/classifyimage | Use the deployed model to classify the input, using input image file from multipart form data.
 [**jsonarray**](DefaultApi.md#jsonarray) | **POST** /{deploymentName}/model/{modelName}/default/jsonarray | Run inference on the input and returns it as a JsonArrayResponse
 [**logfilepath**](DefaultApi.md#logfilepath) | **GET** /{deploymentName}/model/{modelName}/default/logfilepath | Get logs file path
 [**logs**](DefaultApi.md#logs) | **POST** /{deploymentName}/model/{modelName}/default/logs | Get logs
@@ -13,6 +14,7 @@ Method | HTTP request | Description
 [**modelupdate**](DefaultApi.md#modelupdate) | **POST** /{deploymentName}/model/{modelName}/default/modelupdate | Update the model to be served
 [**multiclassify**](DefaultApi.md#multiclassify) | **POST** /{deploymentName}/model/{modelName}/default/multiclassify | Represents all of the labels for a given classification
 [**predict**](DefaultApi.md#predict) | **POST** /{deploymentName}/model/{modelName}/default/predict | Run inference on the input array.
+[**predict_0**](DefaultApi.md#predict_0) | **POST** /{deploymentName}/model/{modelName}/default/predictimage | Run inference on the input array, using input image file from multipart form data.
 [**predictwithpreprocess**](DefaultApi.md#predictwithpreprocess) | **POST** /{deploymentName}/model/{modelName}/default/predictwithpreprocess | Preprocesses the input and run inference on it
 [**predictwithpreprocessjson**](DefaultApi.md#predictwithpreprocessjson) | **POST** /{deploymentName}/model/{modelName}/default/predictwithpreprocessjson | Preprocesses the input and run inference on it and returns it as a JsonArrayResponse
 
@@ -115,6 +117,58 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: application/json
+ - **Accept**: application/json
+
+
+
+# **classifyimage**
+> ClassificationResult classifyimage(deployment_name, model_name, opts)
+
+Use the deployed model to classify the input, using input image file from multipart form data.
+
+### Example
+```ruby
+# load the gem
+require 'skil_client'
+
+api_instance = SkilCient::DefaultApi.new
+
+deployment_name = "deployment_name_example" # String | Name of the deployment group
+
+model_name = "model_name_example" # String | ID or name of the deployed model
+
+opts = { 
+  image: File.new("/path/to/file.txt") # File | The file to upload.
+}
+
+begin
+  #Use the deployed model to classify the input, using input image file from multipart form data.
+  result = api_instance.classifyimage(deployment_name, model_name, opts)
+  p result
+rescue SkilCient::ApiError => e
+  puts "Exception when calling DefaultApi->classifyimage: #{e}"
+end
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **deployment_name** | **String**| Name of the deployment group | 
+ **model_name** | **String**| ID or name of the deployed model | 
+ **image** | **File**| The file to upload. | [optional] 
+
+### Return type
+
+[**ClassificationResult**](ClassificationResult.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: multipart/form-data
  - **Accept**: application/json
 
 
@@ -471,6 +525,58 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: application/json
+ - **Accept**: application/json
+
+
+
+# **predict_0**
+> Prediction predict_0(deployment_name, model_name, opts)
+
+Run inference on the input array, using input image file from multipart form data.
+
+### Example
+```ruby
+# load the gem
+require 'skil_client'
+
+api_instance = SkilCient::DefaultApi.new
+
+deployment_name = "deployment_name_example" # String | Name of the deployment group
+
+model_name = "model_name_example" # String | ID or name of the deployed model
+
+opts = { 
+  image: File.new("/path/to/file.txt") # File | The file to upload.
+}
+
+begin
+  #Run inference on the input array, using input image file from multipart form data.
+  result = api_instance.predict_0(deployment_name, model_name, opts)
+  p result
+rescue SkilCient::ApiError => e
+  puts "Exception when calling DefaultApi->predict_0: #{e}"
+end
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **deployment_name** | **String**| Name of the deployment group | 
+ **model_name** | **String**| ID or name of the deployed model | 
+ **image** | **File**| The file to upload. | [optional] 
+
+### Return type
+
+[**Prediction**](Prediction.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: multipart/form-data
  - **Accept**: application/json
 
 
