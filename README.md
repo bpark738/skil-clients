@@ -25,7 +25,7 @@ from skil_client.configuration import Configuration
 
 # configure
 config = Configuration()
-config.host = "http://104.209.145.76:9008"
+config.host = "http://x.x.x.x:9008"
 config.debug = True
 
 # create an instance of the API class
