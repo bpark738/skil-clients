@@ -20,9 +20,16 @@ apiClient.setBasePath(newUrl.toString());
 **Python**
 ```python
 import skil_client
+from skil_client import ApiClient
+from skil_client.configuration import Configuration
 
-skil_client.host = "http://5.5.5.5:9008"
-client = skil_client.DefaultApi()
+# configure
+config = Configuration()
+config.host = "http://104.209.145.76:9008"
+config.debug = True
+
+# create an instance of the API class
+api_instance = skil_client.DefaultApi(api_client=ApiClient(configuration=config))
 ```
 
 ## Building the clients
