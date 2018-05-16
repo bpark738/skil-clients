@@ -24,7 +24,7 @@ case class DeployModel (
   LabelsFileLocation: Option[String] = None,
   ExtraArgs: Option[String] = None,
   EtlJson: Option[String] = None,
-  InputNames: Option[String] = None,
-  OutputNames: Option[String] = None
+  InputNames: Option[List[String]] = None,
+  OutputNames: Option[List[String]] = None
 )
 

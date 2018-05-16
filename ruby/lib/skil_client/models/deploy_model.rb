@@ -71,8 +71,8 @@ module SkilCient
         :'labels_file_location' => :'String',
         :'extra_args' => :'String',
         :'etl_json' => :'String',
-        :'input_names' => :'String',
-        :'output_names' => :'String'
+        :'input_names' => :'Array<String>',
+        :'output_names' => :'Array<String>'
       }
     end
 
@@ -125,11 +125,15 @@ module SkilCient
       end
 
       if attributes.has_key?(:'inputNames')
-        self.input_names = attributes[:'inputNames']
+        if (value = attributes[:'inputNames']).is_a?(Array)
+          self.input_names = value
+        end
       end
 
       if attributes.has_key?(:'outputNames')
-        self.output_names = attributes[:'outputNames']
+        if (value = attributes[:'outputNames']).is_a?(Array)
+          self.output_names = value
+        end
       end
 
     end

@@ -13,7 +13,7 @@ Name | Type | Description | Notes
 **labels_file_location** | **String** |  | [optional] 
 **extra_args** | **String** |  | [optional] 
 **etl_json** | **String** |  | [optional] 
-**input_names** | **String** |  | [optional] 
-**output_names** | **String** |  | [optional] 
+**input_names** | **Array&lt;String&gt;** |  | [optional] 
+**output_names** | **Array&lt;String&gt;** |  | [optional] 
 
 

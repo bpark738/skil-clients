@@ -31,7 +31,7 @@ type DeployModel struct {
 
 	EtlJson string `json:"etlJson,omitempty"`
 
-	InputNames string `json:"inputNames,omitempty"`
+	InputNames []string `json:"inputNames,omitempty"`
 
-	OutputNames string `json:"outputNames,omitempty"`
+	OutputNames []string `json:"outputNames,omitempty"`
 }

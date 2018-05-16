@@ -23,10 +23,16 @@ package ai.skymind.skil.client.model {
         public var extraArgs: String = null;
                 [XmlElement(name="etlJson")]
         public var etlJson: String = null;
-                [XmlElement(name="inputNames")]
-        public var inputNames: String = null;
-                [XmlElement(name="outputNames")]
-        public var outputNames: String = null;
+                // This declaration below of _inputNames_obj_class is to force flash compiler to include this class
+        private var _inputNames_obj_class: Array = null;
+        [XmlElementWrapper(name="inputNames")]
+        [XmlElements(name="inputNames", type="Array")]
+                public var inputNames: Array = new Array();
+                // This declaration below of _outputNames_obj_class is to force flash compiler to include this class
+        private var _outputNames_obj_class: Array = null;
+        [XmlElementWrapper(name="outputNames")]
+        [XmlElements(name="outputNames", type="Array")]
+                public var outputNames: Array = new Array();
 
     public function toString(): String {
         var str: String = "DeployModel: ";

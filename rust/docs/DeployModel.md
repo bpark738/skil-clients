@@ -13,8 +13,8 @@ Name | Type | Description | Notes
 **labels_file_location** | **String** |  | [optional] [default to null]
 **extra_args** | **String** |  | [optional] [default to null]
 **etl_json** | **String** |  | [optional] [default to null]
-**input_names** | **String** |  | [optional] [default to null]
-**output_names** | **String** |  | [optional] [default to null]
+**input_names** | **Vec<String>** |  | [optional] [default to null]
+**output_names** | **Vec<String>** |  | [optional] [default to null]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

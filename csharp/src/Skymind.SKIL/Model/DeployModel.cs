@@ -45,7 +45,7 @@ namespace Skymind.SKIL.Model
         /// <param name="EtlJson">EtlJson.</param>
         /// <param name="InputNames">InputNames.</param>
         /// <param name="OutputNames">OutputNames.</param>
-        public DeployModel(string Name = default(string), int? Scale = default(int?), string Uri = default(string), string ModelType = default(string), string FileLocation = default(string), string JvmArgs = default(string), string SubType = default(string), string LabelsFileLocation = default(string), string ExtraArgs = default(string), string EtlJson = default(string), string InputNames = default(string), string OutputNames = default(string))
+        public DeployModel(string Name = default(string), int? Scale = default(int?), string Uri = default(string), string ModelType = default(string), string FileLocation = default(string), string JvmArgs = default(string), string SubType = default(string), string LabelsFileLocation = default(string), string ExtraArgs = default(string), string EtlJson = default(string), List<string> InputNames = default(List<string>), List<string> OutputNames = default(List<string>))
         {
             this.Name = Name;
             this.Scale = Scale;
@@ -125,13 +125,13 @@ namespace Skymind.SKIL.Model
         /// Gets or Sets InputNames
         /// </summary>
         [DataMember(Name="inputNames", EmitDefaultValue=false)]
-        public string InputNames { get; set; }
+        public List<string> InputNames { get; set; }
 
         /// <summary>
         /// Gets or Sets OutputNames
         /// </summary>
         [DataMember(Name="outputNames", EmitDefaultValue=false)]
-        public string OutputNames { get; set; }
+        public List<string> OutputNames { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -239,13 +239,13 @@ namespace Skymind.SKIL.Model
                 ) && 
                 (
                     this.InputNames == input.InputNames ||
-                    (this.InputNames != null &&
-                    this.InputNames.Equals(input.InputNames))
+                    this.InputNames != null &&
+                    this.InputNames.SequenceEqual(input.InputNames)
                 ) && 
                 (
                     this.OutputNames == input.OutputNames ||
-                    (this.OutputNames != null &&
-                    this.OutputNames.Equals(input.OutputNames))
+                    this.OutputNames != null &&
+                    this.OutputNames.SequenceEqual(input.OutputNames)
                 );
         }
 

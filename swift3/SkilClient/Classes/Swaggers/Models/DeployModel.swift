@@ -20,8 +20,8 @@ open class DeployModel: JSONEncodable {
     public var labelsFileLocation: String?
     public var extraArgs: String?
     public var etlJson: String?
-    public var inputNames: String?
-    public var outputNames: String?
+    public var inputNames: [String]?
+    public var outputNames: [String]?
 
     public init() {}
 
@@ -38,8 +38,8 @@ open class DeployModel: JSONEncodable {
         nillableDictionary["labelsFileLocation"] = self.labelsFileLocation
         nillableDictionary["extraArgs"] = self.extraArgs
         nillableDictionary["etlJson"] = self.etlJson
-        nillableDictionary["inputNames"] = self.inputNames
-        nillableDictionary["outputNames"] = self.outputNames
+        nillableDictionary["inputNames"] = self.inputNames?.encodeToJSON()
+        nillableDictionary["outputNames"] = self.outputNames?.encodeToJSON()
 
         let dictionary: [String:Any] = APIHelper.rejectNil(nillableDictionary) ?? [:]
         return dictionary

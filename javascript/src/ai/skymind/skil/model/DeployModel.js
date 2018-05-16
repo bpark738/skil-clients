@@ -103,10 +103,10 @@
         obj['etlJson'] = ApiClient.convertToType(data['etlJson'], 'String');
       }
       if (data.hasOwnProperty('inputNames')) {
-        obj['inputNames'] = ApiClient.convertToType(data['inputNames'], 'String');
+        obj['inputNames'] = ApiClient.convertToType(data['inputNames'], ['String']);
       }
       if (data.hasOwnProperty('outputNames')) {
-        obj['outputNames'] = ApiClient.convertToType(data['outputNames'], 'String');
+        obj['outputNames'] = ApiClient.convertToType(data['outputNames'], ['String']);
       }
     }
     return obj;
@@ -153,11 +153,11 @@
    */
   exports.prototype['etlJson'] = undefined;
   /**
-   * @member {String} inputNames
+   * @member {Array.<String>} inputNames
    */
   exports.prototype['inputNames'] = undefined;
   /**
-   * @member {String} outputNames
+   * @member {Array.<String>} outputNames
    */
   exports.prototype['outputNames'] = undefined;
 

@@ -13,8 +13,8 @@ Name | Type | Description | Notes
 **labels_file_location** | **str** |  | [optional] 
 **extra_args** | **str** |  | [optional] 
 **etl_json** | **str** |  | [optional] 
-**input_names** | **str** |  | [optional] 
-**output_names** | **str** |  | [optional] 
+**input_names** | **list[str]** |  | [optional] 
+**output_names** | **list[str]** |  | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

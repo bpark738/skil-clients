@@ -22,11 +22,13 @@ import com.google.gson.stream.JsonWriter;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * DeployModel
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2018-05-16T02:34:01.445-04:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2018-05-16T11:18:29.789-04:00")
 public class DeployModel {
   @SerializedName("name")
   private String name = null;
@@ -59,10 +61,10 @@ public class DeployModel {
   private String etlJson = null;
 
   @SerializedName("inputNames")
-  private String inputNames = null;
+  private List<String> inputNames = null;
 
   @SerializedName("outputNames")
-  private String outputNames = null;
+  private List<String> outputNames = null;
 
   public DeployModel name(String name) {
     this.name = name;
@@ -244,8 +246,16 @@ public class DeployModel {
     this.etlJson = etlJson;
   }
 
-  public DeployModel inputNames(String inputNames) {
+  public DeployModel inputNames(List<String> inputNames) {
     this.inputNames = inputNames;
+    return this;
+  }
+
+  public DeployModel addInputNamesItem(String inputNamesItem) {
+    if (this.inputNames == null) {
+      this.inputNames = new ArrayList<String>();
+    }
+    this.inputNames.add(inputNamesItem);
     return this;
   }
 
@@ -254,16 +264,24 @@ public class DeployModel {
    * @return inputNames
   **/
   @ApiModelProperty(value = "")
-  public String getInputNames() {
+  public List<String> getInputNames() {
     return inputNames;
   }
 
-  public void setInputNames(String inputNames) {
+  public void setInputNames(List<String> inputNames) {
     this.inputNames = inputNames;
   }
 
-  public DeployModel outputNames(String outputNames) {
+  public DeployModel outputNames(List<String> outputNames) {
     this.outputNames = outputNames;
+    return this;
+  }
+
+  public DeployModel addOutputNamesItem(String outputNamesItem) {
+    if (this.outputNames == null) {
+      this.outputNames = new ArrayList<String>();
+    }
+    this.outputNames.add(outputNamesItem);
     return this;
   }
 
@@ -272,11 +290,11 @@ public class DeployModel {
    * @return outputNames
   **/
   @ApiModelProperty(value = "")
-  public String getOutputNames() {
+  public List<String> getOutputNames() {
     return outputNames;
   }
 
-  public void setOutputNames(String outputNames) {
+  public void setOutputNames(List<String> outputNames) {
     this.outputNames = outputNames;
   }
 

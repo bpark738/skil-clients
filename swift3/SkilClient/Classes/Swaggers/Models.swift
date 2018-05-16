@@ -435,13 +435,13 @@ class Decoders {
                 case let .failure(error): break
                 
                 }
-                switch Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["inputNames"] as AnyObject?) {
+                switch Decoders.decodeOptional(clazz: [String].self, source: sourceDictionary["inputNames"] as AnyObject?) {
                 
                 case let .success(value): _result.inputNames = value
                 case let .failure(error): break
                 
                 }
-                switch Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["outputNames"] as AnyObject?) {
+                switch Decoders.decodeOptional(clazz: [String].self, source: sourceDictionary["outputNames"] as AnyObject?) {
                 
                 case let .success(value): _result.outputNames = value
                 case let .failure(error): break

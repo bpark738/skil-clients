@@ -13,8 +13,8 @@ Name | Type | Description | Notes
 **LabelsFileLocation** | **string** |  | [optional] [default to null]
 **ExtraArgs** | **string** |  | [optional] [default to null]
 **EtlJson** | **string** |  | [optional] [default to null]
-**InputNames** | **string** |  | [optional] [default to null]
-**OutputNames** | **string** |  | [optional] [default to null]
+**InputNames** | **[]string** |  | [optional] [default to null]
+**OutputNames** | **[]string** |  | [optional] [default to null]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

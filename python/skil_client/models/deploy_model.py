@@ -41,8 +41,8 @@ class DeployModel(object):
         'labels_file_location': 'str',
         'extra_args': 'str',
         'etl_json': 'str',
-        'input_names': 'str',
-        'output_names': 'str'
+        'input_names': 'list[str]',
+        'output_names': 'list[str]'
     }
 
     attribute_map = {
@@ -318,7 +318,7 @@ class DeployModel(object):
 
 
         :return: The input_names of this DeployModel.  # noqa: E501
-        :rtype: str
+        :rtype: list[str]
         """
         return self._input_names
 
@@ -328,7 +328,7 @@ class DeployModel(object):
 
 
         :param input_names: The input_names of this DeployModel.  # noqa: E501
-        :type: str
+        :type: list[str]
         """
 
         self._input_names = input_names
@@ -339,7 +339,7 @@ class DeployModel(object):
 
 
         :return: The output_names of this DeployModel.  # noqa: E501
-        :rtype: str
+        :rtype: list[str]
         """
         return self._output_names
 
@@ -349,7 +349,7 @@ class DeployModel(object):
 
 
         :param output_names: The output_names of this DeployModel.  # noqa: E501
-        :type: str
+        :type: list[str]
         """
 
         self._output_names = output_names

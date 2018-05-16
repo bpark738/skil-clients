@@ -12,6 +12,7 @@
 
 package ai.skymind.skil.model;
 
+import java.util.*;
 import io.swagger.annotations.*;
 import com.google.gson.annotations.SerializedName;
 import java.io.Serializable;
@@ -40,9 +41,9 @@ public class DeployModel implements Serializable {
   @SerializedName("etlJson")
   private String etlJson = null;
   @SerializedName("inputNames")
-  private String inputNames = null;
+  private List<String> inputNames = null;
   @SerializedName("outputNames")
-  private String outputNames = null;
+  private List<String> outputNames = null;
 
   /**
    **/
@@ -147,20 +148,20 @@ public class DeployModel implements Serializable {
   /**
    **/
   @ApiModelProperty(value = "")
-  public String getInputNames() {
+  public List<String> getInputNames() {
     return inputNames;
   }
-  public void setInputNames(String inputNames) {
+  public void setInputNames(List<String> inputNames) {
     this.inputNames = inputNames;
   }
 
   /**
    **/
   @ApiModelProperty(value = "")
-  public String getOutputNames() {
+  public List<String> getOutputNames() {
     return outputNames;
   }
-  public void setOutputNames(String outputNames) {
+  public void setOutputNames(List<String> outputNames) {
     this.outputNames = outputNames;
   }
 

@@ -35,9 +35,9 @@ pub struct DeployModel {
   #[serde(rename = "etlJson")]
   etl_json: Option<String>,
   #[serde(rename = "inputNames")]
-  input_names: Option<String>,
+  input_names: Option<Vec<String>>,
   #[serde(rename = "outputNames")]
-  output_names: Option<String>
+  output_names: Option<Vec<String>>
 }
 
 impl DeployModel {
@@ -228,16 +228,16 @@ impl DeployModel {
     self.etl_json = None;
   }
 
-  pub fn set_input_names(&mut self, input_names: String) {
+  pub fn set_input_names(&mut self, input_names: Vec<String>) {
     self.input_names = Some(input_names);
   }
 
-  pub fn with_input_names(mut self, input_names: String) -> DeployModel {
+  pub fn with_input_names(mut self, input_names: Vec<String>) -> DeployModel {
     self.input_names = Some(input_names);
     self
   }
 
-  pub fn input_names(&self) -> Option<&String> {
+  pub fn input_names(&self) -> Option<&Vec<String>> {
     self.input_names.as_ref()
   }
 
@@ -245,16 +245,16 @@ impl DeployModel {
     self.input_names = None;
   }
 
-  pub fn set_output_names(&mut self, output_names: String) {
+  pub fn set_output_names(&mut self, output_names: Vec<String>) {
     self.output_names = Some(output_names);
   }
 
-  pub fn with_output_names(mut self, output_names: String) -> DeployModel {
+  pub fn with_output_names(mut self, output_names: Vec<String>) -> DeployModel {
     self.output_names = Some(output_names);
     self
   }
 
-  pub fn output_names(&self) -> Option<&String> {
+  pub fn output_names(&self) -> Option<&Vec<String>> {
     self.output_names.as_ref()
   }
 
