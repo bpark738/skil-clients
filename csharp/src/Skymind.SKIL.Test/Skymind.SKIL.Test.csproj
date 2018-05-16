@@ -4,7 +4,7 @@ Predict
 
 Endpoints API for classification and other prediction services in SKIL
 
-OpenAPI spec version: 1.0.3
+OpenAPI spec version: 1.1.0-beta
 
 -->
 <Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
@@ -81,7 +81,7 @@ OpenAPI spec version: 1.0.3
   <Import Project="$(MsBuildToolsPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
       <ProjectReference Include="..\Skymind.SKIL\Skymind.SKIL.csproj">
-          <Project>{0CD75398-FCBD-4BFB-BC43-C4CE516523BA}</Project>
+          <Project>{EE375300-4A43-4DE1-B3A1-31CCA22D5DD2}</Project>
           <Name>Skymind.SKIL</Name>
       </ProjectReference>
   </ItemGroup>

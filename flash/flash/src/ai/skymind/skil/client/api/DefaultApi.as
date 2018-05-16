@@ -44,6 +44,7 @@ public class DefaultApi extends SwaggerApi {
         public static const event_predict_1: String = "predict_1";
         public static const event_predictwithpreprocess: String = "predictwithpreprocess";
         public static const event_predictwithpreprocessjson: String = "predictwithpreprocessjson";
+        public static const event_upload: String = "upload";
 
 
     /*
@@ -51,7 +52,7 @@ public class DefaultApi extends SwaggerApi {
      */
     public function classify (body: Prediction, deploymentName: String, modelName: String): String {
         // create path and map variables
-        var path: String = "/{deploymentName}/model/{modelName}/default/classify".replace(/{format}/g,"xml").replace("{" + "deploymentName" + "}", getApiInvoker().escapeString(deploymentName)).replace("{" + "modelName" + "}", getApiInvoker().escapeString(modelName));
+        var path: String = "/endpoints/{deploymentName}/model/{modelName}/default/classify".replace(/{format}/g,"xml").replace("{" + "deploymentName" + "}", getApiInvoker().escapeString(deploymentName)).replace("{" + "modelName" + "}", getApiInvoker().escapeString(modelName));
 
         // query params
         var queryParams: Dictionary = new Dictionary();
@@ -89,7 +90,7 @@ public class DefaultApi extends SwaggerApi {
      */
     public function classifyarray (body: Prediction, deploymentName: String, modelName: String): String {
         // create path and map variables
-        var path: String = "/{deploymentName}/model/{modelName}/default/classifyarray".replace(/{format}/g,"xml").replace("{" + "deploymentName" + "}", getApiInvoker().escapeString(deploymentName)).replace("{" + "modelName" + "}", getApiInvoker().escapeString(modelName));
+        var path: String = "/endpoints/{deploymentName}/model/{modelName}/default/classifyarray".replace(/{format}/g,"xml").replace("{" + "deploymentName" + "}", getApiInvoker().escapeString(deploymentName)).replace("{" + "modelName" + "}", getApiInvoker().escapeString(modelName));
 
         // query params
         var queryParams: Dictionary = new Dictionary();
@@ -127,7 +128,7 @@ public class DefaultApi extends SwaggerApi {
      */
     public function classifyimage (deploymentName: String, modelName: String, image: File): String {
         // create path and map variables
-        var path: String = "/{deploymentName}/model/{modelName}/default/classifyimage".replace(/{format}/g,"xml").replace("{" + "deploymentName" + "}", getApiInvoker().escapeString(deploymentName)).replace("{" + "modelName" + "}", getApiInvoker().escapeString(modelName));
+        var path: String = "/endpoints/{deploymentName}/model/{modelName}/default/classifyimage".replace(/{format}/g,"xml").replace("{" + "deploymentName" + "}", getApiInvoker().escapeString(deploymentName)).replace("{" + "modelName" + "}", getApiInvoker().escapeString(modelName));
 
         // query params
         var queryParams: Dictionary = new Dictionary();
@@ -165,7 +166,7 @@ public class DefaultApi extends SwaggerApi {
      */
     public function jsonarray (body: Prediction, deploymentName: String, modelName: String): String {
         // create path and map variables
-        var path: String = "/{deploymentName}/model/{modelName}/default/jsonarray".replace(/{format}/g,"xml").replace("{" + "deploymentName" + "}", getApiInvoker().escapeString(deploymentName)).replace("{" + "modelName" + "}", getApiInvoker().escapeString(modelName));
+        var path: String = "/endpoints/{deploymentName}/model/{modelName}/default/jsonarray".replace(/{format}/g,"xml").replace("{" + "deploymentName" + "}", getApiInvoker().escapeString(deploymentName)).replace("{" + "modelName" + "}", getApiInvoker().escapeString(modelName));
 
         // query params
         var queryParams: Dictionary = new Dictionary();
@@ -203,7 +204,7 @@ public class DefaultApi extends SwaggerApi {
      */
     public function logfilepath (deploymentName: String, modelName: String): String {
         // create path and map variables
-        var path: String = "/{deploymentName}/model/{modelName}/default/logfilepath".replace(/{format}/g,"xml").replace("{" + "deploymentName" + "}", getApiInvoker().escapeString(deploymentName)).replace("{" + "modelName" + "}", getApiInvoker().escapeString(modelName));
+        var path: String = "/endpoints/{deploymentName}/model/{modelName}/default/logfilepath".replace(/{format}/g,"xml").replace("{" + "deploymentName" + "}", getApiInvoker().escapeString(deploymentName)).replace("{" + "modelName" + "}", getApiInvoker().escapeString(modelName));
 
         // query params
         var queryParams: Dictionary = new Dictionary();
@@ -237,7 +238,7 @@ public class DefaultApi extends SwaggerApi {
      */
     public function logs (body: LogRequest, deploymentName: String, modelName: String): String {
         // create path and map variables
-        var path: String = "/{deploymentName}/model/{modelName}/default/logs".replace(/{format}/g,"xml").replace("{" + "deploymentName" + "}", getApiInvoker().escapeString(deploymentName)).replace("{" + "modelName" + "}", getApiInvoker().escapeString(modelName));
+        var path: String = "/endpoints/{deploymentName}/model/{modelName}/default/logs".replace(/{format}/g,"xml").replace("{" + "deploymentName" + "}", getApiInvoker().escapeString(deploymentName)).replace("{" + "modelName" + "}", getApiInvoker().escapeString(modelName));
 
         // query params
         var queryParams: Dictionary = new Dictionary();
@@ -275,7 +276,7 @@ public class DefaultApi extends SwaggerApi {
      */
     public function modelset (deploymentName: String, modelName: String, file: File): String {
         // create path and map variables
-        var path: String = "/{deploymentName}/model/{modelName}/default/modelset".replace(/{format}/g,"xml").replace("{" + "deploymentName" + "}", getApiInvoker().escapeString(deploymentName)).replace("{" + "modelName" + "}", getApiInvoker().escapeString(modelName));
+        var path: String = "/endpoints/{deploymentName}/model/{modelName}/default/modelset".replace(/{format}/g,"xml").replace("{" + "deploymentName" + "}", getApiInvoker().escapeString(deploymentName)).replace("{" + "modelName" + "}", getApiInvoker().escapeString(modelName));
 
         // query params
         var queryParams: Dictionary = new Dictionary();
@@ -313,7 +314,7 @@ public class DefaultApi extends SwaggerApi {
      */
     public function modelupdate (deploymentName: String, modelName: String, file: File): String {
         // create path and map variables
-        var path: String = "/{deploymentName}/model/{modelName}/default/modelupdate".replace(/{format}/g,"xml").replace("{" + "deploymentName" + "}", getApiInvoker().escapeString(deploymentName)).replace("{" + "modelName" + "}", getApiInvoker().escapeString(modelName));
+        var path: String = "/endpoints/{deploymentName}/model/{modelName}/default/modelupdate".replace(/{format}/g,"xml").replace("{" + "deploymentName" + "}", getApiInvoker().escapeString(deploymentName)).replace("{" + "modelName" + "}", getApiInvoker().escapeString(modelName));
 
         // query params
         var queryParams: Dictionary = new Dictionary();
@@ -351,7 +352,7 @@ public class DefaultApi extends SwaggerApi {
      */
     public function multiclassify (body: Prediction, deploymentName: String, modelName: String): String {
         // create path and map variables
-        var path: String = "/{deploymentName}/model/{modelName}/default/multiclassify".replace(/{format}/g,"xml").replace("{" + "deploymentName" + "}", getApiInvoker().escapeString(deploymentName)).replace("{" + "modelName" + "}", getApiInvoker().escapeString(modelName));
+        var path: String = "/endpoints/{deploymentName}/model/{modelName}/default/multiclassify".replace(/{format}/g,"xml").replace("{" + "deploymentName" + "}", getApiInvoker().escapeString(deploymentName)).replace("{" + "modelName" + "}", getApiInvoker().escapeString(modelName));
 
         // query params
         var queryParams: Dictionary = new Dictionary();
@@ -389,7 +390,7 @@ public class DefaultApi extends SwaggerApi {
      */
     public function predict (body: Prediction, deploymentName: String, modelName: String): String {
         // create path and map variables
-        var path: String = "/{deploymentName}/model/{modelName}/default/predict".replace(/{format}/g,"xml").replace("{" + "deploymentName" + "}", getApiInvoker().escapeString(deploymentName)).replace("{" + "modelName" + "}", getApiInvoker().escapeString(modelName));
+        var path: String = "/endpoints/{deploymentName}/model/{modelName}/default/predict".replace(/{format}/g,"xml").replace("{" + "deploymentName" + "}", getApiInvoker().escapeString(deploymentName)).replace("{" + "modelName" + "}", getApiInvoker().escapeString(modelName));
 
         // query params
         var queryParams: Dictionary = new Dictionary();
@@ -427,7 +428,7 @@ public class DefaultApi extends SwaggerApi {
      */
     public function predict_1 (deploymentName: String, modelName: String, image: File): String {
         // create path and map variables
-        var path: String = "/{deploymentName}/model/{modelName}/default/predictimage".replace(/{format}/g,"xml").replace("{" + "deploymentName" + "}", getApiInvoker().escapeString(deploymentName)).replace("{" + "modelName" + "}", getApiInvoker().escapeString(modelName));
+        var path: String = "/endpoints/{deploymentName}/model/{modelName}/default/predictimage".replace(/{format}/g,"xml").replace("{" + "deploymentName" + "}", getApiInvoker().escapeString(deploymentName)).replace("{" + "modelName" + "}", getApiInvoker().escapeString(modelName));
 
         // query params
         var queryParams: Dictionary = new Dictionary();
@@ -465,7 +466,7 @@ public class DefaultApi extends SwaggerApi {
      */
     public function predictwithpreprocess (body: Array, deploymentName: String, modelName: String): String {
         // create path and map variables
-        var path: String = "/{deploymentName}/model/{modelName}/default/predictwithpreprocess".replace(/{format}/g,"xml").replace("{" + "deploymentName" + "}", getApiInvoker().escapeString(deploymentName)).replace("{" + "modelName" + "}", getApiInvoker().escapeString(modelName));
+        var path: String = "/endpoints/{deploymentName}/model/{modelName}/default/predictwithpreprocess".replace(/{format}/g,"xml").replace("{" + "deploymentName" + "}", getApiInvoker().escapeString(deploymentName)).replace("{" + "modelName" + "}", getApiInvoker().escapeString(modelName));
 
         // query params
         var queryParams: Dictionary = new Dictionary();
@@ -503,7 +504,7 @@ public class DefaultApi extends SwaggerApi {
      */
     public function predictwithpreprocessjson (body: Array, deploymentName: String, modelName: String): String {
         // create path and map variables
-        var path: String = "/{deploymentName}/model/{modelName}/default/predictwithpreprocessjson".replace(/{format}/g,"xml").replace("{" + "deploymentName" + "}", getApiInvoker().escapeString(deploymentName)).replace("{" + "modelName" + "}", getApiInvoker().escapeString(modelName));
+        var path: String = "/endpoints/{deploymentName}/model/{modelName}/default/predictwithpreprocessjson".replace(/{format}/g,"xml").replace("{" + "deploymentName" + "}", getApiInvoker().escapeString(deploymentName)).replace("{" + "modelName" + "}", getApiInvoker().escapeString(modelName));
 
         // query params
         var queryParams: Dictionary = new Dictionary();
@@ -532,6 +533,36 @@ public class DefaultApi extends SwaggerApi {
         token.completionEventType = "predictwithpreprocessjson";
 
         token.returnType = JsonArrayResponse;
+        return requestId;
+
+    }
+
+    /*
+     * Returns void 
+     */
+    public function upload (file: File): String {
+        // create path and map variables
+        var path: String = "/api/upload/model".replace(/{format}/g,"xml");
+
+        // query params
+        var queryParams: Dictionary = new Dictionary();
+        var headerParams: Dictionary = new Dictionary();
+
+        // verify required params are set
+        if() {
+            throw new ApiError(400, "missing required params");
+        }
+
+        
+        
+        var token:AsyncToken = getApiInvoker().invokeAPI(path, "POST", queryParams, null, headerParams);
+
+        var requestId: String = getUniqueId();
+
+        token.requestId = requestId;
+        token.completionEventType = "upload";
+
+        token.returnType = null ;
         return requestId;
 
     }
