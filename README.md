@@ -11,6 +11,7 @@ The default host in each client is `localhost:9008`. Because your SKIL instance 
 
 **Java**
 ```java
+String newHost = "5.5.5.5"
 URL url = new URL(apiClient.getBasePath());
 URL newUrl = new URL(url.getProtocol(), newHost, url.getPort(), url.getFile());
 apiClient.setBasePath(newUrl.toString());
@@ -20,7 +21,7 @@ apiClient.setBasePath(newUrl.toString());
 ```python
 import skil_client
 
-skil_client.host = "http://5.5.5.5:9008/endpoints"
+skil_client.host = "http://5.5.5.5:9008"
 client = skil_client.DefaultApi()
 ```
 
