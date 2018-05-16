@@ -73,7 +73,7 @@ module SkilCient
 
       # http body (model)
       post_body = @api_client.object_to_http_body(body)
-      auth_names = []
+      auth_names = ['api_key']
       data, status_code, headers = @api_client.call_api(:POST, local_var_path,
         :header_params => header_params,
         :query_params => query_params,
@@ -140,7 +140,7 @@ module SkilCient
 
       # http body (model)
       post_body = @api_client.object_to_http_body(body)
-      auth_names = []
+      auth_names = ['api_key']
       data, status_code, headers = @api_client.call_api(:POST, local_var_path,
         :header_params => header_params,
         :query_params => query_params,
@@ -204,7 +204,7 @@ module SkilCient
 
       # http body (model)
       post_body = nil
-      auth_names = []
+      auth_names = ['api_key']
       data, status_code, headers = @api_client.call_api(:POST, local_var_path,
         :header_params => header_params,
         :query_params => query_params,
@@ -214,6 +214,122 @@ module SkilCient
         :return_type => 'ClassificationResult')
       if @api_client.config.debugging
         @api_client.config.logger.debug "API called: DefaultApi#classifyimage\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Deploy a model in a deployment group.
+    # 
+    # @param deployment_id ID deployment group
+    # @param body the deployment request
+    # @param [Hash] opts the optional parameters
+    # @return [Object]
+    def deploy_model(deployment_id, body, opts = {})
+      data, _status_code, _headers = deploy_model_with_http_info(deployment_id, body, opts)
+      return data
+    end
+
+    # Deploy a model in a deployment group.
+    # 
+    # @param deployment_id ID deployment group
+    # @param body the deployment request
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(Object, Fixnum, Hash)>] Object data, response status code and response headers
+    def deploy_model_with_http_info(deployment_id, body, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "Calling API: DefaultApi.deploy_model ..."
+      end
+      # verify the required parameter 'deployment_id' is set
+      if @api_client.config.client_side_validation && deployment_id.nil?
+        fail ArgumentError, "Missing the required parameter 'deployment_id' when calling DefaultApi.deploy_model"
+      end
+      # verify the required parameter 'body' is set
+      if @api_client.config.client_side_validation && body.nil?
+        fail ArgumentError, "Missing the required parameter 'body' when calling DefaultApi.deploy_model"
+      end
+      # resource path
+      local_var_path = "/deployment/{deploymentId}/model".sub('{' + 'deploymentId' + '}', deployment_id.to_s)
+
+      # query parameters
+      query_params = {}
+
+      # header parameters
+      header_params = {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      header_params['Content-Type'] = @api_client.select_header_content_type(['application/json'])
+
+      # form parameters
+      form_params = {}
+
+      # http body (model)
+      post_body = @api_client.object_to_http_body(body)
+      auth_names = ['api_key']
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path,
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => 'Object')
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: DefaultApi#deploy_model\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Create a new deployment group.
+    # 
+    # @param body the deployment request
+    # @param [Hash] opts the optional parameters
+    # @return [Deployment]
+    def deployment_create(body, opts = {})
+      data, _status_code, _headers = deployment_create_with_http_info(body, opts)
+      return data
+    end
+
+    # Create a new deployment group.
+    # 
+    # @param body the deployment request
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(Deployment, Fixnum, Hash)>] Deployment data, response status code and response headers
+    def deployment_create_with_http_info(body, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "Calling API: DefaultApi.deployment_create ..."
+      end
+      # verify the required parameter 'body' is set
+      if @api_client.config.client_side_validation && body.nil?
+        fail ArgumentError, "Missing the required parameter 'body' when calling DefaultApi.deployment_create"
+      end
+      # resource path
+      local_var_path = "/deployment"
+
+      # query parameters
+      query_params = {}
+
+      # header parameters
+      header_params = {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      header_params['Content-Type'] = @api_client.select_header_content_type(['application/json'])
+
+      # form parameters
+      form_params = {}
+
+      # http body (model)
+      post_body = @api_client.object_to_http_body(body)
+      auth_names = ['api_key']
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path,
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => 'Deployment')
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: DefaultApi#deployment_create\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
       end
       return data, status_code, headers
     end
@@ -271,7 +387,7 @@ module SkilCient
 
       # http body (model)
       post_body = @api_client.object_to_http_body(body)
-      auth_names = []
+      auth_names = ['api_key']
       data, status_code, headers = @api_client.call_api(:POST, local_var_path,
         :header_params => header_params,
         :query_params => query_params,
@@ -330,7 +446,7 @@ module SkilCient
 
       # http body (model)
       post_body = nil
-      auth_names = []
+      auth_names = ['api_key']
       data, status_code, headers = @api_client.call_api(:GET, local_var_path,
         :header_params => header_params,
         :query_params => query_params,
@@ -340,6 +456,61 @@ module SkilCient
         :return_type => 'String')
       if @api_client.config.debugging
         @api_client.config.logger.debug "API called: DefaultApi#logfilepath\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Post JSON credentials and obtain a JWT authorization token.
+    # 
+    # @param credentials Login credentials.
+    # @param [Hash] opts the optional parameters
+    # @return [Token]
+    def login(credentials, opts = {})
+      data, _status_code, _headers = login_with_http_info(credentials, opts)
+      return data
+    end
+
+    # Post JSON credentials and obtain a JWT authorization token.
+    # 
+    # @param credentials Login credentials.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(Token, Fixnum, Hash)>] Token data, response status code and response headers
+    def login_with_http_info(credentials, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "Calling API: DefaultApi.login ..."
+      end
+      # verify the required parameter 'credentials' is set
+      if @api_client.config.client_side_validation && credentials.nil?
+        fail ArgumentError, "Missing the required parameter 'credentials' when calling DefaultApi.login"
+      end
+      # resource path
+      local_var_path = "/login"
+
+      # query parameters
+      query_params = {}
+
+      # header parameters
+      header_params = {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      header_params['Content-Type'] = @api_client.select_header_content_type(['application/json'])
+
+      # form parameters
+      form_params = {}
+
+      # http body (model)
+      post_body = @api_client.object_to_http_body(credentials)
+      auth_names = ['api_key']
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path,
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => 'Token')
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: DefaultApi#login\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
       end
       return data, status_code, headers
     end
@@ -397,7 +568,7 @@ module SkilCient
 
       # http body (model)
       post_body = @api_client.object_to_http_body(body)
-      auth_names = []
+      auth_names = ['api_key']
       data, status_code, headers = @api_client.call_api(:POST, local_var_path,
         :header_params => header_params,
         :query_params => query_params,
@@ -461,7 +632,7 @@ module SkilCient
 
       # http body (model)
       post_body = nil
-      auth_names = []
+      auth_names = ['api_key']
       data, status_code, headers = @api_client.call_api(:POST, local_var_path,
         :header_params => header_params,
         :query_params => query_params,
@@ -525,7 +696,7 @@ module SkilCient
 
       # http body (model)
       post_body = nil
-      auth_names = []
+      auth_names = ['api_key']
       data, status_code, headers = @api_client.call_api(:POST, local_var_path,
         :header_params => header_params,
         :query_params => query_params,
@@ -592,7 +763,7 @@ module SkilCient
 
       # http body (model)
       post_body = @api_client.object_to_http_body(body)
-      auth_names = []
+      auth_names = ['api_key']
       data, status_code, headers = @api_client.call_api(:POST, local_var_path,
         :header_params => header_params,
         :query_params => query_params,
@@ -659,7 +830,7 @@ module SkilCient
 
       # http body (model)
       post_body = @api_client.object_to_http_body(body)
-      auth_names = []
+      auth_names = ['api_key']
       data, status_code, headers = @api_client.call_api(:POST, local_var_path,
         :header_params => header_params,
         :query_params => query_params,
@@ -680,8 +851,8 @@ module SkilCient
     # @param [Hash] opts the optional parameters
     # @option opts [File] :image The file to upload.
     # @return [Prediction]
-    def predict_0(deployment_name, model_name, opts = {})
-      data, _status_code, _headers = predict_0_with_http_info(deployment_name, model_name, opts)
+    def predictimage(deployment_name, model_name, opts = {})
+      data, _status_code, _headers = predictimage_with_http_info(deployment_name, model_name, opts)
       return data
     end
 
@@ -692,17 +863,17 @@ module SkilCient
     # @param [Hash] opts the optional parameters
     # @option opts [File] :image The file to upload.
     # @return [Array<(Prediction, Fixnum, Hash)>] Prediction data, response status code and response headers
-    def predict_0_with_http_info(deployment_name, model_name, opts = {})
+    def predictimage_with_http_info(deployment_name, model_name, opts = {})
       if @api_client.config.debugging
-        @api_client.config.logger.debug "Calling API: DefaultApi.predict_0 ..."
+        @api_client.config.logger.debug "Calling API: DefaultApi.predictimage ..."
       end
       # verify the required parameter 'deployment_name' is set
       if @api_client.config.client_side_validation && deployment_name.nil?
-        fail ArgumentError, "Missing the required parameter 'deployment_name' when calling DefaultApi.predict_0"
+        fail ArgumentError, "Missing the required parameter 'deployment_name' when calling DefaultApi.predictimage"
       end
       # verify the required parameter 'model_name' is set
       if @api_client.config.client_side_validation && model_name.nil?
-        fail ArgumentError, "Missing the required parameter 'model_name' when calling DefaultApi.predict_0"
+        fail ArgumentError, "Missing the required parameter 'model_name' when calling DefaultApi.predictimage"
       end
       # resource path
       local_var_path = "/endpoints/{deploymentName}/model/{modelName}/default/predictimage".sub('{' + 'deploymentName' + '}', deployment_name.to_s).sub('{' + 'modelName' + '}', model_name.to_s)
@@ -723,7 +894,7 @@ module SkilCient
 
       # http body (model)
       post_body = nil
-      auth_names = []
+      auth_names = ['api_key']
       data, status_code, headers = @api_client.call_api(:POST, local_var_path,
         :header_params => header_params,
         :query_params => query_params,
@@ -732,7 +903,7 @@ module SkilCient
         :auth_names => auth_names,
         :return_type => 'Prediction')
       if @api_client.config.debugging
-        @api_client.config.logger.debug "API called: DefaultApi#predict_0\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+        @api_client.config.logger.debug "API called: DefaultApi#predictimage\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
       end
       return data, status_code, headers
     end
@@ -790,7 +961,7 @@ module SkilCient
 
       # http body (model)
       post_body = @api_client.object_to_http_body(body)
-      auth_names = []
+      auth_names = ['api_key']
       data, status_code, headers = @api_client.call_api(:POST, local_var_path,
         :header_params => header_params,
         :query_params => query_params,
@@ -857,7 +1028,7 @@ module SkilCient
 
       # http body (model)
       post_body = @api_client.object_to_http_body(body)
-      auth_names = []
+      auth_names = ['api_key']
       data, status_code, headers = @api_client.call_api(:POST, local_var_path,
         :header_params => header_params,
         :query_params => query_params,
@@ -875,17 +1046,17 @@ module SkilCient
     # 
     # @param [Hash] opts the optional parameters
     # @option opts [File] :file The file to upload.
-    # @return [nil]
+    # @return [FileUploadList]
     def upload(opts = {})
-      upload_with_http_info(opts)
-      return nil
+      data, _status_code, _headers = upload_with_http_info(opts)
+      return data
     end
 
     # Upload a model file to SKIL for import.
     # 
     # @param [Hash] opts the optional parameters
     # @option opts [File] :file The file to upload.
-    # @return [Array<(nil, Fixnum, Hash)>] nil, response status code and response headers
+    # @return [Array<(FileUploadList, Fixnum, Hash)>] FileUploadList data, response status code and response headers
     def upload_with_http_info(opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug "Calling API: DefaultApi.upload ..."
@@ -909,13 +1080,14 @@ module SkilCient
 
       # http body (model)
       post_body = nil
-      auth_names = []
+      auth_names = ['api_key']
       data, status_code, headers = @api_client.call_api(:POST, local_var_path,
         :header_params => header_params,
         :query_params => query_params,
         :form_params => form_params,
         :body => post_body,
-        :auth_names => auth_names)
+        :auth_names => auth_names,
+        :return_type => 'FileUploadList')
       if @api_client.config.debugging
         @api_client.config.logger.debug "API called: DefaultApi#upload\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
       end

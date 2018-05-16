@@ -7,14 +7,17 @@ Method | HTTP request | Description
 [**Classify**](DefaultApi.md#classify) | **POST** /endpoints/{deploymentName}/model/{modelName}/default/classify | Use the deployed model to classify the input
 [**Classifyarray**](DefaultApi.md#classifyarray) | **POST** /endpoints/{deploymentName}/model/{modelName}/default/classifyarray | Same as /classify but returns the output as Base64NDArrayBody
 [**Classifyimage**](DefaultApi.md#classifyimage) | **POST** /endpoints/{deploymentName}/model/{modelName}/default/classifyimage | Use the deployed model to classify the input, using input image file from multipart form data.
+[**DeployModel**](DefaultApi.md#deploymodel) | **POST** /deployment/{deploymentId}/model | Deploy a model in a deployment group.
+[**DeploymentCreate**](DefaultApi.md#deploymentcreate) | **POST** /deployment | Create a new deployment group.
 [**Jsonarray**](DefaultApi.md#jsonarray) | **POST** /endpoints/{deploymentName}/model/{modelName}/default/jsonarray | Run inference on the input and returns it as a JsonArrayResponse
 [**Logfilepath**](DefaultApi.md#logfilepath) | **GET** /endpoints/{deploymentName}/model/{modelName}/default/logfilepath | Get logs file path
+[**Login**](DefaultApi.md#login) | **POST** /login | Post JSON credentials and obtain a JWT authorization token.
 [**Logs**](DefaultApi.md#logs) | **POST** /endpoints/{deploymentName}/model/{modelName}/default/logs | Get logs
 [**Modelset**](DefaultApi.md#modelset) | **POST** /endpoints/{deploymentName}/model/{modelName}/default/modelset | Set the model to be served
 [**Modelupdate**](DefaultApi.md#modelupdate) | **POST** /endpoints/{deploymentName}/model/{modelName}/default/modelupdate | Update the model to be served
 [**Multiclassify**](DefaultApi.md#multiclassify) | **POST** /endpoints/{deploymentName}/model/{modelName}/default/multiclassify | Represents all of the labels for a given classification
 [**Predict**](DefaultApi.md#predict) | **POST** /endpoints/{deploymentName}/model/{modelName}/default/predict | Run inference on the input array.
-[**Predict_0**](DefaultApi.md#predict_0) | **POST** /endpoints/{deploymentName}/model/{modelName}/default/predictimage | Run inference on the input array, using input image file from multipart form data.
+[**Predictimage**](DefaultApi.md#predictimage) | **POST** /endpoints/{deploymentName}/model/{modelName}/default/predictimage | Run inference on the input array, using input image file from multipart form data.
 [**Predictwithpreprocess**](DefaultApi.md#predictwithpreprocess) | **POST** /endpoints/{deploymentName}/model/{modelName}/default/predictwithpreprocess | Preprocesses the input and run inference on it
 [**Predictwithpreprocessjson**](DefaultApi.md#predictwithpreprocessjson) | **POST** /endpoints/{deploymentName}/model/{modelName}/default/predictwithpreprocessjson | Preprocesses the input and run inference on it and returns it as a JsonArrayResponse
 [**Upload**](DefaultApi.md#upload) | **POST** /api/upload/model | Upload a model file to SKIL for import.
@@ -40,6 +43,11 @@ namespace Example
     {
         public void main()
         {
+            // Configure API key authorization: api_key
+            Configuration.Default.AddApiKey("authorization", "YOUR_API_KEY");
+            // Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+            // Configuration.Default.AddApiKeyPrefix("authorization", "Bearer");
+
             var apiInstance = new DefaultApi();
             var body = new Prediction(); // Prediction | The input NDArray
             var deploymentName = deploymentName_example;  // string | Name of the deployment group
@@ -74,7 +82,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[api_key](../README.md#api_key)
 
 ### HTTP request headers
 
@@ -103,6 +111,11 @@ namespace Example
     {
         public void main()
         {
+            // Configure API key authorization: api_key
+            Configuration.Default.AddApiKey("authorization", "YOUR_API_KEY");
+            // Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+            // Configuration.Default.AddApiKeyPrefix("authorization", "Bearer");
+
             var apiInstance = new DefaultApi();
             var body = new Prediction(); // Prediction | The input NDArray
             var deploymentName = deploymentName_example;  // string | Name of the deployment group
@@ -137,7 +150,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[api_key](../README.md#api_key)
 
 ### HTTP request headers
 
@@ -166,6 +179,11 @@ namespace Example
     {
         public void main()
         {
+            // Configure API key authorization: api_key
+            Configuration.Default.AddApiKey("authorization", "YOUR_API_KEY");
+            // Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+            // Configuration.Default.AddApiKeyPrefix("authorization", "Bearer");
+
             var apiInstance = new DefaultApi();
             var deploymentName = deploymentName_example;  // string | Name of the deployment group
             var modelName = modelName_example;  // string | ID or name of the deployed model
@@ -200,11 +218,141 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[api_key](../README.md#api_key)
 
 ### HTTP request headers
 
  - **Content-Type**: multipart/form-data
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+<a name="deploymodel"></a>
+# **DeployModel**
+> Object DeployModel (string deploymentId, DeployModel body)
+
+Deploy a model in a deployment group.
+
+### Example
+```csharp
+using System;
+using System.Diagnostics;
+using Skymind.SKIL.Api;
+using Skymind.SKIL.Client;
+using Skymind.SKIL.Model;
+
+namespace Example
+{
+    public class DeployModelExample
+    {
+        public void main()
+        {
+            // Configure API key authorization: api_key
+            Configuration.Default.AddApiKey("authorization", "YOUR_API_KEY");
+            // Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+            // Configuration.Default.AddApiKeyPrefix("authorization", "Bearer");
+
+            var apiInstance = new DefaultApi();
+            var deploymentId = deploymentId_example;  // string | ID deployment group
+            var body = new DeployModel(); // DeployModel | the deployment request
+
+            try
+            {
+                // Deploy a model in a deployment group.
+                Object result = apiInstance.DeployModel(deploymentId, body);
+                Debug.WriteLine(result);
+            }
+            catch (Exception e)
+            {
+                Debug.Print("Exception when calling DefaultApi.DeployModel: " + e.Message );
+            }
+        }
+    }
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **deploymentId** | **string**| ID deployment group | 
+ **body** | [**DeployModel**](DeployModel.md)| the deployment request | 
+
+### Return type
+
+**Object**
+
+### Authorization
+
+[api_key](../README.md#api_key)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+<a name="deploymentcreate"></a>
+# **DeploymentCreate**
+> Deployment DeploymentCreate (NewDeployment body)
+
+Create a new deployment group.
+
+### Example
+```csharp
+using System;
+using System.Diagnostics;
+using Skymind.SKIL.Api;
+using Skymind.SKIL.Client;
+using Skymind.SKIL.Model;
+
+namespace Example
+{
+    public class DeploymentCreateExample
+    {
+        public void main()
+        {
+            // Configure API key authorization: api_key
+            Configuration.Default.AddApiKey("authorization", "YOUR_API_KEY");
+            // Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+            // Configuration.Default.AddApiKeyPrefix("authorization", "Bearer");
+
+            var apiInstance = new DefaultApi();
+            var body = new NewDeployment(); // NewDeployment | the deployment request
+
+            try
+            {
+                // Create a new deployment group.
+                Deployment result = apiInstance.DeploymentCreate(body);
+                Debug.WriteLine(result);
+            }
+            catch (Exception e)
+            {
+                Debug.Print("Exception when calling DefaultApi.DeploymentCreate: " + e.Message );
+            }
+        }
+    }
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **body** | [**NewDeployment**](NewDeployment.md)| the deployment request | 
+
+### Return type
+
+[**Deployment**](Deployment.md)
+
+### Authorization
+
+[api_key](../README.md#api_key)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
  - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -229,6 +377,11 @@ namespace Example
     {
         public void main()
         {
+            // Configure API key authorization: api_key
+            Configuration.Default.AddApiKey("authorization", "YOUR_API_KEY");
+            // Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+            // Configuration.Default.AddApiKeyPrefix("authorization", "Bearer");
+
             var apiInstance = new DefaultApi();
             var body = new Prediction(); // Prediction | The input NDArray
             var deploymentName = deploymentName_example;  // string | Name of the deployment group
@@ -263,7 +416,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[api_key](../README.md#api_key)
 
 ### HTTP request headers
 
@@ -292,6 +445,11 @@ namespace Example
     {
         public void main()
         {
+            // Configure API key authorization: api_key
+            Configuration.Default.AddApiKey("authorization", "YOUR_API_KEY");
+            // Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+            // Configuration.Default.AddApiKeyPrefix("authorization", "Bearer");
+
             var apiInstance = new DefaultApi();
             var deploymentName = deploymentName_example;  // string | Name of the deployment group
             var modelName = modelName_example;  // string | ID or name of the deployed model
@@ -324,12 +482,76 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[api_key](../README.md#api_key)
 
 ### HTTP request headers
 
  - **Content-Type**: Not defined
  - **Accept**: text
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+<a name="login"></a>
+# **Login**
+> Token Login (Credentials credentials)
+
+Post JSON credentials and obtain a JWT authorization token.
+
+### Example
+```csharp
+using System;
+using System.Diagnostics;
+using Skymind.SKIL.Api;
+using Skymind.SKIL.Client;
+using Skymind.SKIL.Model;
+
+namespace Example
+{
+    public class LoginExample
+    {
+        public void main()
+        {
+            // Configure API key authorization: api_key
+            Configuration.Default.AddApiKey("authorization", "YOUR_API_KEY");
+            // Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+            // Configuration.Default.AddApiKeyPrefix("authorization", "Bearer");
+
+            var apiInstance = new DefaultApi();
+            var credentials = new Credentials(); // Credentials | Login credentials.
+
+            try
+            {
+                // Post JSON credentials and obtain a JWT authorization token.
+                Token result = apiInstance.Login(credentials);
+                Debug.WriteLine(result);
+            }
+            catch (Exception e)
+            {
+                Debug.Print("Exception when calling DefaultApi.Login: " + e.Message );
+            }
+        }
+    }
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **credentials** | [**Credentials**](Credentials.md)| Login credentials. | 
+
+### Return type
+
+[**Token**](Token.md)
+
+### Authorization
+
+[api_key](../README.md#api_key)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -353,6 +575,11 @@ namespace Example
     {
         public void main()
         {
+            // Configure API key authorization: api_key
+            Configuration.Default.AddApiKey("authorization", "YOUR_API_KEY");
+            // Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+            // Configuration.Default.AddApiKeyPrefix("authorization", "Bearer");
+
             var apiInstance = new DefaultApi();
             var body = new LogRequest(); // LogRequest | the the log request
             var deploymentName = deploymentName_example;  // string | Name of the deployment group
@@ -387,7 +614,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[api_key](../README.md#api_key)
 
 ### HTTP request headers
 
@@ -416,6 +643,11 @@ namespace Example
     {
         public void main()
         {
+            // Configure API key authorization: api_key
+            Configuration.Default.AddApiKey("authorization", "YOUR_API_KEY");
+            // Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+            // Configuration.Default.AddApiKeyPrefix("authorization", "Bearer");
+
             var apiInstance = new DefaultApi();
             var deploymentName = deploymentName_example;  // string | Name of the deployment group
             var modelName = modelName_example;  // string | ID or name of the deployed model
@@ -450,7 +682,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[api_key](../README.md#api_key)
 
 ### HTTP request headers
 
@@ -479,6 +711,11 @@ namespace Example
     {
         public void main()
         {
+            // Configure API key authorization: api_key
+            Configuration.Default.AddApiKey("authorization", "YOUR_API_KEY");
+            // Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+            // Configuration.Default.AddApiKeyPrefix("authorization", "Bearer");
+
             var apiInstance = new DefaultApi();
             var deploymentName = deploymentName_example;  // string | Name of the deployment group
             var modelName = modelName_example;  // string | ID or name of the deployed model
@@ -513,7 +750,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[api_key](../README.md#api_key)
 
 ### HTTP request headers
 
@@ -542,6 +779,11 @@ namespace Example
     {
         public void main()
         {
+            // Configure API key authorization: api_key
+            Configuration.Default.AddApiKey("authorization", "YOUR_API_KEY");
+            // Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+            // Configuration.Default.AddApiKeyPrefix("authorization", "Bearer");
+
             var apiInstance = new DefaultApi();
             var body = new Prediction(); // Prediction | The input NDArray
             var deploymentName = deploymentName_example;  // string | Name of the deployment group
@@ -576,7 +818,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[api_key](../README.md#api_key)
 
 ### HTTP request headers
 
@@ -605,6 +847,11 @@ namespace Example
     {
         public void main()
         {
+            // Configure API key authorization: api_key
+            Configuration.Default.AddApiKey("authorization", "YOUR_API_KEY");
+            // Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+            // Configuration.Default.AddApiKeyPrefix("authorization", "Bearer");
+
             var apiInstance = new DefaultApi();
             var body = new Prediction(); // Prediction | The input NDArray
             var deploymentName = deploymentName_example;  // string | Name of the deployment group
@@ -639,7 +886,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[api_key](../README.md#api_key)
 
 ### HTTP request headers
 
@@ -648,9 +895,9 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-<a name="predict_0"></a>
-# **Predict_0**
-> Prediction Predict_0 (string deploymentName, string modelName, System.IO.Stream image = null)
+<a name="predictimage"></a>
+# **Predictimage**
+> Prediction Predictimage (string deploymentName, string modelName, System.IO.Stream image = null)
 
 Run inference on the input array, using input image file from multipart form data.
 
@@ -664,10 +911,15 @@ using Skymind.SKIL.Model;
 
 namespace Example
 {
-    public class Predict_0Example
+    public class PredictimageExample
     {
         public void main()
         {
+            // Configure API key authorization: api_key
+            Configuration.Default.AddApiKey("authorization", "YOUR_API_KEY");
+            // Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+            // Configuration.Default.AddApiKeyPrefix("authorization", "Bearer");
+
             var apiInstance = new DefaultApi();
             var deploymentName = deploymentName_example;  // string | Name of the deployment group
             var modelName = modelName_example;  // string | ID or name of the deployed model
@@ -676,12 +928,12 @@ namespace Example
             try
             {
                 // Run inference on the input array, using input image file from multipart form data.
-                Prediction result = apiInstance.Predict_0(deploymentName, modelName, image);
+                Prediction result = apiInstance.Predictimage(deploymentName, modelName, image);
                 Debug.WriteLine(result);
             }
             catch (Exception e)
             {
-                Debug.Print("Exception when calling DefaultApi.Predict_0: " + e.Message );
+                Debug.Print("Exception when calling DefaultApi.Predictimage: " + e.Message );
             }
         }
     }
@@ -702,7 +954,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[api_key](../README.md#api_key)
 
 ### HTTP request headers
 
@@ -731,6 +983,11 @@ namespace Example
     {
         public void main()
         {
+            // Configure API key authorization: api_key
+            Configuration.Default.AddApiKey("authorization", "YOUR_API_KEY");
+            // Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+            // Configuration.Default.AddApiKeyPrefix("authorization", "Bearer");
+
             var apiInstance = new DefaultApi();
             var body = ;  // List<string> | The input array
             var deploymentName = deploymentName_example;  // string | Name of the deployment group
@@ -765,7 +1022,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[api_key](../README.md#api_key)
 
 ### HTTP request headers
 
@@ -794,6 +1051,11 @@ namespace Example
     {
         public void main()
         {
+            // Configure API key authorization: api_key
+            Configuration.Default.AddApiKey("authorization", "YOUR_API_KEY");
+            // Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+            // Configuration.Default.AddApiKeyPrefix("authorization", "Bearer");
+
             var apiInstance = new DefaultApi();
             var body = ;  // List<string> | The input array
             var deploymentName = deploymentName_example;  // string | Name of the deployment group
@@ -828,7 +1090,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[api_key](../README.md#api_key)
 
 ### HTTP request headers
 
@@ -839,7 +1101,7 @@ No authorization required
 
 <a name="upload"></a>
 # **Upload**
-> void Upload (System.IO.Stream file = null)
+> FileUploadList Upload (System.IO.Stream file = null)
 
 Upload a model file to SKIL for import.
 
@@ -857,13 +1119,19 @@ namespace Example
     {
         public void main()
         {
+            // Configure API key authorization: api_key
+            Configuration.Default.AddApiKey("authorization", "YOUR_API_KEY");
+            // Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+            // Configuration.Default.AddApiKeyPrefix("authorization", "Bearer");
+
             var apiInstance = new DefaultApi();
             var file = new System.IO.Stream(); // System.IO.Stream | The file to upload. (optional) 
 
             try
             {
                 // Upload a model file to SKIL for import.
-                apiInstance.Upload(file);
+                FileUploadList result = apiInstance.Upload(file);
+                Debug.WriteLine(result);
             }
             catch (Exception e)
             {
@@ -882,11 +1150,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-void (empty response body)
+[**FileUploadList**](FileUploadList.md)
 
 ### Authorization
 
-No authorization required
+[api_key](../README.md#api_key)
 
 ### HTTP request headers
 

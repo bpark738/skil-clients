@@ -128,7 +128,7 @@ class DefaultApi(object):
             ['application/json'])  # noqa: E501
 
         # Authentication setting
-        auth_settings = []  # noqa: E501
+        auth_settings = ['api_key']  # noqa: E501
 
         return self.api_client.call_api(
             '/endpoints/{deploymentName}/model/{modelName}/default/classify', 'POST',
@@ -241,7 +241,7 @@ class DefaultApi(object):
             ['application/json'])  # noqa: E501
 
         # Authentication setting
-        auth_settings = []  # noqa: E501
+        auth_settings = ['api_key']  # noqa: E501
 
         return self.api_client.call_api(
             '/endpoints/{deploymentName}/model/{modelName}/default/classifyarray', 'POST',
@@ -350,7 +350,7 @@ class DefaultApi(object):
             ['multipart/form-data'])  # noqa: E501
 
         # Authentication setting
-        auth_settings = []  # noqa: E501
+        auth_settings = ['api_key']  # noqa: E501
 
         return self.api_client.call_api(
             '/endpoints/{deploymentName}/model/{modelName}/default/classifyimage', 'POST',
@@ -361,6 +361,208 @@ class DefaultApi(object):
             post_params=form_params,
             files=local_var_files,
             response_type='ClassificationResult',  # noqa: E501
+            auth_settings=auth_settings,
+            async=params.get('async'),
+            _return_http_data_only=params.get('_return_http_data_only'),
+            _preload_content=params.get('_preload_content', True),
+            _request_timeout=params.get('_request_timeout'),
+            collection_formats=collection_formats)
+
+    def deploy_model(self, deployment_id, body, **kwargs):  # noqa: E501
+        """Deploy a model in a deployment group.  # noqa: E501
+
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async=True
+        >>> thread = api.deploy_model(deployment_id, body, async=True)
+        >>> result = thread.get()
+
+        :param async bool
+        :param str deployment_id: ID deployment group (required)
+        :param DeployModel body: the deployment request (required)
+        :return: object
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+        kwargs['_return_http_data_only'] = True
+        if kwargs.get('async'):
+            return self.deploy_model_with_http_info(deployment_id, body, **kwargs)  # noqa: E501
+        else:
+            (data) = self.deploy_model_with_http_info(deployment_id, body, **kwargs)  # noqa: E501
+            return data
+
+    def deploy_model_with_http_info(self, deployment_id, body, **kwargs):  # noqa: E501
+        """Deploy a model in a deployment group.  # noqa: E501
+
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async=True
+        >>> thread = api.deploy_model_with_http_info(deployment_id, body, async=True)
+        >>> result = thread.get()
+
+        :param async bool
+        :param str deployment_id: ID deployment group (required)
+        :param DeployModel body: the deployment request (required)
+        :return: object
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+
+        all_params = ['deployment_id', 'body']  # noqa: E501
+        all_params.append('async')
+        all_params.append('_return_http_data_only')
+        all_params.append('_preload_content')
+        all_params.append('_request_timeout')
+
+        params = locals()
+        for key, val in six.iteritems(params['kwargs']):
+            if key not in all_params:
+                raise TypeError(
+                    "Got an unexpected keyword argument '%s'"
+                    " to method deploy_model" % key
+                )
+            params[key] = val
+        del params['kwargs']
+        # verify the required parameter 'deployment_id' is set
+        if ('deployment_id' not in params or
+                params['deployment_id'] is None):
+            raise ValueError("Missing the required parameter `deployment_id` when calling `deploy_model`")  # noqa: E501
+        # verify the required parameter 'body' is set
+        if ('body' not in params or
+                params['body'] is None):
+            raise ValueError("Missing the required parameter `body` when calling `deploy_model`")  # noqa: E501
+
+        collection_formats = {}
+
+        path_params = {}
+        if 'deployment_id' in params:
+            path_params['deploymentId'] = params['deployment_id']  # noqa: E501
+
+        query_params = []
+
+        header_params = {}
+
+        form_params = []
+        local_var_files = {}
+
+        body_params = None
+        if 'body' in params:
+            body_params = params['body']
+        # HTTP header `Accept`
+        header_params['Accept'] = self.api_client.select_header_accept(
+            ['application/json'])  # noqa: E501
+
+        # HTTP header `Content-Type`
+        header_params['Content-Type'] = self.api_client.select_header_content_type(  # noqa: E501
+            ['application/json'])  # noqa: E501
+
+        # Authentication setting
+        auth_settings = ['api_key']  # noqa: E501
+
+        return self.api_client.call_api(
+            '/deployment/{deploymentId}/model', 'POST',
+            path_params,
+            query_params,
+            header_params,
+            body=body_params,
+            post_params=form_params,
+            files=local_var_files,
+            response_type='object',  # noqa: E501
+            auth_settings=auth_settings,
+            async=params.get('async'),
+            _return_http_data_only=params.get('_return_http_data_only'),
+            _preload_content=params.get('_preload_content', True),
+            _request_timeout=params.get('_request_timeout'),
+            collection_formats=collection_formats)
+
+    def deployment_create(self, body, **kwargs):  # noqa: E501
+        """Create a new deployment group.  # noqa: E501
+
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async=True
+        >>> thread = api.deployment_create(body, async=True)
+        >>> result = thread.get()
+
+        :param async bool
+        :param NewDeployment body: the deployment request (required)
+        :return: Deployment
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+        kwargs['_return_http_data_only'] = True
+        if kwargs.get('async'):
+            return self.deployment_create_with_http_info(body, **kwargs)  # noqa: E501
+        else:
+            (data) = self.deployment_create_with_http_info(body, **kwargs)  # noqa: E501
+            return data
+
+    def deployment_create_with_http_info(self, body, **kwargs):  # noqa: E501
+        """Create a new deployment group.  # noqa: E501
+
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async=True
+        >>> thread = api.deployment_create_with_http_info(body, async=True)
+        >>> result = thread.get()
+
+        :param async bool
+        :param NewDeployment body: the deployment request (required)
+        :return: Deployment
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+
+        all_params = ['body']  # noqa: E501
+        all_params.append('async')
+        all_params.append('_return_http_data_only')
+        all_params.append('_preload_content')
+        all_params.append('_request_timeout')
+
+        params = locals()
+        for key, val in six.iteritems(params['kwargs']):
+            if key not in all_params:
+                raise TypeError(
+                    "Got an unexpected keyword argument '%s'"
+                    " to method deployment_create" % key
+                )
+            params[key] = val
+        del params['kwargs']
+        # verify the required parameter 'body' is set
+        if ('body' not in params or
+                params['body'] is None):
+            raise ValueError("Missing the required parameter `body` when calling `deployment_create`")  # noqa: E501
+
+        collection_formats = {}
+
+        path_params = {}
+
+        query_params = []
+
+        header_params = {}
+
+        form_params = []
+        local_var_files = {}
+
+        body_params = None
+        if 'body' in params:
+            body_params = params['body']
+        # HTTP header `Accept`
+        header_params['Accept'] = self.api_client.select_header_accept(
+            ['application/json'])  # noqa: E501
+
+        # HTTP header `Content-Type`
+        header_params['Content-Type'] = self.api_client.select_header_content_type(  # noqa: E501
+            ['application/json'])  # noqa: E501
+
+        # Authentication setting
+        auth_settings = ['api_key']  # noqa: E501
+
+        return self.api_client.call_api(
+            '/deployment', 'POST',
+            path_params,
+            query_params,
+            header_params,
+            body=body_params,
+            post_params=form_params,
+            files=local_var_files,
+            response_type='Deployment',  # noqa: E501
             auth_settings=auth_settings,
             async=params.get('async'),
             _return_http_data_only=params.get('_return_http_data_only'),
@@ -463,7 +665,7 @@ class DefaultApi(object):
             ['application/json'])  # noqa: E501
 
         # Authentication setting
-        auth_settings = []  # noqa: E501
+        auth_settings = ['api_key']  # noqa: E501
 
         return self.api_client.call_api(
             '/endpoints/{deploymentName}/model/{modelName}/default/jsonarray', 'POST',
@@ -564,7 +766,7 @@ class DefaultApi(object):
             ['text'])  # noqa: E501
 
         # Authentication setting
-        auth_settings = []  # noqa: E501
+        auth_settings = ['api_key']  # noqa: E501
 
         return self.api_client.call_api(
             '/endpoints/{deploymentName}/model/{modelName}/default/logfilepath', 'GET',
@@ -575,6 +777,103 @@ class DefaultApi(object):
             post_params=form_params,
             files=local_var_files,
             response_type='str',  # noqa: E501
+            auth_settings=auth_settings,
+            async=params.get('async'),
+            _return_http_data_only=params.get('_return_http_data_only'),
+            _preload_content=params.get('_preload_content', True),
+            _request_timeout=params.get('_request_timeout'),
+            collection_formats=collection_formats)
+
+    def login(self, credentials, **kwargs):  # noqa: E501
+        """Post JSON credentials and obtain a JWT authorization token.  # noqa: E501
+
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async=True
+        >>> thread = api.login(credentials, async=True)
+        >>> result = thread.get()
+
+        :param async bool
+        :param Credentials credentials: Login credentials. (required)
+        :return: Token
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+        kwargs['_return_http_data_only'] = True
+        if kwargs.get('async'):
+            return self.login_with_http_info(credentials, **kwargs)  # noqa: E501
+        else:
+            (data) = self.login_with_http_info(credentials, **kwargs)  # noqa: E501
+            return data
+
+    def login_with_http_info(self, credentials, **kwargs):  # noqa: E501
+        """Post JSON credentials and obtain a JWT authorization token.  # noqa: E501
+
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async=True
+        >>> thread = api.login_with_http_info(credentials, async=True)
+        >>> result = thread.get()
+
+        :param async bool
+        :param Credentials credentials: Login credentials. (required)
+        :return: Token
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+
+        all_params = ['credentials']  # noqa: E501
+        all_params.append('async')
+        all_params.append('_return_http_data_only')
+        all_params.append('_preload_content')
+        all_params.append('_request_timeout')
+
+        params = locals()
+        for key, val in six.iteritems(params['kwargs']):
+            if key not in all_params:
+                raise TypeError(
+                    "Got an unexpected keyword argument '%s'"
+                    " to method login" % key
+                )
+            params[key] = val
+        del params['kwargs']
+        # verify the required parameter 'credentials' is set
+        if ('credentials' not in params or
+                params['credentials'] is None):
+            raise ValueError("Missing the required parameter `credentials` when calling `login`")  # noqa: E501
+
+        collection_formats = {}
+
+        path_params = {}
+
+        query_params = []
+
+        header_params = {}
+
+        form_params = []
+        local_var_files = {}
+
+        body_params = None
+        if 'credentials' in params:
+            body_params = params['credentials']
+        # HTTP header `Accept`
+        header_params['Accept'] = self.api_client.select_header_accept(
+            ['application/json'])  # noqa: E501
+
+        # HTTP header `Content-Type`
+        header_params['Content-Type'] = self.api_client.select_header_content_type(  # noqa: E501
+            ['application/json'])  # noqa: E501
+
+        # Authentication setting
+        auth_settings = ['api_key']  # noqa: E501
+
+        return self.api_client.call_api(
+            '/login', 'POST',
+            path_params,
+            query_params,
+            header_params,
+            body=body_params,
+            post_params=form_params,
+            files=local_var_files,
+            response_type='Token',  # noqa: E501
             auth_settings=auth_settings,
             async=params.get('async'),
             _return_http_data_only=params.get('_return_http_data_only'),
@@ -677,7 +976,7 @@ class DefaultApi(object):
             ['application/json'])  # noqa: E501
 
         # Authentication setting
-        auth_settings = []  # noqa: E501
+        auth_settings = ['api_key']  # noqa: E501
 
         return self.api_client.call_api(
             '/endpoints/{deploymentName}/model/{modelName}/default/logs', 'POST',
@@ -786,7 +1085,7 @@ class DefaultApi(object):
             ['multipart/form-data'])  # noqa: E501
 
         # Authentication setting
-        auth_settings = []  # noqa: E501
+        auth_settings = ['api_key']  # noqa: E501
 
         return self.api_client.call_api(
             '/endpoints/{deploymentName}/model/{modelName}/default/modelset', 'POST',
@@ -895,7 +1194,7 @@ class DefaultApi(object):
             ['multipart/form-data'])  # noqa: E501
 
         # Authentication setting
-        auth_settings = []  # noqa: E501
+        auth_settings = ['api_key']  # noqa: E501
 
         return self.api_client.call_api(
             '/endpoints/{deploymentName}/model/{modelName}/default/modelupdate', 'POST',
@@ -1008,7 +1307,7 @@ class DefaultApi(object):
             ['application/json'])  # noqa: E501
 
         # Authentication setting
-        auth_settings = []  # noqa: E501
+        auth_settings = ['api_key']  # noqa: E501
 
         return self.api_client.call_api(
             '/endpoints/{deploymentName}/model/{modelName}/default/multiclassify', 'POST',
@@ -1121,7 +1420,7 @@ class DefaultApi(object):
             ['application/json'])  # noqa: E501
 
         # Authentication setting
-        auth_settings = []  # noqa: E501
+        auth_settings = ['api_key']  # noqa: E501
 
         return self.api_client.call_api(
             '/endpoints/{deploymentName}/model/{modelName}/default/predict', 'POST',
@@ -1139,12 +1438,12 @@ class DefaultApi(object):
             _request_timeout=params.get('_request_timeout'),
             collection_formats=collection_formats)
 
-    def predict_0(self, deployment_name, model_name, **kwargs):  # noqa: E501
+    def predictimage(self, deployment_name, model_name, **kwargs):  # noqa: E501
         """Run inference on the input array, using input image file from multipart form data.  # noqa: E501
 
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
-        >>> thread = api.predict_0(deployment_name, model_name, async=True)
+        >>> thread = api.predictimage(deployment_name, model_name, async=True)
         >>> result = thread.get()
 
         :param async bool
@@ -1157,17 +1456,17 @@ class DefaultApi(object):
         """
         kwargs['_return_http_data_only'] = True
         if kwargs.get('async'):
-            return self.predict_0_with_http_info(deployment_name, model_name, **kwargs)  # noqa: E501
+            return self.predictimage_with_http_info(deployment_name, model_name, **kwargs)  # noqa: E501
         else:
-            (data) = self.predict_0_with_http_info(deployment_name, model_name, **kwargs)  # noqa: E501
+            (data) = self.predictimage_with_http_info(deployment_name, model_name, **kwargs)  # noqa: E501
             return data
 
-    def predict_0_with_http_info(self, deployment_name, model_name, **kwargs):  # noqa: E501
+    def predictimage_with_http_info(self, deployment_name, model_name, **kwargs):  # noqa: E501
         """Run inference on the input array, using input image file from multipart form data.  # noqa: E501
 
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
-        >>> thread = api.predict_0_with_http_info(deployment_name, model_name, async=True)
+        >>> thread = api.predictimage_with_http_info(deployment_name, model_name, async=True)
         >>> result = thread.get()
 
         :param async bool
@@ -1190,18 +1489,18 @@ class DefaultApi(object):
             if key not in all_params:
                 raise TypeError(
                     "Got an unexpected keyword argument '%s'"
-                    " to method predict_0" % key
+                    " to method predictimage" % key
                 )
             params[key] = val
         del params['kwargs']
         # verify the required parameter 'deployment_name' is set
         if ('deployment_name' not in params or
                 params['deployment_name'] is None):
-            raise ValueError("Missing the required parameter `deployment_name` when calling `predict_0`")  # noqa: E501
+            raise ValueError("Missing the required parameter `deployment_name` when calling `predictimage`")  # noqa: E501
         # verify the required parameter 'model_name' is set
         if ('model_name' not in params or
                 params['model_name'] is None):
-            raise ValueError("Missing the required parameter `model_name` when calling `predict_0`")  # noqa: E501
+            raise ValueError("Missing the required parameter `model_name` when calling `predictimage`")  # noqa: E501
 
         collection_formats = {}
 
@@ -1230,7 +1529,7 @@ class DefaultApi(object):
             ['multipart/form-data'])  # noqa: E501
 
         # Authentication setting
-        auth_settings = []  # noqa: E501
+        auth_settings = ['api_key']  # noqa: E501
 
         return self.api_client.call_api(
             '/endpoints/{deploymentName}/model/{modelName}/default/predictimage', 'POST',
@@ -1343,7 +1642,7 @@ class DefaultApi(object):
             ['application/json'])  # noqa: E501
 
         # Authentication setting
-        auth_settings = []  # noqa: E501
+        auth_settings = ['api_key']  # noqa: E501
 
         return self.api_client.call_api(
             '/endpoints/{deploymentName}/model/{modelName}/default/predictwithpreprocess', 'POST',
@@ -1456,7 +1755,7 @@ class DefaultApi(object):
             ['application/json'])  # noqa: E501
 
         # Authentication setting
-        auth_settings = []  # noqa: E501
+        auth_settings = ['api_key']  # noqa: E501
 
         return self.api_client.call_api(
             '/endpoints/{deploymentName}/model/{modelName}/default/predictwithpreprocessjson', 'POST',
@@ -1484,7 +1783,7 @@ class DefaultApi(object):
 
         :param async bool
         :param file file: The file to upload.
-        :return: None
+        :return: FileUploadList
                  If the method is called asynchronously,
                  returns the request thread.
         """
@@ -1505,7 +1804,7 @@ class DefaultApi(object):
 
         :param async bool
         :param file file: The file to upload.
-        :return: None
+        :return: FileUploadList
                  If the method is called asynchronously,
                  returns the request thread.
         """
@@ -1549,7 +1848,7 @@ class DefaultApi(object):
             ['multipart/form-data'])  # noqa: E501
 
         # Authentication setting
-        auth_settings = []  # noqa: E501
+        auth_settings = ['api_key']  # noqa: E501
 
         return self.api_client.call_api(
             '/api/upload/model', 'POST',
@@ -1559,7 +1858,7 @@ class DefaultApi(object):
             body=body_params,
             post_params=form_params,
             files=local_var_files,
-            response_type=None,  # noqa: E501
+            response_type='FileUploadList',  # noqa: E501
             auth_settings=auth_settings,
             async=params.get('async'),
             _return_http_data_only=params.get('_return_http_data_only'),

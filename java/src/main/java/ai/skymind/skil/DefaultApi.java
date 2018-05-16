@@ -29,13 +29,19 @@ import java.io.IOException;
 
 import ai.skymind.skil.model.Base64NDArrayBody;
 import ai.skymind.skil.model.ClassificationResult;
+import ai.skymind.skil.model.Credentials;
+import ai.skymind.skil.model.DeployModel;
+import ai.skymind.skil.model.Deployment;
 import java.io.File;
+import ai.skymind.skil.model.FileUploadList;
 import ai.skymind.skil.model.JsonArrayResponse;
 import ai.skymind.skil.model.LogBatch;
 import ai.skymind.skil.model.LogRequest;
 import ai.skymind.skil.model.ModelStatus;
 import ai.skymind.skil.model.MultiClassClassificationResult;
+import ai.skymind.skil.model.NewDeployment;
 import ai.skymind.skil.model.Prediction;
+import ai.skymind.skil.model.Token;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -111,7 +117,7 @@ public class DefaultApi {
             });
         }
 
-        String[] localVarAuthNames = new String[] {  };
+        String[] localVarAuthNames = new String[] { "api_key" };
         return apiClient.buildCall(localVarPath, "POST", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAuthNames, progressRequestListener);
     }
 
@@ -253,7 +259,7 @@ public class DefaultApi {
             });
         }
 
-        String[] localVarAuthNames = new String[] {  };
+        String[] localVarAuthNames = new String[] { "api_key" };
         return apiClient.buildCall(localVarPath, "POST", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAuthNames, progressRequestListener);
     }
 
@@ -397,7 +403,7 @@ public class DefaultApi {
             });
         }
 
-        String[] localVarAuthNames = new String[] {  };
+        String[] localVarAuthNames = new String[] { "api_key" };
         return apiClient.buildCall(localVarPath, "POST", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAuthNames, progressRequestListener);
     }
 
@@ -486,6 +492,260 @@ public class DefaultApi {
         return call;
     }
     /**
+     * Build call for deployModel
+     * @param deploymentId ID deployment group (required)
+     * @param body the deployment request (required)
+     * @param progressListener Progress listener
+     * @param progressRequestListener Progress request listener
+     * @return Call to execute
+     * @throws ApiException If fail to serialize the request body object
+     */
+    public com.squareup.okhttp.Call deployModelCall(String deploymentId, DeployModel body, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+        Object localVarPostBody = body;
+
+        // create path and map variables
+        String localVarPath = "/deployment/{deploymentId}/model"
+            .replaceAll("\\{" + "deploymentId" + "\\}", apiClient.escapeString(deploymentId.toString()));
+
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
+
+        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        final String[] localVarAccepts = {
+            "application/json"
+        };
+        final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+        if (localVarAccept != null) localVarHeaderParams.put("Accept", localVarAccept);
+
+        final String[] localVarContentTypes = {
+            "application/json"
+        };
+        final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+        localVarHeaderParams.put("Content-Type", localVarContentType);
+
+        if(progressListener != null) {
+            apiClient.getHttpClient().networkInterceptors().add(new com.squareup.okhttp.Interceptor() {
+                @Override
+                public com.squareup.okhttp.Response intercept(com.squareup.okhttp.Interceptor.Chain chain) throws IOException {
+                    com.squareup.okhttp.Response originalResponse = chain.proceed(chain.request());
+                    return originalResponse.newBuilder()
+                    .body(new ProgressResponseBody(originalResponse.body(), progressListener))
+                    .build();
+                }
+            });
+        }
+
+        String[] localVarAuthNames = new String[] { "api_key" };
+        return apiClient.buildCall(localVarPath, "POST", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAuthNames, progressRequestListener);
+    }
+
+    @SuppressWarnings("rawtypes")
+    private com.squareup.okhttp.Call deployModelValidateBeforeCall(String deploymentId, DeployModel body, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+        
+        // verify the required parameter 'deploymentId' is set
+        if (deploymentId == null) {
+            throw new ApiException("Missing the required parameter 'deploymentId' when calling deployModel(Async)");
+        }
+        
+        // verify the required parameter 'body' is set
+        if (body == null) {
+            throw new ApiException("Missing the required parameter 'body' when calling deployModel(Async)");
+        }
+        
+
+        com.squareup.okhttp.Call call = deployModelCall(deploymentId, body, progressListener, progressRequestListener);
+        return call;
+
+    }
+
+    /**
+     * Deploy a model in a deployment group.
+     * 
+     * @param deploymentId ID deployment group (required)
+     * @param body the deployment request (required)
+     * @return Object
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     */
+    public Object deployModel(String deploymentId, DeployModel body) throws ApiException {
+        ApiResponse<Object> resp = deployModelWithHttpInfo(deploymentId, body);
+        return resp.getData();
+    }
+
+    /**
+     * Deploy a model in a deployment group.
+     * 
+     * @param deploymentId ID deployment group (required)
+     * @param body the deployment request (required)
+     * @return ApiResponse&lt;Object&gt;
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     */
+    public ApiResponse<Object> deployModelWithHttpInfo(String deploymentId, DeployModel body) throws ApiException {
+        com.squareup.okhttp.Call call = deployModelValidateBeforeCall(deploymentId, body, null, null);
+        Type localVarReturnType = new TypeToken<Object>(){}.getType();
+        return apiClient.execute(call, localVarReturnType);
+    }
+
+    /**
+     * Deploy a model in a deployment group. (asynchronously)
+     * 
+     * @param deploymentId ID deployment group (required)
+     * @param body the deployment request (required)
+     * @param callback The callback to be executed when the API call finishes
+     * @return The request call
+     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+     */
+    public com.squareup.okhttp.Call deployModelAsync(String deploymentId, DeployModel body, final ApiCallback<Object> callback) throws ApiException {
+
+        ProgressResponseBody.ProgressListener progressListener = null;
+        ProgressRequestBody.ProgressRequestListener progressRequestListener = null;
+
+        if (callback != null) {
+            progressListener = new ProgressResponseBody.ProgressListener() {
+                @Override
+                public void update(long bytesRead, long contentLength, boolean done) {
+                    callback.onDownloadProgress(bytesRead, contentLength, done);
+                }
+            };
+
+            progressRequestListener = new ProgressRequestBody.ProgressRequestListener() {
+                @Override
+                public void onRequestProgress(long bytesWritten, long contentLength, boolean done) {
+                    callback.onUploadProgress(bytesWritten, contentLength, done);
+                }
+            };
+        }
+
+        com.squareup.okhttp.Call call = deployModelValidateBeforeCall(deploymentId, body, progressListener, progressRequestListener);
+        Type localVarReturnType = new TypeToken<Object>(){}.getType();
+        apiClient.executeAsync(call, localVarReturnType, callback);
+        return call;
+    }
+    /**
+     * Build call for deploymentCreate
+     * @param body the deployment request (required)
+     * @param progressListener Progress listener
+     * @param progressRequestListener Progress request listener
+     * @return Call to execute
+     * @throws ApiException If fail to serialize the request body object
+     */
+    public com.squareup.okhttp.Call deploymentCreateCall(NewDeployment body, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+        Object localVarPostBody = body;
+
+        // create path and map variables
+        String localVarPath = "/deployment";
+
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
+
+        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        final String[] localVarAccepts = {
+            "application/json"
+        };
+        final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+        if (localVarAccept != null) localVarHeaderParams.put("Accept", localVarAccept);
+
+        final String[] localVarContentTypes = {
+            "application/json"
+        };
+        final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+        localVarHeaderParams.put("Content-Type", localVarContentType);
+
+        if(progressListener != null) {
+            apiClient.getHttpClient().networkInterceptors().add(new com.squareup.okhttp.Interceptor() {
+                @Override
+                public com.squareup.okhttp.Response intercept(com.squareup.okhttp.Interceptor.Chain chain) throws IOException {
+                    com.squareup.okhttp.Response originalResponse = chain.proceed(chain.request());
+                    return originalResponse.newBuilder()
+                    .body(new ProgressResponseBody(originalResponse.body(), progressListener))
+                    .build();
+                }
+            });
+        }
+
+        String[] localVarAuthNames = new String[] { "api_key" };
+        return apiClient.buildCall(localVarPath, "POST", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAuthNames, progressRequestListener);
+    }
+
+    @SuppressWarnings("rawtypes")
+    private com.squareup.okhttp.Call deploymentCreateValidateBeforeCall(NewDeployment body, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+        
+        // verify the required parameter 'body' is set
+        if (body == null) {
+            throw new ApiException("Missing the required parameter 'body' when calling deploymentCreate(Async)");
+        }
+        
+
+        com.squareup.okhttp.Call call = deploymentCreateCall(body, progressListener, progressRequestListener);
+        return call;
+
+    }
+
+    /**
+     * Create a new deployment group.
+     * 
+     * @param body the deployment request (required)
+     * @return Deployment
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     */
+    public Deployment deploymentCreate(NewDeployment body) throws ApiException {
+        ApiResponse<Deployment> resp = deploymentCreateWithHttpInfo(body);
+        return resp.getData();
+    }
+
+    /**
+     * Create a new deployment group.
+     * 
+     * @param body the deployment request (required)
+     * @return ApiResponse&lt;Deployment&gt;
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     */
+    public ApiResponse<Deployment> deploymentCreateWithHttpInfo(NewDeployment body) throws ApiException {
+        com.squareup.okhttp.Call call = deploymentCreateValidateBeforeCall(body, null, null);
+        Type localVarReturnType = new TypeToken<Deployment>(){}.getType();
+        return apiClient.execute(call, localVarReturnType);
+    }
+
+    /**
+     * Create a new deployment group. (asynchronously)
+     * 
+     * @param body the deployment request (required)
+     * @param callback The callback to be executed when the API call finishes
+     * @return The request call
+     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+     */
+    public com.squareup.okhttp.Call deploymentCreateAsync(NewDeployment body, final ApiCallback<Deployment> callback) throws ApiException {
+
+        ProgressResponseBody.ProgressListener progressListener = null;
+        ProgressRequestBody.ProgressRequestListener progressRequestListener = null;
+
+        if (callback != null) {
+            progressListener = new ProgressResponseBody.ProgressListener() {
+                @Override
+                public void update(long bytesRead, long contentLength, boolean done) {
+                    callback.onDownloadProgress(bytesRead, contentLength, done);
+                }
+            };
+
+            progressRequestListener = new ProgressRequestBody.ProgressRequestListener() {
+                @Override
+                public void onRequestProgress(long bytesWritten, long contentLength, boolean done) {
+                    callback.onUploadProgress(bytesWritten, contentLength, done);
+                }
+            };
+        }
+
+        com.squareup.okhttp.Call call = deploymentCreateValidateBeforeCall(body, progressListener, progressRequestListener);
+        Type localVarReturnType = new TypeToken<Deployment>(){}.getType();
+        apiClient.executeAsync(call, localVarReturnType, callback);
+        return call;
+    }
+    /**
      * Build call for jsonarray
      * @param body The input NDArray (required)
      * @param deploymentName Name of the deployment group (required)
@@ -534,7 +794,7 @@ public class DefaultApi {
             });
         }
 
-        String[] localVarAuthNames = new String[] {  };
+        String[] localVarAuthNames = new String[] { "api_key" };
         return apiClient.buildCall(localVarPath, "POST", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAuthNames, progressRequestListener);
     }
 
@@ -675,7 +935,7 @@ public class DefaultApi {
             });
         }
 
-        String[] localVarAuthNames = new String[] {  };
+        String[] localVarAuthNames = new String[] { "api_key" };
         return apiClient.buildCall(localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAuthNames, progressRequestListener);
     }
 
@@ -761,6 +1021,128 @@ public class DefaultApi {
         return call;
     }
     /**
+     * Build call for login
+     * @param credentials Login credentials. (required)
+     * @param progressListener Progress listener
+     * @param progressRequestListener Progress request listener
+     * @return Call to execute
+     * @throws ApiException If fail to serialize the request body object
+     */
+    public com.squareup.okhttp.Call loginCall(Credentials credentials, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+        Object localVarPostBody = credentials;
+
+        // create path and map variables
+        String localVarPath = "/login";
+
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
+
+        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        final String[] localVarAccepts = {
+            "application/json"
+        };
+        final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+        if (localVarAccept != null) localVarHeaderParams.put("Accept", localVarAccept);
+
+        final String[] localVarContentTypes = {
+            "application/json"
+        };
+        final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+        localVarHeaderParams.put("Content-Type", localVarContentType);
+
+        if(progressListener != null) {
+            apiClient.getHttpClient().networkInterceptors().add(new com.squareup.okhttp.Interceptor() {
+                @Override
+                public com.squareup.okhttp.Response intercept(com.squareup.okhttp.Interceptor.Chain chain) throws IOException {
+                    com.squareup.okhttp.Response originalResponse = chain.proceed(chain.request());
+                    return originalResponse.newBuilder()
+                    .body(new ProgressResponseBody(originalResponse.body(), progressListener))
+                    .build();
+                }
+            });
+        }
+
+        String[] localVarAuthNames = new String[] { "api_key" };
+        return apiClient.buildCall(localVarPath, "POST", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAuthNames, progressRequestListener);
+    }
+
+    @SuppressWarnings("rawtypes")
+    private com.squareup.okhttp.Call loginValidateBeforeCall(Credentials credentials, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+        
+        // verify the required parameter 'credentials' is set
+        if (credentials == null) {
+            throw new ApiException("Missing the required parameter 'credentials' when calling login(Async)");
+        }
+        
+
+        com.squareup.okhttp.Call call = loginCall(credentials, progressListener, progressRequestListener);
+        return call;
+
+    }
+
+    /**
+     * Post JSON credentials and obtain a JWT authorization token.
+     * 
+     * @param credentials Login credentials. (required)
+     * @return Token
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     */
+    public Token login(Credentials credentials) throws ApiException {
+        ApiResponse<Token> resp = loginWithHttpInfo(credentials);
+        return resp.getData();
+    }
+
+    /**
+     * Post JSON credentials and obtain a JWT authorization token.
+     * 
+     * @param credentials Login credentials. (required)
+     * @return ApiResponse&lt;Token&gt;
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     */
+    public ApiResponse<Token> loginWithHttpInfo(Credentials credentials) throws ApiException {
+        com.squareup.okhttp.Call call = loginValidateBeforeCall(credentials, null, null);
+        Type localVarReturnType = new TypeToken<Token>(){}.getType();
+        return apiClient.execute(call, localVarReturnType);
+    }
+
+    /**
+     * Post JSON credentials and obtain a JWT authorization token. (asynchronously)
+     * 
+     * @param credentials Login credentials. (required)
+     * @param callback The callback to be executed when the API call finishes
+     * @return The request call
+     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+     */
+    public com.squareup.okhttp.Call loginAsync(Credentials credentials, final ApiCallback<Token> callback) throws ApiException {
+
+        ProgressResponseBody.ProgressListener progressListener = null;
+        ProgressRequestBody.ProgressRequestListener progressRequestListener = null;
+
+        if (callback != null) {
+            progressListener = new ProgressResponseBody.ProgressListener() {
+                @Override
+                public void update(long bytesRead, long contentLength, boolean done) {
+                    callback.onDownloadProgress(bytesRead, contentLength, done);
+                }
+            };
+
+            progressRequestListener = new ProgressRequestBody.ProgressRequestListener() {
+                @Override
+                public void onRequestProgress(long bytesWritten, long contentLength, boolean done) {
+                    callback.onUploadProgress(bytesWritten, contentLength, done);
+                }
+            };
+        }
+
+        com.squareup.okhttp.Call call = loginValidateBeforeCall(credentials, progressListener, progressRequestListener);
+        Type localVarReturnType = new TypeToken<Token>(){}.getType();
+        apiClient.executeAsync(call, localVarReturnType, callback);
+        return call;
+    }
+    /**
      * Build call for logs
      * @param body the the log request (required)
      * @param deploymentName Name of the deployment group (required)
@@ -809,7 +1191,7 @@ public class DefaultApi {
             });
         }
 
-        String[] localVarAuthNames = new String[] {  };
+        String[] localVarAuthNames = new String[] { "api_key" };
         return apiClient.buildCall(localVarPath, "POST", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAuthNames, progressRequestListener);
     }
 
@@ -953,7 +1335,7 @@ public class DefaultApi {
             });
         }
 
-        String[] localVarAuthNames = new String[] {  };
+        String[] localVarAuthNames = new String[] { "api_key" };
         return apiClient.buildCall(localVarPath, "POST", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAuthNames, progressRequestListener);
     }
 
@@ -1092,7 +1474,7 @@ public class DefaultApi {
             });
         }
 
-        String[] localVarAuthNames = new String[] {  };
+        String[] localVarAuthNames = new String[] { "api_key" };
         return apiClient.buildCall(localVarPath, "POST", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAuthNames, progressRequestListener);
     }
 
@@ -1229,7 +1611,7 @@ public class DefaultApi {
             });
         }
 
-        String[] localVarAuthNames = new String[] {  };
+        String[] localVarAuthNames = new String[] { "api_key" };
         return apiClient.buildCall(localVarPath, "POST", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAuthNames, progressRequestListener);
     }
 
@@ -1371,7 +1753,7 @@ public class DefaultApi {
             });
         }
 
-        String[] localVarAuthNames = new String[] {  };
+        String[] localVarAuthNames = new String[] { "api_key" };
         return apiClient.buildCall(localVarPath, "POST", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAuthNames, progressRequestListener);
     }
 
@@ -1465,7 +1847,7 @@ public class DefaultApi {
         return call;
     }
     /**
-     * Build call for predict_0
+     * Build call for predictimage
      * @param deploymentName Name of the deployment group (required)
      * @param modelName ID or name of the deployed model (required)
      * @param image The file to upload. (optional)
@@ -1474,7 +1856,7 @@ public class DefaultApi {
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
      */
-    public com.squareup.okhttp.Call predict_0Call(String deploymentName, String modelName, File image, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+    public com.squareup.okhttp.Call predictimageCall(String deploymentName, String modelName, File image, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
         Object localVarPostBody = null;
 
         // create path and map variables
@@ -1515,25 +1897,25 @@ public class DefaultApi {
             });
         }
 
-        String[] localVarAuthNames = new String[] {  };
+        String[] localVarAuthNames = new String[] { "api_key" };
         return apiClient.buildCall(localVarPath, "POST", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAuthNames, progressRequestListener);
     }
 
     @SuppressWarnings("rawtypes")
-    private com.squareup.okhttp.Call predict_0ValidateBeforeCall(String deploymentName, String modelName, File image, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+    private com.squareup.okhttp.Call predictimageValidateBeforeCall(String deploymentName, String modelName, File image, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
         
         // verify the required parameter 'deploymentName' is set
         if (deploymentName == null) {
-            throw new ApiException("Missing the required parameter 'deploymentName' when calling predict_0(Async)");
+            throw new ApiException("Missing the required parameter 'deploymentName' when calling predictimage(Async)");
         }
         
         // verify the required parameter 'modelName' is set
         if (modelName == null) {
-            throw new ApiException("Missing the required parameter 'modelName' when calling predict_0(Async)");
+            throw new ApiException("Missing the required parameter 'modelName' when calling predictimage(Async)");
         }
         
 
-        com.squareup.okhttp.Call call = predict_0Call(deploymentName, modelName, image, progressListener, progressRequestListener);
+        com.squareup.okhttp.Call call = predictimageCall(deploymentName, modelName, image, progressListener, progressRequestListener);
         return call;
 
     }
@@ -1547,8 +1929,8 @@ public class DefaultApi {
      * @return Prediction
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public Prediction predict_0(String deploymentName, String modelName, File image) throws ApiException {
-        ApiResponse<Prediction> resp = predict_0WithHttpInfo(deploymentName, modelName, image);
+    public Prediction predictimage(String deploymentName, String modelName, File image) throws ApiException {
+        ApiResponse<Prediction> resp = predictimageWithHttpInfo(deploymentName, modelName, image);
         return resp.getData();
     }
 
@@ -1561,8 +1943,8 @@ public class DefaultApi {
      * @return ApiResponse&lt;Prediction&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public ApiResponse<Prediction> predict_0WithHttpInfo(String deploymentName, String modelName, File image) throws ApiException {
-        com.squareup.okhttp.Call call = predict_0ValidateBeforeCall(deploymentName, modelName, image, null, null);
+    public ApiResponse<Prediction> predictimageWithHttpInfo(String deploymentName, String modelName, File image) throws ApiException {
+        com.squareup.okhttp.Call call = predictimageValidateBeforeCall(deploymentName, modelName, image, null, null);
         Type localVarReturnType = new TypeToken<Prediction>(){}.getType();
         return apiClient.execute(call, localVarReturnType);
     }
@@ -1577,7 +1959,7 @@ public class DefaultApi {
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
      */
-    public com.squareup.okhttp.Call predict_0Async(String deploymentName, String modelName, File image, final ApiCallback<Prediction> callback) throws ApiException {
+    public com.squareup.okhttp.Call predictimageAsync(String deploymentName, String modelName, File image, final ApiCallback<Prediction> callback) throws ApiException {
 
         ProgressResponseBody.ProgressListener progressListener = null;
         ProgressRequestBody.ProgressRequestListener progressRequestListener = null;
@@ -1598,7 +1980,7 @@ public class DefaultApi {
             };
         }
 
-        com.squareup.okhttp.Call call = predict_0ValidateBeforeCall(deploymentName, modelName, image, progressListener, progressRequestListener);
+        com.squareup.okhttp.Call call = predictimageValidateBeforeCall(deploymentName, modelName, image, progressListener, progressRequestListener);
         Type localVarReturnType = new TypeToken<Prediction>(){}.getType();
         apiClient.executeAsync(call, localVarReturnType, callback);
         return call;
@@ -1652,7 +2034,7 @@ public class DefaultApi {
             });
         }
 
-        String[] localVarAuthNames = new String[] {  };
+        String[] localVarAuthNames = new String[] { "api_key" };
         return apiClient.buildCall(localVarPath, "POST", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAuthNames, progressRequestListener);
     }
 
@@ -1794,7 +2176,7 @@ public class DefaultApi {
             });
         }
 
-        String[] localVarAuthNames = new String[] {  };
+        String[] localVarAuthNames = new String[] { "api_key" };
         return apiClient.buildCall(localVarPath, "POST", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAuthNames, progressRequestListener);
     }
 
@@ -1934,7 +2316,7 @@ public class DefaultApi {
             });
         }
 
-        String[] localVarAuthNames = new String[] {  };
+        String[] localVarAuthNames = new String[] { "api_key" };
         return apiClient.buildCall(localVarPath, "POST", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAuthNames, progressRequestListener);
     }
 
@@ -1951,22 +2333,25 @@ public class DefaultApi {
      * Upload a model file to SKIL for import.
      * 
      * @param file The file to upload. (optional)
+     * @return FileUploadList
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public void upload(File file) throws ApiException {
-        uploadWithHttpInfo(file);
+    public FileUploadList upload(File file) throws ApiException {
+        ApiResponse<FileUploadList> resp = uploadWithHttpInfo(file);
+        return resp.getData();
     }
 
     /**
      * Upload a model file to SKIL for import.
      * 
      * @param file The file to upload. (optional)
-     * @return ApiResponse&lt;Void&gt;
+     * @return ApiResponse&lt;FileUploadList&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public ApiResponse<Void> uploadWithHttpInfo(File file) throws ApiException {
+    public ApiResponse<FileUploadList> uploadWithHttpInfo(File file) throws ApiException {
         com.squareup.okhttp.Call call = uploadValidateBeforeCall(file, null, null);
-        return apiClient.execute(call);
+        Type localVarReturnType = new TypeToken<FileUploadList>(){}.getType();
+        return apiClient.execute(call, localVarReturnType);
     }
 
     /**
@@ -1977,7 +2362,7 @@ public class DefaultApi {
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
      */
-    public com.squareup.okhttp.Call uploadAsync(File file, final ApiCallback<Void> callback) throws ApiException {
+    public com.squareup.okhttp.Call uploadAsync(File file, final ApiCallback<FileUploadList> callback) throws ApiException {
 
         ProgressResponseBody.ProgressListener progressListener = null;
         ProgressRequestBody.ProgressRequestListener progressRequestListener = null;
@@ -1999,7 +2384,8 @@ public class DefaultApi {
         }
 
         com.squareup.okhttp.Call call = uploadValidateBeforeCall(file, progressListener, progressRequestListener);
-        apiClient.executeAsync(call, callback);
+        Type localVarReturnType = new TypeToken<FileUploadList>(){}.getType();
+        apiClient.executeAsync(call, localVarReturnType, callback);
         return call;
     }
 }

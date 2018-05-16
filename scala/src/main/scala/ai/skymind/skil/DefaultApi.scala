@@ -16,13 +16,19 @@ import java.text.SimpleDateFormat
 
 import ai.skymind.skil.model.Base64NDArrayBody
 import ai.skymind.skil.model.ClassificationResult
+import ai.skymind.skil.model.Credentials
+import ai.skymind.skil.model.DeployModel
+import ai.skymind.skil.model.Deployment
 import java.io.File
+import ai.skymind.skil.model.FileUploadList
 import ai.skymind.skil.model.JsonArrayResponse
 import ai.skymind.skil.model.LogBatch
 import ai.skymind.skil.model.LogRequest
 import ai.skymind.skil.model.ModelStatus
 import ai.skymind.skil.model.MultiClassClassificationResult
+import ai.skymind.skil.model.NewDeployment
 import ai.skymind.skil.model.Prediction
+import ai.skymind.skil.model.Token
 import io.swagger.client.{ApiInvoker, ApiException}
 
 import com.sun.jersey.multipart.FormDataMultiPart
@@ -178,6 +184,60 @@ class DefaultApi(
   }
 
   /**
+   * Deploy a model in a deployment group.
+   * 
+   *
+   * @param DeploymentId ID deployment group 
+   * @param Body the deployment request 
+   * @return Any
+   */
+  def deployModel(DeploymentId: String, Body: DeployModel): Option[Any] = {
+    val await = Try(Await.result(deployModelAsync(DeploymentId, Body), Duration.Inf))
+    await match {
+      case Success(i) => Some(await.get)
+      case Failure(t) => None
+    }
+  }
+
+  /**
+   * Deploy a model in a deployment group. asynchronously
+   * 
+   *
+   * @param DeploymentId ID deployment group 
+   * @param Body the deployment request 
+   * @return Future(Any)
+   */
+  def deployModelAsync(DeploymentId: String, Body: DeployModel): Future[Any] = {
+      helper.deployModel(DeploymentId, Body)
+  }
+
+  /**
+   * Create a new deployment group.
+   * 
+   *
+   * @param Body the deployment request 
+   * @return Deployment
+   */
+  def deploymentCreate(Body: NewDeployment): Option[Deployment] = {
+    val await = Try(Await.result(deploymentCreateAsync(Body), Duration.Inf))
+    await match {
+      case Success(i) => Some(await.get)
+      case Failure(t) => None
+    }
+  }
+
+  /**
+   * Create a new deployment group. asynchronously
+   * 
+   *
+   * @param Body the deployment request 
+   * @return Future(Deployment)
+   */
+  def deploymentCreateAsync(Body: NewDeployment): Future[Deployment] = {
+      helper.deploymentCreate(Body)
+  }
+
+  /**
    * Run inference on the input and returns it as a JsonArrayResponse
    * 
    *
@@ -233,6 +293,32 @@ class DefaultApi(
    */
   def logfilepathAsync(DeploymentName: String, ModelName: String): Future[String] = {
       helper.logfilepath(DeploymentName, ModelName)
+  }
+
+  /**
+   * Post JSON credentials and obtain a JWT authorization token.
+   * 
+   *
+   * @param Credentials Login credentials. 
+   * @return Token
+   */
+  def login(Credentials: Credentials): Option[Token] = {
+    val await = Try(Await.result(loginAsync(Credentials), Duration.Inf))
+    await match {
+      case Success(i) => Some(await.get)
+      case Failure(t) => None
+    }
+  }
+
+  /**
+   * Post JSON credentials and obtain a JWT authorization token. asynchronously
+   * 
+   *
+   * @param Credentials Login credentials. 
+   * @return Future(Token)
+   */
+  def loginAsync(Credentials: Credentials): Future[Token] = {
+      helper.login(Credentials)
   }
 
   /**
@@ -394,8 +480,8 @@ class DefaultApi(
    * @param Image The file to upload. (optional)
    * @return Prediction
    */
-  def predict_0(DeploymentName: String, ModelName: String, Image: Option[File] = None): Option[Prediction] = {
-    val await = Try(Await.result(predict_0Async(DeploymentName, ModelName, Image), Duration.Inf))
+  def predictimage(DeploymentName: String, ModelName: String, Image: Option[File] = None): Option[Prediction] = {
+    val await = Try(Await.result(predictimageAsync(DeploymentName, ModelName, Image), Duration.Inf))
     await match {
       case Success(i) => Some(await.get)
       case Failure(t) => None
@@ -411,8 +497,8 @@ class DefaultApi(
    * @param Image The file to upload. (optional)
    * @return Future(Prediction)
    */
-  def predict_0Async(DeploymentName: String, ModelName: String, Image: Option[File] = None): Future[Prediction] = {
-      helper.predict_0(DeploymentName, ModelName, Image)
+  def predictimageAsync(DeploymentName: String, ModelName: String, Image: Option[File] = None): Future[Prediction] = {
+      helper.predictimage(DeploymentName, ModelName, Image)
   }
 
   /**
@@ -480,9 +566,9 @@ class DefaultApi(
    * 
    *
    * @param File The file to upload. (optional)
-   * @return void
+   * @return FileUploadList
    */
-  def upload(File: Option[File] = None) = {
+  def upload(File: Option[File] = None): Option[FileUploadList] = {
     val await = Try(Await.result(uploadAsync(File), Duration.Inf))
     await match {
       case Success(i) => Some(await.get)
@@ -495,9 +581,9 @@ class DefaultApi(
    * 
    *
    * @param File The file to upload. (optional)
-   * @return Future(void)
+   * @return Future(FileUploadList)
    */
-  def uploadAsync(File: Option[File] = None) = {
+  def uploadAsync(File: Option[File] = None): Future[FileUploadList] = {
       helper.upload(File)
   }
 
@@ -577,6 +663,42 @@ class DefaultApiAsyncHelper(client: TransportClient, config: SwaggerConfig) exte
     }
   }
 
+  def deployModel(DeploymentId: String,
+    Body: DeployModel)(implicit reader: ClientResponseReader[Any], writer: RequestWriter[DeployModel]): Future[Any] = {
+    // create path and map variables
+    val path = (addFmt("/deployment/{deploymentId}/model")
+      replaceAll("\\{" + "deploymentId" + "\\}", DeploymentId.toString))
+
+    // query params
+    val queryParams = new mutable.HashMap[String, String]
+    val headerParams = new mutable.HashMap[String, String]
+
+    if (DeploymentId == null) throw new Exception("Missing required parameter 'DeploymentId' when calling DefaultApi->deployModel")
+
+    if (Body == null) throw new Exception("Missing required parameter 'Body' when calling DefaultApi->deployModel")
+
+    val resFuture = client.submit("POST", path, queryParams.toMap, headerParams.toMap, writer.write(Body))
+    resFuture flatMap { resp =>
+      process(reader.read(resp))
+    }
+  }
+
+  def deploymentCreate(Body: NewDeployment)(implicit reader: ClientResponseReader[Deployment], writer: RequestWriter[NewDeployment]): Future[Deployment] = {
+    // create path and map variables
+    val path = (addFmt("/deployment"))
+
+    // query params
+    val queryParams = new mutable.HashMap[String, String]
+    val headerParams = new mutable.HashMap[String, String]
+
+    if (Body == null) throw new Exception("Missing required parameter 'Body' when calling DefaultApi->deploymentCreate")
+
+    val resFuture = client.submit("POST", path, queryParams.toMap, headerParams.toMap, writer.write(Body))
+    resFuture flatMap { resp =>
+      process(reader.read(resp))
+    }
+  }
+
   def jsonarray(Body: Prediction,
     DeploymentName: String,
     ModelName: String)(implicit reader: ClientResponseReader[JsonArrayResponse], writer: RequestWriter[Prediction]): Future[JsonArrayResponse] = {
@@ -618,6 +740,22 @@ class DefaultApiAsyncHelper(client: TransportClient, config: SwaggerConfig) exte
 
 
     val resFuture = client.submit("GET", path, queryParams.toMap, headerParams.toMap, "")
+    resFuture flatMap { resp =>
+      process(reader.read(resp))
+    }
+  }
+
+  def login(Credentials: Credentials)(implicit reader: ClientResponseReader[Token], writer: RequestWriter[Credentials]): Future[Token] = {
+    // create path and map variables
+    val path = (addFmt("/login"))
+
+    // query params
+    val queryParams = new mutable.HashMap[String, String]
+    val headerParams = new mutable.HashMap[String, String]
+
+    if (Credentials == null) throw new Exception("Missing required parameter 'Credentials' when calling DefaultApi->login")
+
+    val resFuture = client.submit("POST", path, queryParams.toMap, headerParams.toMap, writer.write(Credentials))
     resFuture flatMap { resp =>
       process(reader.read(resp))
     }
@@ -743,7 +881,7 @@ class DefaultApiAsyncHelper(client: TransportClient, config: SwaggerConfig) exte
     }
   }
 
-  def predict_0(DeploymentName: String,
+  def predictimage(DeploymentName: String,
     ModelName: String,
     Image: Option[File] = None
     )(implicit reader: ClientResponseReader[Prediction]): Future[Prediction] = {
@@ -756,9 +894,9 @@ class DefaultApiAsyncHelper(client: TransportClient, config: SwaggerConfig) exte
     val queryParams = new mutable.HashMap[String, String]
     val headerParams = new mutable.HashMap[String, String]
 
-    if (DeploymentName == null) throw new Exception("Missing required parameter 'DeploymentName' when calling DefaultApi->predict_0")
+    if (DeploymentName == null) throw new Exception("Missing required parameter 'DeploymentName' when calling DefaultApi->predictimage")
 
-    if (ModelName == null) throw new Exception("Missing required parameter 'ModelName' when calling DefaultApi->predict_0")
+    if (ModelName == null) throw new Exception("Missing required parameter 'ModelName' when calling DefaultApi->predictimage")
 
 
     val resFuture = client.submit("POST", path, queryParams.toMap, headerParams.toMap, "")
@@ -814,7 +952,7 @@ class DefaultApiAsyncHelper(client: TransportClient, config: SwaggerConfig) exte
   }
 
   def upload(File: Option[File] = None
-    )(implicit reader: ClientResponseReader[Unit]): Future[Unit] = {
+    )(implicit reader: ClientResponseReader[FileUploadList]): Future[FileUploadList] = {
     // create path and map variables
     val path = (addFmt("/api/upload/model"))
 

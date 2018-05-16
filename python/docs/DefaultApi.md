@@ -7,14 +7,17 @@ Method | HTTP request | Description
 [**classify**](DefaultApi.md#classify) | **POST** /endpoints/{deploymentName}/model/{modelName}/default/classify | Use the deployed model to classify the input
 [**classifyarray**](DefaultApi.md#classifyarray) | **POST** /endpoints/{deploymentName}/model/{modelName}/default/classifyarray | Same as /classify but returns the output as Base64NDArrayBody
 [**classifyimage**](DefaultApi.md#classifyimage) | **POST** /endpoints/{deploymentName}/model/{modelName}/default/classifyimage | Use the deployed model to classify the input, using input image file from multipart form data.
+[**deploy_model**](DefaultApi.md#deploy_model) | **POST** /deployment/{deploymentId}/model | Deploy a model in a deployment group.
+[**deployment_create**](DefaultApi.md#deployment_create) | **POST** /deployment | Create a new deployment group.
 [**jsonarray**](DefaultApi.md#jsonarray) | **POST** /endpoints/{deploymentName}/model/{modelName}/default/jsonarray | Run inference on the input and returns it as a JsonArrayResponse
 [**logfilepath**](DefaultApi.md#logfilepath) | **GET** /endpoints/{deploymentName}/model/{modelName}/default/logfilepath | Get logs file path
+[**login**](DefaultApi.md#login) | **POST** /login | Post JSON credentials and obtain a JWT authorization token.
 [**logs**](DefaultApi.md#logs) | **POST** /endpoints/{deploymentName}/model/{modelName}/default/logs | Get logs
 [**modelset**](DefaultApi.md#modelset) | **POST** /endpoints/{deploymentName}/model/{modelName}/default/modelset | Set the model to be served
 [**modelupdate**](DefaultApi.md#modelupdate) | **POST** /endpoints/{deploymentName}/model/{modelName}/default/modelupdate | Update the model to be served
 [**multiclassify**](DefaultApi.md#multiclassify) | **POST** /endpoints/{deploymentName}/model/{modelName}/default/multiclassify | Represents all of the labels for a given classification
 [**predict**](DefaultApi.md#predict) | **POST** /endpoints/{deploymentName}/model/{modelName}/default/predict | Run inference on the input array.
-[**predict_0**](DefaultApi.md#predict_0) | **POST** /endpoints/{deploymentName}/model/{modelName}/default/predictimage | Run inference on the input array, using input image file from multipart form data.
+[**predictimage**](DefaultApi.md#predictimage) | **POST** /endpoints/{deploymentName}/model/{modelName}/default/predictimage | Run inference on the input array, using input image file from multipart form data.
 [**predictwithpreprocess**](DefaultApi.md#predictwithpreprocess) | **POST** /endpoints/{deploymentName}/model/{modelName}/default/predictwithpreprocess | Preprocesses the input and run inference on it
 [**predictwithpreprocessjson**](DefaultApi.md#predictwithpreprocessjson) | **POST** /endpoints/{deploymentName}/model/{modelName}/default/predictwithpreprocessjson | Preprocesses the input and run inference on it and returns it as a JsonArrayResponse
 [**upload**](DefaultApi.md#upload) | **POST** /api/upload/model | Upload a model file to SKIL for import.
@@ -33,8 +36,14 @@ import skil_client
 from skil_client.rest import ApiException
 from pprint import pprint
 
+# Configure API key authorization: api_key
+configuration = skil_client.Configuration()
+configuration.api_key['authorization'] = 'YOUR_API_KEY'
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['authorization'] = 'Bearer'
+
 # create an instance of the API class
-api_instance = skil_client.DefaultApi()
+api_instance = skil_client.DefaultApi(skil_client.ApiClient(configuration))
 body = skil_client.Prediction() # Prediction | The input NDArray
 deployment_name = 'deployment_name_example' # str | Name of the deployment group
 model_name = 'model_name_example' # str | ID or name of the deployed model
@@ -61,7 +70,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[api_key](../README.md#api_key)
 
 ### HTTP request headers
 
@@ -83,8 +92,14 @@ import skil_client
 from skil_client.rest import ApiException
 from pprint import pprint
 
+# Configure API key authorization: api_key
+configuration = skil_client.Configuration()
+configuration.api_key['authorization'] = 'YOUR_API_KEY'
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['authorization'] = 'Bearer'
+
 # create an instance of the API class
-api_instance = skil_client.DefaultApi()
+api_instance = skil_client.DefaultApi(skil_client.ApiClient(configuration))
 body = skil_client.Prediction() # Prediction | The input NDArray
 deployment_name = 'deployment_name_example' # str | Name of the deployment group
 model_name = 'model_name_example' # str | ID or name of the deployed model
@@ -111,7 +126,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[api_key](../README.md#api_key)
 
 ### HTTP request headers
 
@@ -133,8 +148,14 @@ import skil_client
 from skil_client.rest import ApiException
 from pprint import pprint
 
+# Configure API key authorization: api_key
+configuration = skil_client.Configuration()
+configuration.api_key['authorization'] = 'YOUR_API_KEY'
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['authorization'] = 'Bearer'
+
 # create an instance of the API class
-api_instance = skil_client.DefaultApi()
+api_instance = skil_client.DefaultApi(skil_client.ApiClient(configuration))
 deployment_name = 'deployment_name_example' # str | Name of the deployment group
 model_name = 'model_name_example' # str | ID or name of the deployed model
 image = '/path/to/file.txt' # file | The file to upload. (optional)
@@ -161,11 +182,117 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[api_key](../README.md#api_key)
 
 ### HTTP request headers
 
  - **Content-Type**: multipart/form-data
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **deploy_model**
+> object deploy_model(deployment_id, body)
+
+Deploy a model in a deployment group.
+
+### Example
+```python
+from __future__ import print_function
+import time
+import skil_client
+from skil_client.rest import ApiException
+from pprint import pprint
+
+# Configure API key authorization: api_key
+configuration = skil_client.Configuration()
+configuration.api_key['authorization'] = 'YOUR_API_KEY'
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['authorization'] = 'Bearer'
+
+# create an instance of the API class
+api_instance = skil_client.DefaultApi(skil_client.ApiClient(configuration))
+deployment_id = 'deployment_id_example' # str | ID deployment group
+body = skil_client.DeployModel() # DeployModel | the deployment request
+
+try:
+    # Deploy a model in a deployment group.
+    api_response = api_instance.deploy_model(deployment_id, body)
+    pprint(api_response)
+except ApiException as e:
+    print("Exception when calling DefaultApi->deploy_model: %s\n" % e)
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **deployment_id** | **str**| ID deployment group | 
+ **body** | [**DeployModel**](DeployModel.md)| the deployment request | 
+
+### Return type
+
+**object**
+
+### Authorization
+
+[api_key](../README.md#api_key)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **deployment_create**
+> Deployment deployment_create(body)
+
+Create a new deployment group.
+
+### Example
+```python
+from __future__ import print_function
+import time
+import skil_client
+from skil_client.rest import ApiException
+from pprint import pprint
+
+# Configure API key authorization: api_key
+configuration = skil_client.Configuration()
+configuration.api_key['authorization'] = 'YOUR_API_KEY'
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['authorization'] = 'Bearer'
+
+# create an instance of the API class
+api_instance = skil_client.DefaultApi(skil_client.ApiClient(configuration))
+body = skil_client.NewDeployment() # NewDeployment | the deployment request
+
+try:
+    # Create a new deployment group.
+    api_response = api_instance.deployment_create(body)
+    pprint(api_response)
+except ApiException as e:
+    print("Exception when calling DefaultApi->deployment_create: %s\n" % e)
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **body** | [**NewDeployment**](NewDeployment.md)| the deployment request | 
+
+### Return type
+
+[**Deployment**](Deployment.md)
+
+### Authorization
+
+[api_key](../README.md#api_key)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
  - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -183,8 +310,14 @@ import skil_client
 from skil_client.rest import ApiException
 from pprint import pprint
 
+# Configure API key authorization: api_key
+configuration = skil_client.Configuration()
+configuration.api_key['authorization'] = 'YOUR_API_KEY'
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['authorization'] = 'Bearer'
+
 # create an instance of the API class
-api_instance = skil_client.DefaultApi()
+api_instance = skil_client.DefaultApi(skil_client.ApiClient(configuration))
 body = skil_client.Prediction() # Prediction | The input NDArray
 deployment_name = 'deployment_name_example' # str | Name of the deployment group
 model_name = 'model_name_example' # str | ID or name of the deployed model
@@ -211,7 +344,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[api_key](../README.md#api_key)
 
 ### HTTP request headers
 
@@ -233,8 +366,14 @@ import skil_client
 from skil_client.rest import ApiException
 from pprint import pprint
 
+# Configure API key authorization: api_key
+configuration = skil_client.Configuration()
+configuration.api_key['authorization'] = 'YOUR_API_KEY'
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['authorization'] = 'Bearer'
+
 # create an instance of the API class
-api_instance = skil_client.DefaultApi()
+api_instance = skil_client.DefaultApi(skil_client.ApiClient(configuration))
 deployment_name = 'deployment_name_example' # str | Name of the deployment group
 model_name = 'model_name_example' # str | ID or name of the deployed model
 
@@ -259,12 +398,64 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[api_key](../README.md#api_key)
 
 ### HTTP request headers
 
  - **Content-Type**: Not defined
  - **Accept**: text
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **login**
+> Token login(credentials)
+
+Post JSON credentials and obtain a JWT authorization token.
+
+### Example
+```python
+from __future__ import print_function
+import time
+import skil_client
+from skil_client.rest import ApiException
+from pprint import pprint
+
+# Configure API key authorization: api_key
+configuration = skil_client.Configuration()
+configuration.api_key['authorization'] = 'YOUR_API_KEY'
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['authorization'] = 'Bearer'
+
+# create an instance of the API class
+api_instance = skil_client.DefaultApi(skil_client.ApiClient(configuration))
+credentials = skil_client.Credentials() # Credentials | Login credentials.
+
+try:
+    # Post JSON credentials and obtain a JWT authorization token.
+    api_response = api_instance.login(credentials)
+    pprint(api_response)
+except ApiException as e:
+    print("Exception when calling DefaultApi->login: %s\n" % e)
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **credentials** | [**Credentials**](Credentials.md)| Login credentials. | 
+
+### Return type
+
+[**Token**](Token.md)
+
+### Authorization
+
+[api_key](../README.md#api_key)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -281,8 +472,14 @@ import skil_client
 from skil_client.rest import ApiException
 from pprint import pprint
 
+# Configure API key authorization: api_key
+configuration = skil_client.Configuration()
+configuration.api_key['authorization'] = 'YOUR_API_KEY'
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['authorization'] = 'Bearer'
+
 # create an instance of the API class
-api_instance = skil_client.DefaultApi()
+api_instance = skil_client.DefaultApi(skil_client.ApiClient(configuration))
 body = skil_client.LogRequest() # LogRequest | the the log request
 deployment_name = 'deployment_name_example' # str | Name of the deployment group
 model_name = 'model_name_example' # str | ID or name of the deployed model
@@ -309,7 +506,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[api_key](../README.md#api_key)
 
 ### HTTP request headers
 
@@ -331,8 +528,14 @@ import skil_client
 from skil_client.rest import ApiException
 from pprint import pprint
 
+# Configure API key authorization: api_key
+configuration = skil_client.Configuration()
+configuration.api_key['authorization'] = 'YOUR_API_KEY'
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['authorization'] = 'Bearer'
+
 # create an instance of the API class
-api_instance = skil_client.DefaultApi()
+api_instance = skil_client.DefaultApi(skil_client.ApiClient(configuration))
 deployment_name = 'deployment_name_example' # str | Name of the deployment group
 model_name = 'model_name_example' # str | ID or name of the deployed model
 file = '/path/to/file.txt' # file | The model file to upload (.pb file) (optional)
@@ -359,7 +562,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[api_key](../README.md#api_key)
 
 ### HTTP request headers
 
@@ -381,8 +584,14 @@ import skil_client
 from skil_client.rest import ApiException
 from pprint import pprint
 
+# Configure API key authorization: api_key
+configuration = skil_client.Configuration()
+configuration.api_key['authorization'] = 'YOUR_API_KEY'
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['authorization'] = 'Bearer'
+
 # create an instance of the API class
-api_instance = skil_client.DefaultApi()
+api_instance = skil_client.DefaultApi(skil_client.ApiClient(configuration))
 deployment_name = 'deployment_name_example' # str | Name of the deployment group
 model_name = 'model_name_example' # str | ID or name of the deployed model
 file = '/path/to/file.txt' # file | The model file to update with (.pb file) (optional)
@@ -409,7 +618,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[api_key](../README.md#api_key)
 
 ### HTTP request headers
 
@@ -431,8 +640,14 @@ import skil_client
 from skil_client.rest import ApiException
 from pprint import pprint
 
+# Configure API key authorization: api_key
+configuration = skil_client.Configuration()
+configuration.api_key['authorization'] = 'YOUR_API_KEY'
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['authorization'] = 'Bearer'
+
 # create an instance of the API class
-api_instance = skil_client.DefaultApi()
+api_instance = skil_client.DefaultApi(skil_client.ApiClient(configuration))
 body = skil_client.Prediction() # Prediction | The input NDArray
 deployment_name = 'deployment_name_example' # str | Name of the deployment group
 model_name = 'model_name_example' # str | ID or name of the deployed model
@@ -459,7 +674,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[api_key](../README.md#api_key)
 
 ### HTTP request headers
 
@@ -481,8 +696,14 @@ import skil_client
 from skil_client.rest import ApiException
 from pprint import pprint
 
+# Configure API key authorization: api_key
+configuration = skil_client.Configuration()
+configuration.api_key['authorization'] = 'YOUR_API_KEY'
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['authorization'] = 'Bearer'
+
 # create an instance of the API class
-api_instance = skil_client.DefaultApi()
+api_instance = skil_client.DefaultApi(skil_client.ApiClient(configuration))
 body = skil_client.Prediction() # Prediction | The input NDArray
 deployment_name = 'deployment_name_example' # str | Name of the deployment group
 model_name = 'model_name_example' # str | ID or name of the deployed model
@@ -509,7 +730,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[api_key](../README.md#api_key)
 
 ### HTTP request headers
 
@@ -518,8 +739,8 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **predict_0**
-> Prediction predict_0(deployment_name, model_name, image=image)
+# **predictimage**
+> Prediction predictimage(deployment_name, model_name, image=image)
 
 Run inference on the input array, using input image file from multipart form data.
 
@@ -531,18 +752,24 @@ import skil_client
 from skil_client.rest import ApiException
 from pprint import pprint
 
+# Configure API key authorization: api_key
+configuration = skil_client.Configuration()
+configuration.api_key['authorization'] = 'YOUR_API_KEY'
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['authorization'] = 'Bearer'
+
 # create an instance of the API class
-api_instance = skil_client.DefaultApi()
+api_instance = skil_client.DefaultApi(skil_client.ApiClient(configuration))
 deployment_name = 'deployment_name_example' # str | Name of the deployment group
 model_name = 'model_name_example' # str | ID or name of the deployed model
 image = '/path/to/file.txt' # file | The file to upload. (optional)
 
 try:
     # Run inference on the input array, using input image file from multipart form data.
-    api_response = api_instance.predict_0(deployment_name, model_name, image=image)
+    api_response = api_instance.predictimage(deployment_name, model_name, image=image)
     pprint(api_response)
 except ApiException as e:
-    print("Exception when calling DefaultApi->predict_0: %s\n" % e)
+    print("Exception when calling DefaultApi->predictimage: %s\n" % e)
 ```
 
 ### Parameters
@@ -559,7 +786,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[api_key](../README.md#api_key)
 
 ### HTTP request headers
 
@@ -581,8 +808,14 @@ import skil_client
 from skil_client.rest import ApiException
 from pprint import pprint
 
+# Configure API key authorization: api_key
+configuration = skil_client.Configuration()
+configuration.api_key['authorization'] = 'YOUR_API_KEY'
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['authorization'] = 'Bearer'
+
 # create an instance of the API class
-api_instance = skil_client.DefaultApi()
+api_instance = skil_client.DefaultApi(skil_client.ApiClient(configuration))
 body = [skil_client.list[str]()] # list[str] | The input array
 deployment_name = 'deployment_name_example' # str | Name of the deployment group
 model_name = 'model_name_example' # str | ID or name of the deployed model
@@ -609,7 +842,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[api_key](../README.md#api_key)
 
 ### HTTP request headers
 
@@ -631,8 +864,14 @@ import skil_client
 from skil_client.rest import ApiException
 from pprint import pprint
 
+# Configure API key authorization: api_key
+configuration = skil_client.Configuration()
+configuration.api_key['authorization'] = 'YOUR_API_KEY'
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['authorization'] = 'Bearer'
+
 # create an instance of the API class
-api_instance = skil_client.DefaultApi()
+api_instance = skil_client.DefaultApi(skil_client.ApiClient(configuration))
 body = [skil_client.list[str]()] # list[str] | The input array
 deployment_name = 'deployment_name_example' # str | Name of the deployment group
 model_name = 'model_name_example' # str | ID or name of the deployed model
@@ -659,7 +898,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[api_key](../README.md#api_key)
 
 ### HTTP request headers
 
@@ -669,7 +908,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **upload**
-> upload(file=file)
+> FileUploadList upload(file=file)
 
 Upload a model file to SKIL for import.
 
@@ -681,13 +920,20 @@ import skil_client
 from skil_client.rest import ApiException
 from pprint import pprint
 
+# Configure API key authorization: api_key
+configuration = skil_client.Configuration()
+configuration.api_key['authorization'] = 'YOUR_API_KEY'
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['authorization'] = 'Bearer'
+
 # create an instance of the API class
-api_instance = skil_client.DefaultApi()
+api_instance = skil_client.DefaultApi(skil_client.ApiClient(configuration))
 file = '/path/to/file.txt' # file | The file to upload. (optional)
 
 try:
     # Upload a model file to SKIL for import.
-    api_instance.upload(file=file)
+    api_response = api_instance.upload(file=file)
+    pprint(api_response)
 except ApiException as e:
     print("Exception when calling DefaultApi->upload: %s\n" % e)
 ```
@@ -700,11 +946,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-void (empty response body)
+[**FileUploadList**](FileUploadList.md)
 
 ### Authorization
 
-No authorization required
+[api_key](../README.md#api_key)
 
 ### HTTP request headers
 

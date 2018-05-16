@@ -36,7 +36,7 @@
   /**
    * The LogRequest model module.
    * @module ai/skymind/skil/model/LogRequest
-   * @version 1.0.3-1
+   * @version 1.1.0-beta
    */
 
   /**

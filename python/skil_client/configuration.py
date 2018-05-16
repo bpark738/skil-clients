@@ -224,12 +224,12 @@ class Configuration(six.with_metaclass(TypeWithDefault, object)):
         :return: The Auth Settings information dict.
         """
         return {
-            'Bearer':
+            'api_key':
                 {
                     'type': 'api_key',
                     'in': 'header',
-                    'key': 'Authorization',
-                    'value': self.get_api_key_with_prefix('Authorization')
+                    'key': 'authorization',
+                    'value': self.get_api_key_with_prefix('authorization')
                 },
 
         }
@@ -243,5 +243,5 @@ class Configuration(six.with_metaclass(TypeWithDefault, object)):
                "OS: {env}\n"\
                "Python Version: {pyversion}\n"\
                "Version of the API: 1.1.0-beta\n"\
-               "SDK Package Version: 1.0.3-1".\
+               "SDK Package Version: 1.1.0-beta".\
                format(env=sys.platform, pyversion=sys.version)

@@ -65,6 +65,30 @@ public class JsonUtil {
       return new TypeToken<List<ClassificationResult>>(){}.getType();
     }
     
+    if ("Credentials".equalsIgnoreCase(className)) {
+      return new TypeToken<List<Credentials>>(){}.getType();
+    }
+    
+    if ("DeployModel".equalsIgnoreCase(className)) {
+      return new TypeToken<List<DeployModel>>(){}.getType();
+    }
+    
+    if ("Deployment".equalsIgnoreCase(className)) {
+      return new TypeToken<List<Deployment>>(){}.getType();
+    }
+    
+    if ("DeploymentObjects".equalsIgnoreCase(className)) {
+      return new TypeToken<List<DeploymentObjects>>(){}.getType();
+    }
+    
+    if ("FileUpload".equalsIgnoreCase(className)) {
+      return new TypeToken<List<FileUpload>>(){}.getType();
+    }
+    
+    if ("FileUploadList".equalsIgnoreCase(className)) {
+      return new TypeToken<List<FileUploadList>>(){}.getType();
+    }
+    
     if ("INDArray".equalsIgnoreCase(className)) {
       return new TypeToken<List<INDArray>>(){}.getType();
     }
@@ -89,8 +113,16 @@ public class JsonUtil {
       return new TypeToken<List<MultiClassClassificationResult>>(){}.getType();
     }
     
+    if ("NewDeployment".equalsIgnoreCase(className)) {
+      return new TypeToken<List<NewDeployment>>(){}.getType();
+    }
+    
     if ("Prediction".equalsIgnoreCase(className)) {
       return new TypeToken<List<Prediction>>(){}.getType();
+    }
+    
+    if ("Token".equalsIgnoreCase(className)) {
+      return new TypeToken<List<Token>>(){}.getType();
     }
     
     return new TypeToken<List<Object>>(){}.getType();
@@ -105,6 +137,30 @@ public class JsonUtil {
     
     if ("ClassificationResult".equalsIgnoreCase(className)) {
       return new TypeToken<ClassificationResult>(){}.getType();
+    }
+    
+    if ("Credentials".equalsIgnoreCase(className)) {
+      return new TypeToken<Credentials>(){}.getType();
+    }
+    
+    if ("DeployModel".equalsIgnoreCase(className)) {
+      return new TypeToken<DeployModel>(){}.getType();
+    }
+    
+    if ("Deployment".equalsIgnoreCase(className)) {
+      return new TypeToken<Deployment>(){}.getType();
+    }
+    
+    if ("DeploymentObjects".equalsIgnoreCase(className)) {
+      return new TypeToken<DeploymentObjects>(){}.getType();
+    }
+    
+    if ("FileUpload".equalsIgnoreCase(className)) {
+      return new TypeToken<FileUpload>(){}.getType();
+    }
+    
+    if ("FileUploadList".equalsIgnoreCase(className)) {
+      return new TypeToken<FileUploadList>(){}.getType();
     }
     
     if ("INDArray".equalsIgnoreCase(className)) {
@@ -131,8 +187,16 @@ public class JsonUtil {
       return new TypeToken<MultiClassClassificationResult>(){}.getType();
     }
     
+    if ("NewDeployment".equalsIgnoreCase(className)) {
+      return new TypeToken<NewDeployment>(){}.getType();
+    }
+    
     if ("Prediction".equalsIgnoreCase(className)) {
       return new TypeToken<Prediction>(){}.getType();
+    }
+    
+    if ("Token".equalsIgnoreCase(className)) {
+      return new TypeToken<Token>(){}.getType();
     }
     
     return new TypeToken<Object>(){}.getType();

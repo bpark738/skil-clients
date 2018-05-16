@@ -34,17 +34,20 @@ pub trait DefaultApi {
     fn classify(&self, body: ::models::Prediction, deployment_name: &str, model_name: &str) -> Box<Future<Item = ::models::ClassificationResult, Error = Error>>;
     fn classifyarray(&self, body: ::models::Prediction, deployment_name: &str, model_name: &str) -> Box<Future<Item = ::models::Base64NdArrayBody, Error = Error>>;
     fn classifyimage(&self, deployment_name: &str, model_name: &str, image: ::models::File) -> Box<Future<Item = ::models::ClassificationResult, Error = Error>>;
+    fn deploy_model(&self, deployment_id: &str, body: ::models::DeployModel) -> Box<Future<Item = Value, Error = Error>>;
+    fn deployment_create(&self, body: ::models::NewDeployment) -> Box<Future<Item = ::models::Deployment, Error = Error>>;
     fn jsonarray(&self, body: ::models::Prediction, deployment_name: &str, model_name: &str) -> Box<Future<Item = ::models::JsonArrayResponse, Error = Error>>;
     fn logfilepath(&self, deployment_name: &str, model_name: &str) -> Box<Future<Item = String, Error = Error>>;
+    fn login(&self, credentials: ::models::Credentials) -> Box<Future<Item = ::models::Token, Error = Error>>;
     fn logs(&self, body: ::models::LogRequest, deployment_name: &str, model_name: &str) -> Box<Future<Item = ::models::LogBatch, Error = Error>>;
     fn modelset(&self, deployment_name: &str, model_name: &str, file: ::models::File) -> Box<Future<Item = ::models::ModelStatus, Error = Error>>;
     fn modelupdate(&self, deployment_name: &str, model_name: &str, file: ::models::File) -> Box<Future<Item = ::models::ModelStatus, Error = Error>>;
     fn multiclassify(&self, body: ::models::Prediction, deployment_name: &str, model_name: &str) -> Box<Future<Item = ::models::MultiClassClassificationResult, Error = Error>>;
     fn predict(&self, body: ::models::Prediction, deployment_name: &str, model_name: &str) -> Box<Future<Item = ::models::Prediction, Error = Error>>;
-    fn predict_0(&self, deployment_name: &str, model_name: &str, image: ::models::File) -> Box<Future<Item = ::models::Prediction, Error = Error>>;
+    fn predictimage(&self, deployment_name: &str, model_name: &str, image: ::models::File) -> Box<Future<Item = ::models::Prediction, Error = Error>>;
     fn predictwithpreprocess(&self, body: Vec<String>, deployment_name: &str, model_name: &str) -> Box<Future<Item = ::models::Prediction, Error = Error>>;
     fn predictwithpreprocessjson(&self, body: Vec<String>, deployment_name: &str, model_name: &str) -> Box<Future<Item = ::models::JsonArrayResponse, Error = Error>>;
-    fn upload(&self, file: ::models::File) -> Box<Future<Item = (), Error = Error>>;
+    fn upload(&self, file: ::models::File) -> Box<Future<Item = ::models::FileUploadList, Error = Error>>;
 }
 
 
@@ -138,6 +141,68 @@ impl<C: hyper::client::Connect>DefaultApi for DefaultApiClient<C> {
         )
     }
 
+    fn deploy_model(&self, deployment_id: &str, body: ::models::DeployModel) -> Box<Future<Item = Value, Error = Error>> {
+        let configuration: &configuration::Configuration<C> = self.configuration.borrow();
+
+        let method = hyper::Method::Post;
+
+        let uri_str = format!("{}/deployment/{deploymentId}/model", configuration.base_path, deploymentId=deployment_id);
+
+        let uri = uri_str.parse();
+        // TODO(farcaller): handle error
+        // if let Err(e) = uri {
+        //     return Box::new(futures::future::err(e));
+        // }
+        let mut req = hyper::Request::new(method, uri.unwrap());
+
+
+        let serialized = serde_json::to_string(&body).unwrap();
+        req.headers_mut().set(hyper::header::ContentType::json());
+        req.headers_mut().set(hyper::header::ContentLength(serialized.len() as u64));
+        req.set_body(serialized);
+
+        // send request
+        Box::new(
+            configuration.client.request(req).and_then(|res| { res.body().concat2() })
+            .map_err(|e| Error::from(e))
+            .and_then(|body| {
+                let parsed: Result<Value, _> = serde_json::from_slice(&body);
+                parsed.map_err(|e| Error::from(e))
+            }).map_err(|e| Error::from(e))
+        )
+    }
+
+    fn deployment_create(&self, body: ::models::NewDeployment) -> Box<Future<Item = ::models::Deployment, Error = Error>> {
+        let configuration: &configuration::Configuration<C> = self.configuration.borrow();
+
+        let method = hyper::Method::Post;
+
+        let uri_str = format!("{}/deployment", configuration.base_path);
+
+        let uri = uri_str.parse();
+        // TODO(farcaller): handle error
+        // if let Err(e) = uri {
+        //     return Box::new(futures::future::err(e));
+        // }
+        let mut req = hyper::Request::new(method, uri.unwrap());
+
+
+        let serialized = serde_json::to_string(&body).unwrap();
+        req.headers_mut().set(hyper::header::ContentType::json());
+        req.headers_mut().set(hyper::header::ContentLength(serialized.len() as u64));
+        req.set_body(serialized);
+
+        // send request
+        Box::new(
+            configuration.client.request(req).and_then(|res| { res.body().concat2() })
+            .map_err(|e| Error::from(e))
+            .and_then(|body| {
+                let parsed: Result<::models::Deployment, _> = serde_json::from_slice(&body);
+                parsed.map_err(|e| Error::from(e))
+            }).map_err(|e| Error::from(e))
+        )
+    }
+
     fn jsonarray(&self, body: ::models::Prediction, deployment_name: &str, model_name: &str) -> Box<Future<Item = ::models::JsonArrayResponse, Error = Error>> {
         let configuration: &configuration::Configuration<C> = self.configuration.borrow();
 
@@ -191,6 +256,37 @@ impl<C: hyper::client::Connect>DefaultApi for DefaultApiClient<C> {
             .map_err(|e| Error::from(e))
             .and_then(|body| {
                 let parsed: Result<String, _> = serde_json::from_slice(&body);
+                parsed.map_err(|e| Error::from(e))
+            }).map_err(|e| Error::from(e))
+        )
+    }
+
+    fn login(&self, credentials: ::models::Credentials) -> Box<Future<Item = ::models::Token, Error = Error>> {
+        let configuration: &configuration::Configuration<C> = self.configuration.borrow();
+
+        let method = hyper::Method::Post;
+
+        let uri_str = format!("{}/login", configuration.base_path);
+
+        let uri = uri_str.parse();
+        // TODO(farcaller): handle error
+        // if let Err(e) = uri {
+        //     return Box::new(futures::future::err(e));
+        // }
+        let mut req = hyper::Request::new(method, uri.unwrap());
+
+
+        let serialized = serde_json::to_string(&body).unwrap();
+        req.headers_mut().set(hyper::header::ContentType::json());
+        req.headers_mut().set(hyper::header::ContentLength(serialized.len() as u64));
+        req.set_body(serialized);
+
+        // send request
+        Box::new(
+            configuration.client.request(req).and_then(|res| { res.body().concat2() })
+            .map_err(|e| Error::from(e))
+            .and_then(|body| {
+                let parsed: Result<::models::Token, _> = serde_json::from_slice(&body);
                 parsed.map_err(|e| Error::from(e))
             }).map_err(|e| Error::from(e))
         )
@@ -343,7 +439,7 @@ impl<C: hyper::client::Connect>DefaultApi for DefaultApiClient<C> {
         )
     }
 
-    fn predict_0(&self, deployment_name: &str, model_name: &str, image: ::models::File) -> Box<Future<Item = ::models::Prediction, Error = Error>> {
+    fn predictimage(&self, deployment_name: &str, model_name: &str, image: ::models::File) -> Box<Future<Item = ::models::Prediction, Error = Error>> {
         let configuration: &configuration::Configuration<C> = self.configuration.borrow();
 
         let method = hyper::Method::Post;
@@ -432,7 +528,7 @@ impl<C: hyper::client::Connect>DefaultApi for DefaultApiClient<C> {
         )
     }
 
-    fn upload(&self, file: ::models::File) -> Box<Future<Item = (), Error = Error>> {
+    fn upload(&self, file: ::models::File) -> Box<Future<Item = ::models::FileUploadList, Error = Error>> {
         let configuration: &configuration::Configuration<C> = self.configuration.borrow();
 
         let method = hyper::Method::Post;
@@ -452,7 +548,10 @@ impl<C: hyper::client::Connect>DefaultApi for DefaultApiClient<C> {
         Box::new(
             configuration.client.request(req).and_then(|res| { res.body().concat2() })
             .map_err(|e| Error::from(e))
-            .and_then(|_| futures::future::ok(()))
+            .and_then(|body| {
+                let parsed: Result<::models::FileUploadList, _> = serde_json::from_slice(&body);
+                parsed.map_err(|e| Error::from(e))
+            }).map_err(|e| Error::from(e))
         )
     }
 

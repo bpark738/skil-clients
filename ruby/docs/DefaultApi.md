@@ -7,14 +7,17 @@ Method | HTTP request | Description
 [**classify**](DefaultApi.md#classify) | **POST** /endpoints/{deploymentName}/model/{modelName}/default/classify | Use the deployed model to classify the input
 [**classifyarray**](DefaultApi.md#classifyarray) | **POST** /endpoints/{deploymentName}/model/{modelName}/default/classifyarray | Same as /classify but returns the output as Base64NDArrayBody
 [**classifyimage**](DefaultApi.md#classifyimage) | **POST** /endpoints/{deploymentName}/model/{modelName}/default/classifyimage | Use the deployed model to classify the input, using input image file from multipart form data.
+[**deploy_model**](DefaultApi.md#deploy_model) | **POST** /deployment/{deploymentId}/model | Deploy a model in a deployment group.
+[**deployment_create**](DefaultApi.md#deployment_create) | **POST** /deployment | Create a new deployment group.
 [**jsonarray**](DefaultApi.md#jsonarray) | **POST** /endpoints/{deploymentName}/model/{modelName}/default/jsonarray | Run inference on the input and returns it as a JsonArrayResponse
 [**logfilepath**](DefaultApi.md#logfilepath) | **GET** /endpoints/{deploymentName}/model/{modelName}/default/logfilepath | Get logs file path
+[**login**](DefaultApi.md#login) | **POST** /login | Post JSON credentials and obtain a JWT authorization token.
 [**logs**](DefaultApi.md#logs) | **POST** /endpoints/{deploymentName}/model/{modelName}/default/logs | Get logs
 [**modelset**](DefaultApi.md#modelset) | **POST** /endpoints/{deploymentName}/model/{modelName}/default/modelset | Set the model to be served
 [**modelupdate**](DefaultApi.md#modelupdate) | **POST** /endpoints/{deploymentName}/model/{modelName}/default/modelupdate | Update the model to be served
 [**multiclassify**](DefaultApi.md#multiclassify) | **POST** /endpoints/{deploymentName}/model/{modelName}/default/multiclassify | Represents all of the labels for a given classification
 [**predict**](DefaultApi.md#predict) | **POST** /endpoints/{deploymentName}/model/{modelName}/default/predict | Run inference on the input array.
-[**predict_0**](DefaultApi.md#predict_0) | **POST** /endpoints/{deploymentName}/model/{modelName}/default/predictimage | Run inference on the input array, using input image file from multipart form data.
+[**predictimage**](DefaultApi.md#predictimage) | **POST** /endpoints/{deploymentName}/model/{modelName}/default/predictimage | Run inference on the input array, using input image file from multipart form data.
 [**predictwithpreprocess**](DefaultApi.md#predictwithpreprocess) | **POST** /endpoints/{deploymentName}/model/{modelName}/default/predictwithpreprocess | Preprocesses the input and run inference on it
 [**predictwithpreprocessjson**](DefaultApi.md#predictwithpreprocessjson) | **POST** /endpoints/{deploymentName}/model/{modelName}/default/predictwithpreprocessjson | Preprocesses the input and run inference on it and returns it as a JsonArrayResponse
 [**upload**](DefaultApi.md#upload) | **POST** /api/upload/model | Upload a model file to SKIL for import.
@@ -29,6 +32,13 @@ Use the deployed model to classify the input
 ```ruby
 # load the gem
 require 'skil_client'
+# setup authorization
+SkilCient.configure do |config|
+  # Configure API key authorization: api_key
+  config.api_key['authorization'] = 'YOUR API KEY'
+  # Uncomment the following line to set a prefix for the API key, e.g. 'Bearer' (defaults to nil)
+  #config.api_key_prefix['authorization'] = 'Bearer'
+end
 
 api_instance = SkilCient::DefaultApi.new
 
@@ -62,7 +72,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[api_key](../README.md#api_key)
 
 ### HTTP request headers
 
@@ -80,6 +90,13 @@ Same as /classify but returns the output as Base64NDArrayBody
 ```ruby
 # load the gem
 require 'skil_client'
+# setup authorization
+SkilCient.configure do |config|
+  # Configure API key authorization: api_key
+  config.api_key['authorization'] = 'YOUR API KEY'
+  # Uncomment the following line to set a prefix for the API key, e.g. 'Bearer' (defaults to nil)
+  #config.api_key_prefix['authorization'] = 'Bearer'
+end
 
 api_instance = SkilCient::DefaultApi.new
 
@@ -113,7 +130,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[api_key](../README.md#api_key)
 
 ### HTTP request headers
 
@@ -131,6 +148,13 @@ Use the deployed model to classify the input, using input image file from multip
 ```ruby
 # load the gem
 require 'skil_client'
+# setup authorization
+SkilCient.configure do |config|
+  # Configure API key authorization: api_key
+  config.api_key['authorization'] = 'YOUR API KEY'
+  # Uncomment the following line to set a prefix for the API key, e.g. 'Bearer' (defaults to nil)
+  #config.api_key_prefix['authorization'] = 'Bearer'
+end
 
 api_instance = SkilCient::DefaultApi.new
 
@@ -165,11 +189,118 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[api_key](../README.md#api_key)
 
 ### HTTP request headers
 
  - **Content-Type**: multipart/form-data
+ - **Accept**: application/json
+
+
+
+# **deploy_model**
+> Object deploy_model(deployment_id, body)
+
+Deploy a model in a deployment group.
+
+### Example
+```ruby
+# load the gem
+require 'skil_client'
+# setup authorization
+SkilCient.configure do |config|
+  # Configure API key authorization: api_key
+  config.api_key['authorization'] = 'YOUR API KEY'
+  # Uncomment the following line to set a prefix for the API key, e.g. 'Bearer' (defaults to nil)
+  #config.api_key_prefix['authorization'] = 'Bearer'
+end
+
+api_instance = SkilCient::DefaultApi.new
+
+deployment_id = "deployment_id_example" # String | ID deployment group
+
+body = SkilCient::DeployModel.new # DeployModel | the deployment request
+
+
+begin
+  #Deploy a model in a deployment group.
+  result = api_instance.deploy_model(deployment_id, body)
+  p result
+rescue SkilCient::ApiError => e
+  puts "Exception when calling DefaultApi->deploy_model: #{e}"
+end
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **deployment_id** | **String**| ID deployment group | 
+ **body** | [**DeployModel**](DeployModel.md)| the deployment request | 
+
+### Return type
+
+**Object**
+
+### Authorization
+
+[api_key](../README.md#api_key)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+
+
+# **deployment_create**
+> Deployment deployment_create(body)
+
+Create a new deployment group.
+
+### Example
+```ruby
+# load the gem
+require 'skil_client'
+# setup authorization
+SkilCient.configure do |config|
+  # Configure API key authorization: api_key
+  config.api_key['authorization'] = 'YOUR API KEY'
+  # Uncomment the following line to set a prefix for the API key, e.g. 'Bearer' (defaults to nil)
+  #config.api_key_prefix['authorization'] = 'Bearer'
+end
+
+api_instance = SkilCient::DefaultApi.new
+
+body = SkilCient::NewDeployment.new # NewDeployment | the deployment request
+
+
+begin
+  #Create a new deployment group.
+  result = api_instance.deployment_create(body)
+  p result
+rescue SkilCient::ApiError => e
+  puts "Exception when calling DefaultApi->deployment_create: #{e}"
+end
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **body** | [**NewDeployment**](NewDeployment.md)| the deployment request | 
+
+### Return type
+
+[**Deployment**](Deployment.md)
+
+### Authorization
+
+[api_key](../README.md#api_key)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
  - **Accept**: application/json
 
 
@@ -183,6 +314,13 @@ Run inference on the input and returns it as a JsonArrayResponse
 ```ruby
 # load the gem
 require 'skil_client'
+# setup authorization
+SkilCient.configure do |config|
+  # Configure API key authorization: api_key
+  config.api_key['authorization'] = 'YOUR API KEY'
+  # Uncomment the following line to set a prefix for the API key, e.g. 'Bearer' (defaults to nil)
+  #config.api_key_prefix['authorization'] = 'Bearer'
+end
 
 api_instance = SkilCient::DefaultApi.new
 
@@ -216,7 +354,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[api_key](../README.md#api_key)
 
 ### HTTP request headers
 
@@ -234,6 +372,13 @@ Get logs file path
 ```ruby
 # load the gem
 require 'skil_client'
+# setup authorization
+SkilCient.configure do |config|
+  # Configure API key authorization: api_key
+  config.api_key['authorization'] = 'YOUR API KEY'
+  # Uncomment the following line to set a prefix for the API key, e.g. 'Bearer' (defaults to nil)
+  #config.api_key_prefix['authorization'] = 'Bearer'
+end
 
 api_instance = SkilCient::DefaultApi.new
 
@@ -264,12 +409,64 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[api_key](../README.md#api_key)
 
 ### HTTP request headers
 
  - **Content-Type**: Not defined
  - **Accept**: text
+
+
+
+# **login**
+> Token login(credentials)
+
+Post JSON credentials and obtain a JWT authorization token.
+
+### Example
+```ruby
+# load the gem
+require 'skil_client'
+# setup authorization
+SkilCient.configure do |config|
+  # Configure API key authorization: api_key
+  config.api_key['authorization'] = 'YOUR API KEY'
+  # Uncomment the following line to set a prefix for the API key, e.g. 'Bearer' (defaults to nil)
+  #config.api_key_prefix['authorization'] = 'Bearer'
+end
+
+api_instance = SkilCient::DefaultApi.new
+
+credentials = SkilCient::Credentials.new # Credentials | Login credentials.
+
+
+begin
+  #Post JSON credentials and obtain a JWT authorization token.
+  result = api_instance.login(credentials)
+  p result
+rescue SkilCient::ApiError => e
+  puts "Exception when calling DefaultApi->login: #{e}"
+end
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **credentials** | [**Credentials**](Credentials.md)| Login credentials. | 
+
+### Return type
+
+[**Token**](Token.md)
+
+### Authorization
+
+[api_key](../README.md#api_key)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
 
 
 
@@ -282,6 +479,13 @@ Get logs
 ```ruby
 # load the gem
 require 'skil_client'
+# setup authorization
+SkilCient.configure do |config|
+  # Configure API key authorization: api_key
+  config.api_key['authorization'] = 'YOUR API KEY'
+  # Uncomment the following line to set a prefix for the API key, e.g. 'Bearer' (defaults to nil)
+  #config.api_key_prefix['authorization'] = 'Bearer'
+end
 
 api_instance = SkilCient::DefaultApi.new
 
@@ -315,7 +519,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[api_key](../README.md#api_key)
 
 ### HTTP request headers
 
@@ -333,6 +537,13 @@ Set the model to be served
 ```ruby
 # load the gem
 require 'skil_client'
+# setup authorization
+SkilCient.configure do |config|
+  # Configure API key authorization: api_key
+  config.api_key['authorization'] = 'YOUR API KEY'
+  # Uncomment the following line to set a prefix for the API key, e.g. 'Bearer' (defaults to nil)
+  #config.api_key_prefix['authorization'] = 'Bearer'
+end
 
 api_instance = SkilCient::DefaultApi.new
 
@@ -367,7 +578,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[api_key](../README.md#api_key)
 
 ### HTTP request headers
 
@@ -385,6 +596,13 @@ Update the model to be served
 ```ruby
 # load the gem
 require 'skil_client'
+# setup authorization
+SkilCient.configure do |config|
+  # Configure API key authorization: api_key
+  config.api_key['authorization'] = 'YOUR API KEY'
+  # Uncomment the following line to set a prefix for the API key, e.g. 'Bearer' (defaults to nil)
+  #config.api_key_prefix['authorization'] = 'Bearer'
+end
 
 api_instance = SkilCient::DefaultApi.new
 
@@ -419,7 +637,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[api_key](../README.md#api_key)
 
 ### HTTP request headers
 
@@ -437,6 +655,13 @@ Represents all of the labels for a given classification
 ```ruby
 # load the gem
 require 'skil_client'
+# setup authorization
+SkilCient.configure do |config|
+  # Configure API key authorization: api_key
+  config.api_key['authorization'] = 'YOUR API KEY'
+  # Uncomment the following line to set a prefix for the API key, e.g. 'Bearer' (defaults to nil)
+  #config.api_key_prefix['authorization'] = 'Bearer'
+end
 
 api_instance = SkilCient::DefaultApi.new
 
@@ -470,7 +695,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[api_key](../README.md#api_key)
 
 ### HTTP request headers
 
@@ -488,6 +713,13 @@ Run inference on the input array.
 ```ruby
 # load the gem
 require 'skil_client'
+# setup authorization
+SkilCient.configure do |config|
+  # Configure API key authorization: api_key
+  config.api_key['authorization'] = 'YOUR API KEY'
+  # Uncomment the following line to set a prefix for the API key, e.g. 'Bearer' (defaults to nil)
+  #config.api_key_prefix['authorization'] = 'Bearer'
+end
 
 api_instance = SkilCient::DefaultApi.new
 
@@ -521,7 +753,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[api_key](../README.md#api_key)
 
 ### HTTP request headers
 
@@ -530,8 +762,8 @@ No authorization required
 
 
 
-# **predict_0**
-> Prediction predict_0(deployment_name, model_name, opts)
+# **predictimage**
+> Prediction predictimage(deployment_name, model_name, opts)
 
 Run inference on the input array, using input image file from multipart form data.
 
@@ -539,6 +771,13 @@ Run inference on the input array, using input image file from multipart form dat
 ```ruby
 # load the gem
 require 'skil_client'
+# setup authorization
+SkilCient.configure do |config|
+  # Configure API key authorization: api_key
+  config.api_key['authorization'] = 'YOUR API KEY'
+  # Uncomment the following line to set a prefix for the API key, e.g. 'Bearer' (defaults to nil)
+  #config.api_key_prefix['authorization'] = 'Bearer'
+end
 
 api_instance = SkilCient::DefaultApi.new
 
@@ -552,10 +791,10 @@ opts = {
 
 begin
   #Run inference on the input array, using input image file from multipart form data.
-  result = api_instance.predict_0(deployment_name, model_name, opts)
+  result = api_instance.predictimage(deployment_name, model_name, opts)
   p result
 rescue SkilCient::ApiError => e
-  puts "Exception when calling DefaultApi->predict_0: #{e}"
+  puts "Exception when calling DefaultApi->predictimage: #{e}"
 end
 ```
 
@@ -573,7 +812,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[api_key](../README.md#api_key)
 
 ### HTTP request headers
 
@@ -591,6 +830,13 @@ Preprocesses the input and run inference on it
 ```ruby
 # load the gem
 require 'skil_client'
+# setup authorization
+SkilCient.configure do |config|
+  # Configure API key authorization: api_key
+  config.api_key['authorization'] = 'YOUR API KEY'
+  # Uncomment the following line to set a prefix for the API key, e.g. 'Bearer' (defaults to nil)
+  #config.api_key_prefix['authorization'] = 'Bearer'
+end
 
 api_instance = SkilCient::DefaultApi.new
 
@@ -624,7 +870,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[api_key](../README.md#api_key)
 
 ### HTTP request headers
 
@@ -642,6 +888,13 @@ Preprocesses the input and run inference on it and returns it as a JsonArrayResp
 ```ruby
 # load the gem
 require 'skil_client'
+# setup authorization
+SkilCient.configure do |config|
+  # Configure API key authorization: api_key
+  config.api_key['authorization'] = 'YOUR API KEY'
+  # Uncomment the following line to set a prefix for the API key, e.g. 'Bearer' (defaults to nil)
+  #config.api_key_prefix['authorization'] = 'Bearer'
+end
 
 api_instance = SkilCient::DefaultApi.new
 
@@ -675,7 +928,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[api_key](../README.md#api_key)
 
 ### HTTP request headers
 
@@ -685,7 +938,7 @@ No authorization required
 
 
 # **upload**
-> upload(opts)
+> FileUploadList upload(opts)
 
 Upload a model file to SKIL for import.
 
@@ -693,6 +946,13 @@ Upload a model file to SKIL for import.
 ```ruby
 # load the gem
 require 'skil_client'
+# setup authorization
+SkilCient.configure do |config|
+  # Configure API key authorization: api_key
+  config.api_key['authorization'] = 'YOUR API KEY'
+  # Uncomment the following line to set a prefix for the API key, e.g. 'Bearer' (defaults to nil)
+  #config.api_key_prefix['authorization'] = 'Bearer'
+end
 
 api_instance = SkilCient::DefaultApi.new
 
@@ -702,7 +962,8 @@ opts = {
 
 begin
   #Upload a model file to SKIL for import.
-  api_instance.upload(opts)
+  result = api_instance.upload(opts)
+  p result
 rescue SkilCient::ApiError => e
   puts "Exception when calling DefaultApi->upload: #{e}"
 end
@@ -716,11 +977,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-nil (empty response body)
+[**FileUploadList**](FileUploadList.md)
 
 ### Authorization
 
-No authorization required
+[api_key](../README.md#api_key)
 
 ### HTTP request headers
 

@@ -8,9 +8,9 @@ host: localhost:9008
 schemes:
 - https
 securityDefinitions:
-  Bearer:
+  api_key:
     type: apiKey
-    name: Authorization
+    name: authorization
     in: header
     description: |
      For accessing the API a valid JWT token must be passed in all the queries in
@@ -24,7 +24,31 @@ securityDefinitions:
      The following syntax must be used in the 'Authorization' header :
   
          Bearer xxxxxx.yyyyyyy.zzzzzz
+security:
+  - api_key: []
 paths:
+  /login:
+    post:
+      operationId: login
+      summary: Post JSON credentials and obtain a JWT authorization token.
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - name: credentials
+        in: body
+        description: Login credentials.
+        required: true
+        schema:
+          $ref: '#/definitions/Credentials'
+      responses:
+        200:
+          description: successful operation
+          schema:
+            $ref: '#/definitions/Token'
+        401:
+          description: Invalid credentials
   /api/upload/model:
     post:
       operationId: upload
@@ -38,6 +62,11 @@ paths:
         in: formData
         type: file
         description: The file to upload.
+      responses:
+        200:
+          description: successful operation
+          schema:
+            $ref: '#/definitions/FileUploadList'
   /endpoints/{deploymentName}/model/{modelName}/default/predict:
     post:
       operationId: predict
@@ -74,7 +103,7 @@ paths:
           description: Invalid deployment or model name
   /endpoints/{deploymentName}/model/{modelName}/default/predictimage:
     post:
-      operationId: predict
+      operationId: predictimage
       summary: Run inference on the input array, using input image file from multipart form data.
       consumes:
       - multipart/form-data
@@ -453,7 +482,164 @@ paths:
             example: log_file_path
         500:
           description: Error retrieving log file path
+  /deployment:
+    post:
+      operationId: deploymentCreate
+      summary: Create a new deployment group.
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: body
+        description: the deployment request
+        required: true
+        schema:
+          $ref: '#/definitions/NewDeployment'
+      responses:
+        200:
+          description: successful operation
+          schema:
+            $ref: '#/definitions/Deployment'
+        500:
+          description: Error creating deployment
+  /deployment/{deploymentId}/model:
+    post:
+      operationId: deployModel
+      summary: Deploy a model in a deployment group.
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - name: deploymentId
+        in: path
+        description: ID deployment group
+        required: true
+        type: string
+      - in: body
+        name: body
+        description: the deployment request
+        required: true
+        schema:
+          $ref: '#/definitions/DeployModel'
+      responses:
+        200:
+          description: successful operation
+          schema:
+            type: object
+        500:
+          description: Error creating deployment
 definitions:
+  DeployModel:
+    type: object
+    properties:
+      name:
+        type: string
+      scale:
+        type: integer
+      uri:
+        type: string
+      modelType:
+        type: string
+      fileLocation:
+        type: string
+      jvmArgs:
+        type: string
+      subType:
+        type: string
+      labelsFileLocation:
+        type: string
+      extraArgs:
+        type: string
+      etlJson:
+        type: string
+      inputNames:
+        type: string
+      outputNames:
+        type: string
+    example:
+      name: new_model
+      scale: 1
+      uri: 'my_deployment/model/new_model/v1'
+      modelType: model
+      fileLocation: 'file:///var/skil/storage/models/d8...eb28.zip'
+      jvmArgs: '-Xmx1g'
+  Deployment:
+    type: object
+    properties:
+      id:
+        type: string
+      name:
+        type: string
+      deploymentSlug:
+        type: string
+      status:
+        type: string
+      body:
+        $ref: '#/definitions/DeploymentObjects'
+  DeploymentObjects:
+    type: object
+    properties:
+      models:
+        type: array
+        items:
+          type: object
+      transforms:
+        type: array
+        items:
+          type: object
+      knn:
+        type: array
+        items:
+          type: object
+  NewDeployment:
+    type: object
+    properties:
+      name:
+        type: string
+    example:
+      name: productiongroup
+  Credentials:
+    type: object
+    properties:
+      userId:
+        type: string
+      password:
+        type: string
+    example:
+      userId: admin
+      password: admin
+  Token:
+    type: object
+    properties:
+      token:
+        type: string
+    example:
+      token: xxxxxxx.yyyyyyy.zzzzzz
+  FileUploadList:
+    type: object
+    properties:
+      fileUploadResponseList:
+        type: array
+        items:
+          $ref: '#/definitions/FileUpload'
+  FileUpload:
+    type: object
+    properties:
+      key:
+        type: string
+      fileName:
+        type: string
+      status:
+        type: string
+      type:
+        type: string
+      path:
+        type: string
+      fileContent:
+        type: string
   INDArray:
     type: object
     properties:

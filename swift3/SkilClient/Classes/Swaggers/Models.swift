@@ -340,6 +340,264 @@ class Decoders {
                 return .failure(.typeMismatch(expected: "ClassificationResult", actual: "\(source)"))
             }
         }
+        // Decoder for [Credentials]
+        Decoders.addDecoder(clazz: [Credentials].self) { (source: AnyObject, instance: AnyObject?) -> Decoded<[Credentials]> in
+            return Decoders.decode(clazz: [Credentials].self, source: source)
+        }
+
+        // Decoder for Credentials
+        Decoders.addDecoder(clazz: Credentials.self) { (source: AnyObject, instance: AnyObject?) -> Decoded<Credentials> in
+            if let sourceDictionary = source as? [AnyHashable: Any] {
+                let _result = instance == nil ? Credentials() : instance as! Credentials
+                switch Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["userId"] as AnyObject?) {
+                
+                case let .success(value): _result.userId = value
+                case let .failure(error): break
+                
+                }
+                switch Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["password"] as AnyObject?) {
+                
+                case let .success(value): _result.password = value
+                case let .failure(error): break
+                
+                }
+                return .success(_result)
+            } else {
+                return .failure(.typeMismatch(expected: "Credentials", actual: "\(source)"))
+            }
+        }
+        // Decoder for [DeployModel]
+        Decoders.addDecoder(clazz: [DeployModel].self) { (source: AnyObject, instance: AnyObject?) -> Decoded<[DeployModel]> in
+            return Decoders.decode(clazz: [DeployModel].self, source: source)
+        }
+
+        // Decoder for DeployModel
+        Decoders.addDecoder(clazz: DeployModel.self) { (source: AnyObject, instance: AnyObject?) -> Decoded<DeployModel> in
+            if let sourceDictionary = source as? [AnyHashable: Any] {
+                let _result = instance == nil ? DeployModel() : instance as! DeployModel
+                switch Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["name"] as AnyObject?) {
+                
+                case let .success(value): _result.name = value
+                case let .failure(error): break
+                
+                }
+                switch Decoders.decodeOptional(clazz: Int32.self, source: sourceDictionary["scale"] as AnyObject?) {
+                
+                case let .success(value): _result.scale = value
+                case let .failure(error): break
+                
+                }
+                switch Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["uri"] as AnyObject?) {
+                
+                case let .success(value): _result.uri = value
+                case let .failure(error): break
+                
+                }
+                switch Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["modelType"] as AnyObject?) {
+                
+                case let .success(value): _result.modelType = value
+                case let .failure(error): break
+                
+                }
+                switch Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["fileLocation"] as AnyObject?) {
+                
+                case let .success(value): _result.fileLocation = value
+                case let .failure(error): break
+                
+                }
+                switch Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["jvmArgs"] as AnyObject?) {
+                
+                case let .success(value): _result.jvmArgs = value
+                case let .failure(error): break
+                
+                }
+                switch Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["subType"] as AnyObject?) {
+                
+                case let .success(value): _result.subType = value
+                case let .failure(error): break
+                
+                }
+                switch Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["labelsFileLocation"] as AnyObject?) {
+                
+                case let .success(value): _result.labelsFileLocation = value
+                case let .failure(error): break
+                
+                }
+                switch Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["extraArgs"] as AnyObject?) {
+                
+                case let .success(value): _result.extraArgs = value
+                case let .failure(error): break
+                
+                }
+                switch Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["etlJson"] as AnyObject?) {
+                
+                case let .success(value): _result.etlJson = value
+                case let .failure(error): break
+                
+                }
+                switch Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["inputNames"] as AnyObject?) {
+                
+                case let .success(value): _result.inputNames = value
+                case let .failure(error): break
+                
+                }
+                switch Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["outputNames"] as AnyObject?) {
+                
+                case let .success(value): _result.outputNames = value
+                case let .failure(error): break
+                
+                }
+                return .success(_result)
+            } else {
+                return .failure(.typeMismatch(expected: "DeployModel", actual: "\(source)"))
+            }
+        }
+        // Decoder for [Deployment]
+        Decoders.addDecoder(clazz: [Deployment].self) { (source: AnyObject, instance: AnyObject?) -> Decoded<[Deployment]> in
+            return Decoders.decode(clazz: [Deployment].self, source: source)
+        }
+
+        // Decoder for Deployment
+        Decoders.addDecoder(clazz: Deployment.self) { (source: AnyObject, instance: AnyObject?) -> Decoded<Deployment> in
+            if let sourceDictionary = source as? [AnyHashable: Any] {
+                let _result = instance == nil ? Deployment() : instance as! Deployment
+                switch Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["id"] as AnyObject?) {
+                
+                case let .success(value): _result.id = value
+                case let .failure(error): break
+                
+                }
+                switch Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["name"] as AnyObject?) {
+                
+                case let .success(value): _result.name = value
+                case let .failure(error): break
+                
+                }
+                switch Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["deploymentSlug"] as AnyObject?) {
+                
+                case let .success(value): _result.deploymentSlug = value
+                case let .failure(error): break
+                
+                }
+                switch Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["status"] as AnyObject?) {
+                
+                case let .success(value): _result.status = value
+                case let .failure(error): break
+                
+                }
+                switch Decoders.decodeOptional(clazz: DeploymentObjects.self, source: sourceDictionary["body"] as AnyObject?) {
+                
+                case let .success(value): _result.body = value
+                case let .failure(error): break
+                
+                }
+                return .success(_result)
+            } else {
+                return .failure(.typeMismatch(expected: "Deployment", actual: "\(source)"))
+            }
+        }
+        // Decoder for [DeploymentObjects]
+        Decoders.addDecoder(clazz: [DeploymentObjects].self) { (source: AnyObject, instance: AnyObject?) -> Decoded<[DeploymentObjects]> in
+            return Decoders.decode(clazz: [DeploymentObjects].self, source: source)
+        }
+
+        // Decoder for DeploymentObjects
+        Decoders.addDecoder(clazz: DeploymentObjects.self) { (source: AnyObject, instance: AnyObject?) -> Decoded<DeploymentObjects> in
+            if let sourceDictionary = source as? [AnyHashable: Any] {
+                let _result = instance == nil ? DeploymentObjects() : instance as! DeploymentObjects
+                switch Decoders.decodeOptional(clazz: [Any].self, source: sourceDictionary["models"] as AnyObject?) {
+                
+                case let .success(value): _result.models = value
+                case let .failure(error): break
+                
+                }
+                switch Decoders.decodeOptional(clazz: [Any].self, source: sourceDictionary["transforms"] as AnyObject?) {
+                
+                case let .success(value): _result.transforms = value
+                case let .failure(error): break
+                
+                }
+                switch Decoders.decodeOptional(clazz: [Any].self, source: sourceDictionary["knn"] as AnyObject?) {
+                
+                case let .success(value): _result.knn = value
+                case let .failure(error): break
+                
+                }
+                return .success(_result)
+            } else {
+                return .failure(.typeMismatch(expected: "DeploymentObjects", actual: "\(source)"))
+            }
+        }
+        // Decoder for [FileUpload]
+        Decoders.addDecoder(clazz: [FileUpload].self) { (source: AnyObject, instance: AnyObject?) -> Decoded<[FileUpload]> in
+            return Decoders.decode(clazz: [FileUpload].self, source: source)
+        }
+
+        // Decoder for FileUpload
+        Decoders.addDecoder(clazz: FileUpload.self) { (source: AnyObject, instance: AnyObject?) -> Decoded<FileUpload> in
+            if let sourceDictionary = source as? [AnyHashable: Any] {
+                let _result = instance == nil ? FileUpload() : instance as! FileUpload
+                switch Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["key"] as AnyObject?) {
+                
+                case let .success(value): _result.key = value
+                case let .failure(error): break
+                
+                }
+                switch Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["fileName"] as AnyObject?) {
+                
+                case let .success(value): _result.fileName = value
+                case let .failure(error): break
+                
+                }
+                switch Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["status"] as AnyObject?) {
+                
+                case let .success(value): _result.status = value
+                case let .failure(error): break
+                
+                }
+                switch Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["type"] as AnyObject?) {
+                
+                case let .success(value): _result.type = value
+                case let .failure(error): break
+                
+                }
+                switch Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["path"] as AnyObject?) {
+                
+                case let .success(value): _result.path = value
+                case let .failure(error): break
+                
+                }
+                switch Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["fileContent"] as AnyObject?) {
+                
+                case let .success(value): _result.fileContent = value
+                case let .failure(error): break
+                
+                }
+                return .success(_result)
+            } else {
+                return .failure(.typeMismatch(expected: "FileUpload", actual: "\(source)"))
+            }
+        }
+        // Decoder for [FileUploadList]
+        Decoders.addDecoder(clazz: [FileUploadList].self) { (source: AnyObject, instance: AnyObject?) -> Decoded<[FileUploadList]> in
+            return Decoders.decode(clazz: [FileUploadList].self, source: source)
+        }
+
+        // Decoder for FileUploadList
+        Decoders.addDecoder(clazz: FileUploadList.self) { (source: AnyObject, instance: AnyObject?) -> Decoded<FileUploadList> in
+            if let sourceDictionary = source as? [AnyHashable: Any] {
+                let _result = instance == nil ? FileUploadList() : instance as! FileUploadList
+                switch Decoders.decodeOptional(clazz: [FileUpload].self, source: sourceDictionary["fileUploadResponseList"] as AnyObject?) {
+                
+                case let .success(value): _result.fileUploadResponseList = value
+                case let .failure(error): break
+                
+                }
+                return .success(_result)
+            } else {
+                return .failure(.typeMismatch(expected: "FileUploadList", actual: "\(source)"))
+            }
+        }
         // Decoder for [INDArray]
         Decoders.addDecoder(clazz: [INDArray].self) { (source: AnyObject, instance: AnyObject?) -> Decoded<[INDArray]> in
             return Decoders.decode(clazz: [INDArray].self, source: source)
@@ -496,6 +754,26 @@ class Decoders {
                 return .failure(.typeMismatch(expected: "MultiClassClassificationResult", actual: "\(source)"))
             }
         }
+        // Decoder for [NewDeployment]
+        Decoders.addDecoder(clazz: [NewDeployment].self) { (source: AnyObject, instance: AnyObject?) -> Decoded<[NewDeployment]> in
+            return Decoders.decode(clazz: [NewDeployment].self, source: source)
+        }
+
+        // Decoder for NewDeployment
+        Decoders.addDecoder(clazz: NewDeployment.self) { (source: AnyObject, instance: AnyObject?) -> Decoded<NewDeployment> in
+            if let sourceDictionary = source as? [AnyHashable: Any] {
+                let _result = instance == nil ? NewDeployment() : instance as! NewDeployment
+                switch Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["name"] as AnyObject?) {
+                
+                case let .success(value): _result.name = value
+                case let .failure(error): break
+                
+                }
+                return .success(_result)
+            } else {
+                return .failure(.typeMismatch(expected: "NewDeployment", actual: "\(source)"))
+            }
+        }
         // Decoder for [Prediction]
         Decoders.addDecoder(clazz: [Prediction].self) { (source: AnyObject, instance: AnyObject?) -> Decoded<[Prediction]> in
             return Decoders.decode(clazz: [Prediction].self, source: source)
@@ -526,6 +804,26 @@ class Decoders {
                 return .success(_result)
             } else {
                 return .failure(.typeMismatch(expected: "Prediction", actual: "\(source)"))
+            }
+        }
+        // Decoder for [Token]
+        Decoders.addDecoder(clazz: [Token].self) { (source: AnyObject, instance: AnyObject?) -> Decoded<[Token]> in
+            return Decoders.decode(clazz: [Token].self, source: source)
+        }
+
+        // Decoder for Token
+        Decoders.addDecoder(clazz: Token.self) { (source: AnyObject, instance: AnyObject?) -> Decoded<Token> in
+            if let sourceDictionary = source as? [AnyHashable: Any] {
+                let _result = instance == nil ? Token() : instance as! Token
+                switch Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["token"] as AnyObject?) {
+                
+                case let .success(value): _result.token = value
+                case let .failure(error): break
+                
+                }
+                return .success(_result)
+            } else {
+                return .failure(.typeMismatch(expected: "Token", actual: "\(source)"))
             }
         }
     }()

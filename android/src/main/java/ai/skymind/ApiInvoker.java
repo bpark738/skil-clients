@@ -199,11 +199,11 @@ public class ApiInvoker {
 
   public static void initializeInstance(Cache cache, Network network, int threadPoolSize, ResponseDelivery delivery, int connectionTimeout) {
     INSTANCE = new ApiInvoker(cache, network, threadPoolSize, delivery, connectionTimeout);
-    setUserAgent("Swagger-Codegen/1.0.3-1/android");
+    setUserAgent("Swagger-Codegen/1.1.0-beta/android");
 
     // Setup authentications (key: authentication name, value: authentication).
     INSTANCE.authentications = new HashMap<String, Authentication>();
-    INSTANCE.authentications.put("Bearer", new ApiKeyAuth("header", "Authorization"));
+    INSTANCE.authentications.put("api_key", new ApiKeyAuth("header", "authorization"));
     // Prevent the authentications from being modified.
     INSTANCE.authentications = Collections.unmodifiableMap(INSTANCE.authentications);
   }

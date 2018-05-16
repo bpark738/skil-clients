@@ -16,24 +16,24 @@
 (function(root, factory) {
   if (typeof define === 'function' && define.amd) {
     // AMD. Register as an anonymous module.
-    define(['ApiClient', 'ai/skymind/skil/model/Base64NDArrayBody', 'ai/skymind/skil/model/ClassificationResult', 'ai/skymind/skil/model/JsonArrayResponse', 'ai/skymind/skil/model/LogBatch', 'ai/skymind/skil/model/LogRequest', 'ai/skymind/skil/model/ModelStatus', 'ai/skymind/skil/model/MultiClassClassificationResult', 'ai/skymind/skil/model/Prediction'], factory);
+    define(['ApiClient', 'ai/skymind/skil/model/Base64NDArrayBody', 'ai/skymind/skil/model/ClassificationResult', 'ai/skymind/skil/model/Credentials', 'ai/skymind/skil/model/DeployModel', 'ai/skymind/skil/model/Deployment', 'ai/skymind/skil/model/FileUploadList', 'ai/skymind/skil/model/JsonArrayResponse', 'ai/skymind/skil/model/LogBatch', 'ai/skymind/skil/model/LogRequest', 'ai/skymind/skil/model/ModelStatus', 'ai/skymind/skil/model/MultiClassClassificationResult', 'ai/skymind/skil/model/NewDeployment', 'ai/skymind/skil/model/Prediction', 'ai/skymind/skil/model/Token'], factory);
   } else if (typeof module === 'object' && module.exports) {
     // CommonJS-like environments that support module.exports, like Node.
-    module.exports = factory(require('../ApiClient'), require('../ai/skymind/skil/model/Base64NDArrayBody'), require('../ai/skymind/skil/model/ClassificationResult'), require('../ai/skymind/skil/model/JsonArrayResponse'), require('../ai/skymind/skil/model/LogBatch'), require('../ai/skymind/skil/model/LogRequest'), require('../ai/skymind/skil/model/ModelStatus'), require('../ai/skymind/skil/model/MultiClassClassificationResult'), require('../ai/skymind/skil/model/Prediction'));
+    module.exports = factory(require('../ApiClient'), require('../ai/skymind/skil/model/Base64NDArrayBody'), require('../ai/skymind/skil/model/ClassificationResult'), require('../ai/skymind/skil/model/Credentials'), require('../ai/skymind/skil/model/DeployModel'), require('../ai/skymind/skil/model/Deployment'), require('../ai/skymind/skil/model/FileUploadList'), require('../ai/skymind/skil/model/JsonArrayResponse'), require('../ai/skymind/skil/model/LogBatch'), require('../ai/skymind/skil/model/LogRequest'), require('../ai/skymind/skil/model/ModelStatus'), require('../ai/skymind/skil/model/MultiClassClassificationResult'), require('../ai/skymind/skil/model/NewDeployment'), require('../ai/skymind/skil/model/Prediction'), require('../ai/skymind/skil/model/Token'));
   } else {
     // Browser globals (root is window)
     if (!root.SkilClient) {
       root.SkilClient = {};
     }
-    root.SkilClient.DefaultApi = factory(root.SkilClient.ApiClient, root.SkilClient.Base64NDArrayBody, root.SkilClient.ClassificationResult, root.SkilClient.JsonArrayResponse, root.SkilClient.LogBatch, root.SkilClient.LogRequest, root.SkilClient.ModelStatus, root.SkilClient.MultiClassClassificationResult, root.SkilClient.Prediction);
+    root.SkilClient.DefaultApi = factory(root.SkilClient.ApiClient, root.SkilClient.Base64NDArrayBody, root.SkilClient.ClassificationResult, root.SkilClient.Credentials, root.SkilClient.DeployModel, root.SkilClient.Deployment, root.SkilClient.FileUploadList, root.SkilClient.JsonArrayResponse, root.SkilClient.LogBatch, root.SkilClient.LogRequest, root.SkilClient.ModelStatus, root.SkilClient.MultiClassClassificationResult, root.SkilClient.NewDeployment, root.SkilClient.Prediction, root.SkilClient.Token);
   }
-}(this, function(ApiClient, Base64NDArrayBody, ClassificationResult, JsonArrayResponse, LogBatch, LogRequest, ModelStatus, MultiClassClassificationResult, Prediction) {
+}(this, function(ApiClient, Base64NDArrayBody, ClassificationResult, Credentials, DeployModel, Deployment, FileUploadList, JsonArrayResponse, LogBatch, LogRequest, ModelStatus, MultiClassClassificationResult, NewDeployment, Prediction, Token) {
   'use strict';
 
   /**
    * Default service.
    * @module ai/skymind/skil/DefaultApi
-   * @version 1.0.3-1
+   * @version 1.1.0-beta
    */
 
   /**
@@ -95,7 +95,7 @@
       var formParams = {
       };
 
-      var authNames = [];
+      var authNames = ['api_key'];
       var contentTypes = ['application/json'];
       var accepts = ['application/json'];
       var returnType = ClassificationResult;
@@ -155,7 +155,7 @@
       var formParams = {
       };
 
-      var authNames = [];
+      var authNames = ['api_key'];
       var contentTypes = ['application/json'];
       var accepts = ['application/json'];
       var returnType = Base64NDArrayBody;
@@ -213,13 +213,112 @@
         'image': opts['image']
       };
 
-      var authNames = [];
+      var authNames = ['api_key'];
       var contentTypes = ['multipart/form-data'];
       var accepts = ['application/json'];
       var returnType = ClassificationResult;
 
       return this.apiClient.callApi(
         '/endpoints/{deploymentName}/model/{modelName}/default/classifyimage', 'POST',
+        pathParams, queryParams, collectionQueryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, callback
+      );
+    }
+
+    /**
+     * Callback function to receive the result of the deployModel operation.
+     * @callback module:ai/skymind/skil/DefaultApi~deployModelCallback
+     * @param {String} error Error message, if any.
+     * @param {Object} data The data returned by the service call.
+     * @param {String} response The complete HTTP response.
+     */
+
+    /**
+     * Deploy a model in a deployment group.
+     * @param {String} deploymentId ID deployment group
+     * @param {module:ai/skymind/skil/model/DeployModel} body the deployment request
+     * @param {module:ai/skymind/skil/DefaultApi~deployModelCallback} callback The callback function, accepting three arguments: error, data, response
+     * data is of type: {@link Object}
+     */
+    this.deployModel = function(deploymentId, body, callback) {
+      var postBody = body;
+
+      // verify the required parameter 'deploymentId' is set
+      if (deploymentId === undefined || deploymentId === null) {
+        throw new Error("Missing the required parameter 'deploymentId' when calling deployModel");
+      }
+
+      // verify the required parameter 'body' is set
+      if (body === undefined || body === null) {
+        throw new Error("Missing the required parameter 'body' when calling deployModel");
+      }
+
+
+      var pathParams = {
+        'deploymentId': deploymentId
+      };
+      var queryParams = {
+      };
+      var collectionQueryParams = {
+      };
+      var headerParams = {
+      };
+      var formParams = {
+      };
+
+      var authNames = ['api_key'];
+      var contentTypes = ['application/json'];
+      var accepts = ['application/json'];
+      var returnType = Object;
+
+      return this.apiClient.callApi(
+        '/deployment/{deploymentId}/model', 'POST',
+        pathParams, queryParams, collectionQueryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, callback
+      );
+    }
+
+    /**
+     * Callback function to receive the result of the deploymentCreate operation.
+     * @callback module:ai/skymind/skil/DefaultApi~deploymentCreateCallback
+     * @param {String} error Error message, if any.
+     * @param {module:ai/skymind/skil/model/Deployment} data The data returned by the service call.
+     * @param {String} response The complete HTTP response.
+     */
+
+    /**
+     * Create a new deployment group.
+     * @param {module:ai/skymind/skil/model/NewDeployment} body the deployment request
+     * @param {module:ai/skymind/skil/DefaultApi~deploymentCreateCallback} callback The callback function, accepting three arguments: error, data, response
+     * data is of type: {@link module:ai/skymind/skil/model/Deployment}
+     */
+    this.deploymentCreate = function(body, callback) {
+      var postBody = body;
+
+      // verify the required parameter 'body' is set
+      if (body === undefined || body === null) {
+        throw new Error("Missing the required parameter 'body' when calling deploymentCreate");
+      }
+
+
+      var pathParams = {
+      };
+      var queryParams = {
+      };
+      var collectionQueryParams = {
+      };
+      var headerParams = {
+      };
+      var formParams = {
+      };
+
+      var authNames = ['api_key'];
+      var contentTypes = ['application/json'];
+      var accepts = ['application/json'];
+      var returnType = Deployment;
+
+      return this.apiClient.callApi(
+        '/deployment', 'POST',
         pathParams, queryParams, collectionQueryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType, callback
       );
@@ -273,7 +372,7 @@
       var formParams = {
       };
 
-      var authNames = [];
+      var authNames = ['api_key'];
       var contentTypes = ['application/json'];
       var accepts = ['application/json'];
       var returnType = JsonArrayResponse;
@@ -327,13 +426,59 @@
       var formParams = {
       };
 
-      var authNames = [];
+      var authNames = ['api_key'];
       var contentTypes = [];
       var accepts = ['text'];
       var returnType = 'String';
 
       return this.apiClient.callApi(
         '/endpoints/{deploymentName}/model/{modelName}/default/logfilepath', 'GET',
+        pathParams, queryParams, collectionQueryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, callback
+      );
+    }
+
+    /**
+     * Callback function to receive the result of the login operation.
+     * @callback module:ai/skymind/skil/DefaultApi~loginCallback
+     * @param {String} error Error message, if any.
+     * @param {module:ai/skymind/skil/model/Token} data The data returned by the service call.
+     * @param {String} response The complete HTTP response.
+     */
+
+    /**
+     * Post JSON credentials and obtain a JWT authorization token.
+     * @param {module:ai/skymind/skil/model/Credentials} credentials Login credentials.
+     * @param {module:ai/skymind/skil/DefaultApi~loginCallback} callback The callback function, accepting three arguments: error, data, response
+     * data is of type: {@link module:ai/skymind/skil/model/Token}
+     */
+    this.login = function(credentials, callback) {
+      var postBody = credentials;
+
+      // verify the required parameter 'credentials' is set
+      if (credentials === undefined || credentials === null) {
+        throw new Error("Missing the required parameter 'credentials' when calling login");
+      }
+
+
+      var pathParams = {
+      };
+      var queryParams = {
+      };
+      var collectionQueryParams = {
+      };
+      var headerParams = {
+      };
+      var formParams = {
+      };
+
+      var authNames = ['api_key'];
+      var contentTypes = ['application/json'];
+      var accepts = ['application/json'];
+      var returnType = Token;
+
+      return this.apiClient.callApi(
+        '/login', 'POST',
         pathParams, queryParams, collectionQueryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType, callback
       );
@@ -387,7 +532,7 @@
       var formParams = {
       };
 
-      var authNames = [];
+      var authNames = ['api_key'];
       var contentTypes = ['application/json'];
       var accepts = ['application/json'];
       var returnType = LogBatch;
@@ -445,7 +590,7 @@
         'file': opts['file']
       };
 
-      var authNames = [];
+      var authNames = ['api_key'];
       var contentTypes = ['multipart/form-data'];
       var accepts = ['application/json'];
       var returnType = ModelStatus;
@@ -503,7 +648,7 @@
         'file': opts['file']
       };
 
-      var authNames = [];
+      var authNames = ['api_key'];
       var contentTypes = ['multipart/form-data'];
       var accepts = ['application/json'];
       var returnType = ModelStatus;
@@ -563,7 +708,7 @@
       var formParams = {
       };
 
-      var authNames = [];
+      var authNames = ['api_key'];
       var contentTypes = ['application/json'];
       var accepts = ['application/json'];
       var returnType = MultiClassClassificationResult;
@@ -623,7 +768,7 @@
       var formParams = {
       };
 
-      var authNames = [];
+      var authNames = ['api_key'];
       var contentTypes = ['application/json'];
       var accepts = ['application/json'];
       var returnType = Prediction;
@@ -636,8 +781,8 @@
     }
 
     /**
-     * Callback function to receive the result of the predict_0 operation.
-     * @callback module:ai/skymind/skil/DefaultApi~predict_0Callback
+     * Callback function to receive the result of the predictimage operation.
+     * @callback module:ai/skymind/skil/DefaultApi~predictimageCallback
      * @param {String} error Error message, if any.
      * @param {module:ai/skymind/skil/model/Prediction} data The data returned by the service call.
      * @param {String} response The complete HTTP response.
@@ -649,21 +794,21 @@
      * @param {String} modelName ID or name of the deployed model
      * @param {Object} opts Optional parameters
      * @param {File} opts.image The file to upload.
-     * @param {module:ai/skymind/skil/DefaultApi~predict_0Callback} callback The callback function, accepting three arguments: error, data, response
+     * @param {module:ai/skymind/skil/DefaultApi~predictimageCallback} callback The callback function, accepting three arguments: error, data, response
      * data is of type: {@link module:ai/skymind/skil/model/Prediction}
      */
-    this.predict_0 = function(deploymentName, modelName, opts, callback) {
+    this.predictimage = function(deploymentName, modelName, opts, callback) {
       opts = opts || {};
       var postBody = null;
 
       // verify the required parameter 'deploymentName' is set
       if (deploymentName === undefined || deploymentName === null) {
-        throw new Error("Missing the required parameter 'deploymentName' when calling predict_0");
+        throw new Error("Missing the required parameter 'deploymentName' when calling predictimage");
       }
 
       // verify the required parameter 'modelName' is set
       if (modelName === undefined || modelName === null) {
-        throw new Error("Missing the required parameter 'modelName' when calling predict_0");
+        throw new Error("Missing the required parameter 'modelName' when calling predictimage");
       }
 
 
@@ -681,7 +826,7 @@
         'image': opts['image']
       };
 
-      var authNames = [];
+      var authNames = ['api_key'];
       var contentTypes = ['multipart/form-data'];
       var accepts = ['application/json'];
       var returnType = Prediction;
@@ -741,7 +886,7 @@
       var formParams = {
       };
 
-      var authNames = [];
+      var authNames = ['api_key'];
       var contentTypes = ['application/json'];
       var accepts = ['application/json'];
       var returnType = Prediction;
@@ -801,7 +946,7 @@
       var formParams = {
       };
 
-      var authNames = [];
+      var authNames = ['api_key'];
       var contentTypes = ['application/json'];
       var accepts = ['application/json'];
       var returnType = JsonArrayResponse;
@@ -817,7 +962,7 @@
      * Callback function to receive the result of the upload operation.
      * @callback module:ai/skymind/skil/DefaultApi~uploadCallback
      * @param {String} error Error message, if any.
-     * @param data This operation does not return a value.
+     * @param {module:ai/skymind/skil/model/FileUploadList} data The data returned by the service call.
      * @param {String} response The complete HTTP response.
      */
 
@@ -826,6 +971,7 @@
      * @param {Object} opts Optional parameters
      * @param {File} opts.file The file to upload.
      * @param {module:ai/skymind/skil/DefaultApi~uploadCallback} callback The callback function, accepting three arguments: error, data, response
+     * data is of type: {@link module:ai/skymind/skil/model/FileUploadList}
      */
     this.upload = function(opts, callback) {
       opts = opts || {};
@@ -844,10 +990,10 @@
         'file': opts['file']
       };
 
-      var authNames = [];
+      var authNames = ['api_key'];
       var contentTypes = ['multipart/form-data'];
       var accepts = ['application/json'];
-      var returnType = null;
+      var returnType = FileUploadList;
 
       return this.apiClient.callApi(
         '/api/upload/model', 'POST',

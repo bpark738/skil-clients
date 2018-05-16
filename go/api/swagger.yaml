@@ -8,7 +8,32 @@ info:
 host: "localhost:9008"
 schemes:
 - "https"
+security:
+- api_key: []
 paths:
+  /login:
+    post:
+      summary: "Post JSON credentials and obtain a JWT authorization token."
+      operationId: "login"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "credentials"
+        description: "Login credentials."
+        required: true
+        schema:
+          $ref: "#/definitions/Credentials"
+        x-exportParamName: "Credentials"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/Token"
+        401:
+          description: "Invalid credentials"
   /api/upload/model:
     post:
       summary: "Upload a model file to SKIL for import."
@@ -24,6 +49,11 @@ paths:
         required: false
         type: "file"
         x-exportParamName: "File"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/FileUploadList"
   /endpoints/{deploymentName}/model/{modelName}/default/predict:
     post:
       summary: "Run inference on the input array."
@@ -65,7 +95,7 @@ paths:
     post:
       summary: "Run inference on the input array, using input image file from multipart\
         \ form data."
-      operationId: "predict"
+      operationId: "predictimage"
       consumes:
       - "multipart/form-data"
       produces:
@@ -482,17 +512,227 @@ paths:
             example: "log_file_path"
         500:
           description: "Error retrieving log file path"
+  /deployment:
+    post:
+      summary: "Create a new deployment group."
+      operationId: "deploymentCreate"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "the deployment request"
+        required: true
+        schema:
+          $ref: "#/definitions/NewDeployment"
+        x-exportParamName: "Body"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/Deployment"
+        500:
+          description: "Error creating deployment"
+  /deployment/{deploymentId}/model:
+    post:
+      summary: "Deploy a model in a deployment group."
+      operationId: "deployModel"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "deploymentId"
+        in: "path"
+        description: "ID deployment group"
+        required: true
+        type: "string"
+        x-exportParamName: "DeploymentId"
+      - in: "body"
+        name: "body"
+        description: "the deployment request"
+        required: true
+        schema:
+          $ref: "#/definitions/DeployModel"
+        x-exportParamName: "Body"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            type: "object"
+            properties: {}
+        500:
+          description: "Error creating deployment"
 securityDefinitions:
-  Bearer:
+  api_key:
     description: "For accessing the API a valid JWT token must be passed in all the\
       \ queries in\nthe 'Authorization' header.\n\n\nA valid JWT token is generated\
       \ by the API and retourned as answer of a call\nto the route /login giving a\
       \ valid user & password.\n\n\nThe following syntax must be used in the 'Authorization'\
       \ header :\n\n    Bearer xxxxxx.yyyyyyy.zzzzzz\n"
     type: "apiKey"
-    name: "Authorization"
+    name: "authorization"
     in: "header"
 definitions:
+  DeployModel:
+    type: "object"
+    properties:
+      name:
+        type: "string"
+      scale:
+        type: "integer"
+      uri:
+        type: "string"
+      modelType:
+        type: "string"
+      fileLocation:
+        type: "string"
+      jvmArgs:
+        type: "string"
+      subType:
+        type: "string"
+      labelsFileLocation:
+        type: "string"
+      extraArgs:
+        type: "string"
+      etlJson:
+        type: "string"
+      inputNames:
+        type: "string"
+      outputNames:
+        type: "string"
+    example:
+      name: "new_model"
+      scale: 1
+      uri: "my_deployment/model/new_model/v1"
+      modelType: "model"
+      fileLocation: "file:///var/skil/storage/models/d8...eb28.zip"
+      jvmArgs: "-Xmx1g"
+  Deployment:
+    type: "object"
+    properties:
+      id:
+        type: "string"
+      name:
+        type: "string"
+      deploymentSlug:
+        type: "string"
+      status:
+        type: "string"
+      body:
+        $ref: "#/definitions/DeploymentObjects"
+    example:
+      name: "name"
+      id: "id"
+      body:
+        models:
+        - "{}"
+        - "{}"
+        transforms:
+        - "{}"
+        - "{}"
+        knn:
+        - "{}"
+        - "{}"
+      deploymentSlug: "deploymentSlug"
+      status: "status"
+  DeploymentObjects:
+    type: "object"
+    properties:
+      models:
+        type: "array"
+        items:
+          type: "object"
+          properties: {}
+      transforms:
+        type: "array"
+        items:
+          type: "object"
+          properties: {}
+      knn:
+        type: "array"
+        items:
+          type: "object"
+          properties: {}
+    example:
+      models:
+      - "{}"
+      - "{}"
+      transforms:
+      - "{}"
+      - "{}"
+      knn:
+      - "{}"
+      - "{}"
+  NewDeployment:
+    type: "object"
+    properties:
+      name:
+        type: "string"
+    example:
+      name: "productiongroup"
+  Credentials:
+    type: "object"
+    properties:
+      userId:
+        type: "string"
+      password:
+        type: "string"
+    example:
+      userId: "admin"
+      password: "admin"
+  Token:
+    type: "object"
+    properties:
+      token:
+        type: "string"
+    example:
+      token: "xxxxxxx.yyyyyyy.zzzzzz"
+  FileUploadList:
+    type: "object"
+    properties:
+      fileUploadResponseList:
+        type: "array"
+        items:
+          $ref: "#/definitions/FileUpload"
+    example:
+      fileUploadResponseList:
+      - path: "path"
+        fileName: "fileName"
+        type: "type"
+        key: "key"
+        fileContent: "fileContent"
+        status: "status"
+      - path: "path"
+        fileName: "fileName"
+        type: "type"
+        key: "key"
+        fileContent: "fileContent"
+        status: "status"
+  FileUpload:
+    type: "object"
+    properties:
+      key:
+        type: "string"
+      fileName:
+        type: "string"
+      status:
+        type: "string"
+      type:
+        type: "string"
+      path:
+        type: "string"
+      fileContent:
+        type: "string"
+    example:
+      path: "path"
+      fileName: "fileName"
+      type: "type"
+      key: "key"
+      fileContent: "fileContent"
+      status: "status"
   INDArray:
     type: "object"
     properties:

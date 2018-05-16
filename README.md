@@ -5,13 +5,13 @@ Clients for using SKIL's HTTP inference API in Java, Python, Javascript, and mor
 
 Automatically-generated clients are available in each langauge folder in the root of this repository. Clients support SKIL's JWT authentication and currently only work for prediction/inference endpoints.
 
-### Changing the host
+### Configuration
 
-The default host in each client is `localhost:9008`. Because your SKIL instance may be running on a different server or port, you can change the host using the following code:
+The default host in each client is `localhost:9008`. Because your SKIL instance may be running on a different server or port, you can supply a configuration using the following code:
 
 **Java**
 ```java
-String newHost = "5.5.5.5"
+String newHost = "x.x.x.x"
 URL url = new URL(apiClient.getBasePath());
 URL newUrl = new URL(url.getProtocol(), newHost, url.getPort(), url.getFile());
 apiClient.setBasePath(newUrl.toString());
@@ -26,10 +26,19 @@ from skil_client.configuration import Configuration
 # configure
 config = Configuration()
 config.host = "http://x.x.x.x:9008"
-config.debug = True
 
 # create an instance of the API class
 api_instance = skil_client.DefaultApi(api_client=ApiClient(configuration=config))
+```
+
+### Authenticate
+
+To begin using the API, you will need to obtain a JWT token. Post your credentials to the `/login` endpoint:
+
+```python
+creds = skil_client.Credentials(user_id="admin", password="admin")
+res = api_instance.login(creds)
+print(res.token)
 ```
 
 ## Building the clients

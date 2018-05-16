@@ -27,7 +27,9 @@ open class DefaultAPI: APIBase {
     /**
      Use the deployed model to classify the input
      - POST /endpoints/{deploymentName}/model/{modelName}/default/classify
-
+     - API Key:
+       - type: apiKey authorization 
+       - name: api_key
      - examples: [{contentType=application/json, example={
   "minibatchId" : "minibatchId",
   "results" : [ 0, 0 ],
@@ -73,7 +75,9 @@ open class DefaultAPI: APIBase {
     /**
      Same as /classify but returns the output as Base64NDArrayBody
      - POST /endpoints/{deploymentName}/model/{modelName}/default/classifyarray
-
+     - API Key:
+       - type: apiKey authorization 
+       - name: api_key
      - examples: [{contentType=application/json, example={
   "ndarray" : "ndarray"
 }}]
@@ -117,7 +121,9 @@ open class DefaultAPI: APIBase {
     /**
      Use the deployed model to classify the input, using input image file from multipart form data.
      - POST /endpoints/{deploymentName}/model/{modelName}/default/classifyimage
-
+     - API Key:
+       - type: apiKey authorization 
+       - name: api_key
      - examples: [{contentType=application/json, example={
   "minibatchId" : "minibatchId",
   "results" : [ 0, 0 ],
@@ -152,6 +158,89 @@ open class DefaultAPI: APIBase {
     }
 
     /**
+     Deploy a model in a deployment group.
+     - parameter deploymentId: (path) ID deployment group 
+     - parameter body: (body) the deployment request 
+     - parameter completion: completion handler to receive the data and the error objects
+     */
+    open class func deployModel(deploymentId: String, body: DeployModel, completion: @escaping ((_ data: Any?, _ error: ErrorResponse?) -> Void)) {
+        deployModelWithRequestBuilder(deploymentId: deploymentId, body: body).execute { (response, error) -> Void in
+            completion(response?.body, error)
+        }
+    }
+
+
+    /**
+     Deploy a model in a deployment group.
+     - POST /deployment/{deploymentId}/model
+     - API Key:
+       - type: apiKey authorization 
+       - name: api_key
+     - examples: [{contentType=application/json, example="{}"}]
+     - parameter deploymentId: (path) ID deployment group 
+     - parameter body: (body) the deployment request 
+     - returns: RequestBuilder<Any> 
+     */
+    open class func deployModelWithRequestBuilder(deploymentId: String, body: DeployModel) -> RequestBuilder<Any> {
+        var path = "/deployment/{deploymentId}/model"
+        let deploymentIdPreEscape = "\(deploymentId)"
+        let deploymentIdPostEscape = deploymentIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
+        path = path.replacingOccurrences(of: "{deploymentId}", with: deploymentIdPostEscape, options: .literal, range: nil)
+        let URLString = SkilClientAPI.basePath + path
+        let parameters = body.encodeToJSON()
+
+        let url = NSURLComponents(string: URLString)
+
+        let requestBuilder: RequestBuilder<Any>.Type = SkilClientAPI.requestBuilderFactory.getBuilder()
+
+        return requestBuilder.init(method: "POST", URLString: (url?.string ?? URLString), parameters: parameters, isBody: true)
+    }
+
+    /**
+     Create a new deployment group.
+     - parameter body: (body) the deployment request 
+     - parameter completion: completion handler to receive the data and the error objects
+     */
+    open class func deploymentCreate(body: NewDeployment, completion: @escaping ((_ data: Deployment?, _ error: ErrorResponse?) -> Void)) {
+        deploymentCreateWithRequestBuilder(body: body).execute { (response, error) -> Void in
+            completion(response?.body, error)
+        }
+    }
+
+
+    /**
+     Create a new deployment group.
+     - POST /deployment
+     - API Key:
+       - type: apiKey authorization 
+       - name: api_key
+     - examples: [{contentType=application/json, example={
+  "name" : "name",
+  "id" : "id",
+  "body" : {
+    "models" : [ "{}", "{}" ],
+    "transforms" : [ "{}", "{}" ],
+    "knn" : [ "{}", "{}" ]
+  },
+  "deploymentSlug" : "deploymentSlug",
+  "status" : "status"
+}}]
+     - parameter body: (body) the deployment request 
+     - returns: RequestBuilder<Deployment> 
+     */
+    open class func deploymentCreateWithRequestBuilder(body: NewDeployment) -> RequestBuilder<Deployment> {
+        let path = "/deployment"
+        let URLString = SkilClientAPI.basePath + path
+        let parameters = body.encodeToJSON()
+
+        let url = NSURLComponents(string: URLString)
+
+        let requestBuilder: RequestBuilder<Deployment>.Type = SkilClientAPI.requestBuilderFactory.getBuilder()
+
+        return requestBuilder.init(method: "POST", URLString: (url?.string ?? URLString), parameters: parameters, isBody: true)
+    }
+
+    /**
      Run inference on the input and returns it as a JsonArrayResponse
      - parameter body: (body) The input NDArray 
      - parameter deploymentName: (path) Name of the deployment group 
@@ -168,7 +257,9 @@ open class DefaultAPI: APIBase {
     /**
      Run inference on the input and returns it as a JsonArrayResponse
      - POST /endpoints/{deploymentName}/model/{modelName}/default/jsonarray
-
+     - API Key:
+       - type: apiKey authorization 
+       - name: api_key
      - examples: [{contentType=application/json, example={
   "array" : {
     "array" : "array"
@@ -213,7 +304,9 @@ open class DefaultAPI: APIBase {
     /**
      Get logs file path
      - GET /endpoints/{deploymentName}/model/{modelName}/default/logfilepath
-
+     - API Key:
+       - type: apiKey authorization 
+       - name: api_key
      - examples: [{output=none}]
      - parameter deploymentName: (path) Name of the deployment group 
      - parameter modelName: (path) ID or name of the deployed model 
@@ -238,6 +331,42 @@ open class DefaultAPI: APIBase {
     }
 
     /**
+     Post JSON credentials and obtain a JWT authorization token.
+     - parameter credentials: (body) Login credentials. 
+     - parameter completion: completion handler to receive the data and the error objects
+     */
+    open class func login(credentials: Credentials, completion: @escaping ((_ data: Token?, _ error: ErrorResponse?) -> Void)) {
+        loginWithRequestBuilder(credentials: credentials).execute { (response, error) -> Void in
+            completion(response?.body, error)
+        }
+    }
+
+
+    /**
+     Post JSON credentials and obtain a JWT authorization token.
+     - POST /login
+     - API Key:
+       - type: apiKey authorization 
+       - name: api_key
+     - examples: [{contentType=application/json, example={
+  "token" : "xxxxxxx.yyyyyyy.zzzzzz"
+}}]
+     - parameter credentials: (body) Login credentials. 
+     - returns: RequestBuilder<Token> 
+     */
+    open class func loginWithRequestBuilder(credentials: Credentials) -> RequestBuilder<Token> {
+        let path = "/login"
+        let URLString = SkilClientAPI.basePath + path
+        let parameters = credentials.encodeToJSON()
+
+        let url = NSURLComponents(string: URLString)
+
+        let requestBuilder: RequestBuilder<Token>.Type = SkilClientAPI.requestBuilderFactory.getBuilder()
+
+        return requestBuilder.init(method: "POST", URLString: (url?.string ?? URLString), parameters: parameters, isBody: true)
+    }
+
+    /**
      Get logs
      - parameter body: (body) the the log request 
      - parameter deploymentName: (path) Name of the deployment group 
@@ -254,7 +383,9 @@ open class DefaultAPI: APIBase {
     /**
      Get logs
      - POST /endpoints/{deploymentName}/model/{modelName}/default/logs
-
+     - API Key:
+       - type: apiKey authorization 
+       - name: api_key
      - examples: [{contentType=application/json, example={
   "offset" : 0,
   "rowCount" : 2,
@@ -300,7 +431,9 @@ open class DefaultAPI: APIBase {
     /**
      Set the model to be served
      - POST /endpoints/{deploymentName}/model/{modelName}/default/modelset
-
+     - API Key:
+       - type: apiKey authorization 
+       - name: api_key
      - examples: [{contentType=application/json, example={
   "status" : 100
 }}]
@@ -349,7 +482,9 @@ open class DefaultAPI: APIBase {
     /**
      Update the model to be served
      - POST /endpoints/{deploymentName}/model/{modelName}/default/modelupdate
-
+     - API Key:
+       - type: apiKey authorization 
+       - name: api_key
      - examples: [{contentType=application/json, example={
   "status" : 100
 }}]
@@ -398,7 +533,9 @@ open class DefaultAPI: APIBase {
     /**
      Represents all of the labels for a given classification
      - POST /endpoints/{deploymentName}/model/{modelName}/default/multiclassify
-
+     - API Key:
+       - type: apiKey authorization 
+       - name: api_key
      - examples: [{contentType=application/json, example={
   "maxOutcomes" : [ "maxOutcomes", "maxOutcomes" ],
   "rankedOutcomes" : [ [ "rankedOutcomes", "rankedOutcomes" ], [ "rankedOutcomes", "rankedOutcomes" ] ],
@@ -444,7 +581,9 @@ open class DefaultAPI: APIBase {
     /**
      Run inference on the input array.
      - POST /endpoints/{deploymentName}/model/{modelName}/default/predict
-
+     - API Key:
+       - type: apiKey authorization 
+       - name: api_key
      - examples: [{contentType=application/json, example={
   "needsPreProcessing" : true,
   "prediction" : {
@@ -482,8 +621,8 @@ open class DefaultAPI: APIBase {
      - parameter image: (form) The file to upload. (optional)
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func predict_0(deploymentName: String, modelName: String, image: URL? = nil, completion: @escaping ((_ data: Prediction?, _ error: ErrorResponse?) -> Void)) {
-        predict_0WithRequestBuilder(deploymentName: deploymentName, modelName: modelName, image: image).execute { (response, error) -> Void in
+    open class func predictimage(deploymentName: String, modelName: String, image: URL? = nil, completion: @escaping ((_ data: Prediction?, _ error: ErrorResponse?) -> Void)) {
+        predictimageWithRequestBuilder(deploymentName: deploymentName, modelName: modelName, image: image).execute { (response, error) -> Void in
             completion(response?.body, error)
         }
     }
@@ -492,7 +631,9 @@ open class DefaultAPI: APIBase {
     /**
      Run inference on the input array, using input image file from multipart form data.
      - POST /endpoints/{deploymentName}/model/{modelName}/default/predictimage
-
+     - API Key:
+       - type: apiKey authorization 
+       - name: api_key
      - examples: [{contentType=application/json, example={
   "needsPreProcessing" : true,
   "prediction" : {
@@ -505,7 +646,7 @@ open class DefaultAPI: APIBase {
      - parameter image: (form) The file to upload. (optional)
      - returns: RequestBuilder<Prediction> 
      */
-    open class func predict_0WithRequestBuilder(deploymentName: String, modelName: String, image: URL? = nil) -> RequestBuilder<Prediction> {
+    open class func predictimageWithRequestBuilder(deploymentName: String, modelName: String, image: URL? = nil) -> RequestBuilder<Prediction> {
         var path = "/endpoints/{deploymentName}/model/{modelName}/default/predictimage"
         let deploymentNamePreEscape = "\(deploymentName)"
         let deploymentNamePostEscape = deploymentNamePreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
@@ -545,7 +686,9 @@ open class DefaultAPI: APIBase {
     /**
      Preprocesses the input and run inference on it
      - POST /endpoints/{deploymentName}/model/{modelName}/default/predictwithpreprocess
-
+     - API Key:
+       - type: apiKey authorization 
+       - name: api_key
      - examples: [{contentType=application/json, example={
   "needsPreProcessing" : true,
   "prediction" : {
@@ -593,7 +736,9 @@ open class DefaultAPI: APIBase {
     /**
      Preprocesses the input and run inference on it and returns it as a JsonArrayResponse
      - POST /endpoints/{deploymentName}/model/{modelName}/default/predictwithpreprocessjson
-
+     - API Key:
+       - type: apiKey authorization 
+       - name: api_key
      - examples: [{contentType=application/json, example={
   "array" : {
     "array" : "array"
@@ -627,9 +772,9 @@ open class DefaultAPI: APIBase {
      - parameter file: (form) The file to upload. (optional)
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func upload(file: URL? = nil, completion: @escaping ((_ error: ErrorResponse?) -> Void)) {
+    open class func upload(file: URL? = nil, completion: @escaping ((_ data: FileUploadList?, _ error: ErrorResponse?) -> Void)) {
         uploadWithRequestBuilder(file: file).execute { (response, error) -> Void in
-            completion(error)
+            completion(response?.body, error)
         }
     }
 
@@ -637,11 +782,30 @@ open class DefaultAPI: APIBase {
     /**
      Upload a model file to SKIL for import.
      - POST /api/upload/model
-
+     - API Key:
+       - type: apiKey authorization 
+       - name: api_key
+     - examples: [{contentType=application/json, example={
+  "fileUploadResponseList" : [ {
+    "path" : "path",
+    "fileName" : "fileName",
+    "type" : "type",
+    "key" : "key",
+    "fileContent" : "fileContent",
+    "status" : "status"
+  }, {
+    "path" : "path",
+    "fileName" : "fileName",
+    "type" : "type",
+    "key" : "key",
+    "fileContent" : "fileContent",
+    "status" : "status"
+  } ]
+}}]
      - parameter file: (form) The file to upload. (optional)
-     - returns: RequestBuilder<Void> 
+     - returns: RequestBuilder<FileUploadList> 
      */
-    open class func uploadWithRequestBuilder(file: URL? = nil) -> RequestBuilder<Void> {
+    open class func uploadWithRequestBuilder(file: URL? = nil) -> RequestBuilder<FileUploadList> {
         let path = "/api/upload/model"
         let URLString = SkilClientAPI.basePath + path
         let formParams: [String:Any?] = [
@@ -653,7 +817,7 @@ open class DefaultAPI: APIBase {
 
         let url = NSURLComponents(string: URLString)
 
-        let requestBuilder: RequestBuilder<Void>.Type = SkilClientAPI.requestBuilderFactory.getBuilder()
+        let requestBuilder: RequestBuilder<FileUploadList>.Type = SkilClientAPI.requestBuilderFactory.getBuilder()
 
         return requestBuilder.init(method: "POST", URLString: (url?.string ?? URLString), parameters: parameters, isBody: false)
     }

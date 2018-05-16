@@ -32,7 +32,7 @@
 
   /**
    * @module ApiClient
-   * @version 1.0.3-1
+   * @version 1.1.0-beta
    */
 
   /**
@@ -55,7 +55,7 @@
      * @type {Array.<String>}
      */
     this.authentications = {
-      'Bearer': {type: 'apiKey', 'in': 'header', name: 'Authorization'}
+      'api_key': {type: 'apiKey', 'in': 'header', name: 'authorization'}
     };
     /**
      * The default HTTP headers to be included for all API calls.

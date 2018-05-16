@@ -196,12 +196,12 @@ module SkilCient
     # Returns Auth Settings hash for api client.
     def auth_settings
       {
-        'Bearer' =>
+        'api_key' =>
           {
             type: 'api_key',
             in: 'header',
-            key: 'Authorization',
-            value: api_key_with_prefix('Authorization')
+            key: 'authorization',
+            value: api_key_with_prefix('authorization')
           },
       }
     end

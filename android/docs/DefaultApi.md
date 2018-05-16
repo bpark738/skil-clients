@@ -7,14 +7,17 @@ Method | HTTP request | Description
 [**classify**](DefaultApi.md#classify) | **POST** /endpoints/{deploymentName}/model/{modelName}/default/classify | Use the deployed model to classify the input
 [**classifyarray**](DefaultApi.md#classifyarray) | **POST** /endpoints/{deploymentName}/model/{modelName}/default/classifyarray | Same as /classify but returns the output as Base64NDArrayBody
 [**classifyimage**](DefaultApi.md#classifyimage) | **POST** /endpoints/{deploymentName}/model/{modelName}/default/classifyimage | Use the deployed model to classify the input, using input image file from multipart form data.
+[**deployModel**](DefaultApi.md#deployModel) | **POST** /deployment/{deploymentId}/model | Deploy a model in a deployment group.
+[**deploymentCreate**](DefaultApi.md#deploymentCreate) | **POST** /deployment | Create a new deployment group.
 [**jsonarray**](DefaultApi.md#jsonarray) | **POST** /endpoints/{deploymentName}/model/{modelName}/default/jsonarray | Run inference on the input and returns it as a JsonArrayResponse
 [**logfilepath**](DefaultApi.md#logfilepath) | **GET** /endpoints/{deploymentName}/model/{modelName}/default/logfilepath | Get logs file path
+[**login**](DefaultApi.md#login) | **POST** /login | Post JSON credentials and obtain a JWT authorization token.
 [**logs**](DefaultApi.md#logs) | **POST** /endpoints/{deploymentName}/model/{modelName}/default/logs | Get logs
 [**modelset**](DefaultApi.md#modelset) | **POST** /endpoints/{deploymentName}/model/{modelName}/default/modelset | Set the model to be served
 [**modelupdate**](DefaultApi.md#modelupdate) | **POST** /endpoints/{deploymentName}/model/{modelName}/default/modelupdate | Update the model to be served
 [**multiclassify**](DefaultApi.md#multiclassify) | **POST** /endpoints/{deploymentName}/model/{modelName}/default/multiclassify | Represents all of the labels for a given classification
 [**predict**](DefaultApi.md#predict) | **POST** /endpoints/{deploymentName}/model/{modelName}/default/predict | Run inference on the input array.
-[**predict_0**](DefaultApi.md#predict_0) | **POST** /endpoints/{deploymentName}/model/{modelName}/default/predictimage | Run inference on the input array, using input image file from multipart form data.
+[**predictimage**](DefaultApi.md#predictimage) | **POST** /endpoints/{deploymentName}/model/{modelName}/default/predictimage | Run inference on the input array, using input image file from multipart form data.
 [**predictwithpreprocess**](DefaultApi.md#predictwithpreprocess) | **POST** /endpoints/{deploymentName}/model/{modelName}/default/predictwithpreprocess | Preprocesses the input and run inference on it
 [**predictwithpreprocessjson**](DefaultApi.md#predictwithpreprocessjson) | **POST** /endpoints/{deploymentName}/model/{modelName}/default/predictwithpreprocessjson | Preprocesses the input and run inference on it and returns it as a JsonArrayResponse
 [**upload**](DefaultApi.md#upload) | **POST** /api/upload/model | Upload a model file to SKIL for import.
@@ -58,7 +61,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[api_key](../README.md#api_key)
 
 ### HTTP request headers
 
@@ -103,7 +106,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[api_key](../README.md#api_key)
 
 ### HTTP request headers
 
@@ -148,11 +151,95 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[api_key](../README.md#api_key)
 
 ### HTTP request headers
 
  - **Content-Type**: multipart/form-data
+ - **Accept**: application/json
+
+<a name="deployModel"></a>
+# **deployModel**
+> Object deployModel(deploymentId, body)
+
+Deploy a model in a deployment group.
+
+### Example
+```java
+// Import classes:
+//import ai.skymind.skil.DefaultApi;
+
+DefaultApi apiInstance = new DefaultApi();
+String deploymentId = "deploymentId_example"; // String | ID deployment group
+DeployModel body = new DeployModel(); // DeployModel | the deployment request
+try {
+    Object result = apiInstance.deployModel(deploymentId, body);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling DefaultApi#deployModel");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **deploymentId** | **String**| ID deployment group |
+ **body** | [**DeployModel**](DeployModel.md)| the deployment request |
+
+### Return type
+
+**Object**
+
+### Authorization
+
+[api_key](../README.md#api_key)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+<a name="deploymentCreate"></a>
+# **deploymentCreate**
+> Deployment deploymentCreate(body)
+
+Create a new deployment group.
+
+### Example
+```java
+// Import classes:
+//import ai.skymind.skil.DefaultApi;
+
+DefaultApi apiInstance = new DefaultApi();
+NewDeployment body = new NewDeployment(); // NewDeployment | the deployment request
+try {
+    Deployment result = apiInstance.deploymentCreate(body);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling DefaultApi#deploymentCreate");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **body** | [**NewDeployment**](NewDeployment.md)| the deployment request |
+
+### Return type
+
+[**Deployment**](Deployment.md)
+
+### Authorization
+
+[api_key](../README.md#api_key)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
  - **Accept**: application/json
 
 <a name="jsonarray"></a>
@@ -193,7 +280,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[api_key](../README.md#api_key)
 
 ### HTTP request headers
 
@@ -236,12 +323,53 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[api_key](../README.md#api_key)
 
 ### HTTP request headers
 
  - **Content-Type**: Not defined
  - **Accept**: text
+
+<a name="login"></a>
+# **login**
+> Token login(credentials)
+
+Post JSON credentials and obtain a JWT authorization token.
+
+### Example
+```java
+// Import classes:
+//import ai.skymind.skil.DefaultApi;
+
+DefaultApi apiInstance = new DefaultApi();
+Credentials credentials = new Credentials(); // Credentials | Login credentials.
+try {
+    Token result = apiInstance.login(credentials);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling DefaultApi#login");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **credentials** | [**Credentials**](Credentials.md)| Login credentials. |
+
+### Return type
+
+[**Token**](Token.md)
+
+### Authorization
+
+[api_key](../README.md#api_key)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
 
 <a name="logs"></a>
 # **logs**
@@ -281,7 +409,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[api_key](../README.md#api_key)
 
 ### HTTP request headers
 
@@ -326,7 +454,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[api_key](../README.md#api_key)
 
 ### HTTP request headers
 
@@ -371,7 +499,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[api_key](../README.md#api_key)
 
 ### HTTP request headers
 
@@ -416,7 +544,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[api_key](../README.md#api_key)
 
 ### HTTP request headers
 
@@ -461,16 +589,16 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[api_key](../README.md#api_key)
 
 ### HTTP request headers
 
  - **Content-Type**: application/json
  - **Accept**: application/json
 
-<a name="predict_0"></a>
-# **predict_0**
-> Prediction predict_0(deploymentName, modelName, image)
+<a name="predictimage"></a>
+# **predictimage**
+> Prediction predictimage(deploymentName, modelName, image)
 
 Run inference on the input array, using input image file from multipart form data.
 
@@ -484,10 +612,10 @@ String deploymentName = "deploymentName_example"; // String | Name of the deploy
 String modelName = "modelName_example"; // String | ID or name of the deployed model
 File image = new File("/path/to/file.txt"); // File | The file to upload.
 try {
-    Prediction result = apiInstance.predict_0(deploymentName, modelName, image);
+    Prediction result = apiInstance.predictimage(deploymentName, modelName, image);
     System.out.println(result);
 } catch (ApiException e) {
-    System.err.println("Exception when calling DefaultApi#predict_0");
+    System.err.println("Exception when calling DefaultApi#predictimage");
     e.printStackTrace();
 }
 ```
@@ -506,7 +634,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[api_key](../README.md#api_key)
 
 ### HTTP request headers
 
@@ -551,7 +679,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[api_key](../README.md#api_key)
 
 ### HTTP request headers
 
@@ -596,7 +724,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[api_key](../README.md#api_key)
 
 ### HTTP request headers
 
@@ -605,7 +733,7 @@ No authorization required
 
 <a name="upload"></a>
 # **upload**
-> upload(file)
+> FileUploadList upload(file)
 
 Upload a model file to SKIL for import.
 
@@ -617,7 +745,8 @@ Upload a model file to SKIL for import.
 DefaultApi apiInstance = new DefaultApi();
 File file = new File("/path/to/file.txt"); // File | The file to upload.
 try {
-    apiInstance.upload(file);
+    FileUploadList result = apiInstance.upload(file);
+    System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling DefaultApi#upload");
     e.printStackTrace();
@@ -632,11 +761,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-null (empty response body)
+[**FileUploadList**](FileUploadList.md)
 
 ### Authorization
 
-No authorization required
+[api_key](../README.md#api_key)
 
 ### HTTP request headers
 
