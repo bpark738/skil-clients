@@ -33,7 +33,7 @@ class DeployModel(object):
     swagger_types = {
         'name': 'str',
         'scale': 'int',
-        'uri': 'str',
+        'uri': 'list[str]',
         'model_type': 'str',
         'file_location': 'str',
         'jvm_args': 'str',
@@ -150,7 +150,7 @@ class DeployModel(object):
 
 
         :return: The uri of this DeployModel.  # noqa: E501
-        :rtype: str
+        :rtype: list[str]
         """
         return self._uri
 
@@ -160,7 +160,7 @@ class DeployModel(object):
 
 
         :param uri: The uri of this DeployModel.  # noqa: E501
-        :type: str
+        :type: list[str]
         """
 
         self._uri = uri

@@ -7,8 +7,11 @@ package ai.skymind.skil.client.model {
         public var name: String = null;
                 [XmlElement(name="scale")]
         public var scale: Number = NaN;
-                [XmlElement(name="uri")]
-        public var uri: String = null;
+                // This declaration below of _uri_obj_class is to force flash compiler to include this class
+        private var _uri_obj_class: Array = null;
+        [XmlElementWrapper(name="uri")]
+        [XmlElements(name="uri", type="Array")]
+                public var uri: Array = new Array();
                 [XmlElement(name="modelType")]
         public var modelType: String = null;
                 [XmlElement(name="fileLocation")]

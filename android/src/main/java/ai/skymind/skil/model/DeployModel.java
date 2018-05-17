@@ -25,7 +25,7 @@ public class DeployModel implements Serializable {
   @SerializedName("scale")
   private Integer scale = null;
   @SerializedName("uri")
-  private String uri = null;
+  private List<String> uri = null;
   @SerializedName("modelType")
   private String modelType = null;
   @SerializedName("fileLocation")
@@ -68,10 +68,10 @@ public class DeployModel implements Serializable {
   /**
    **/
   @ApiModelProperty(value = "")
-  public String getUri() {
+  public List<String> getUri() {
     return uri;
   }
-  public void setUri(String uri) {
+  public void setUri(List<String> uri) {
     this.uri = uri;
   }
 

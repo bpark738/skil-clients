@@ -19,7 +19,7 @@ pub struct DeployModel {
   #[serde(rename = "scale")]
   scale: Option<i32>,
   #[serde(rename = "uri")]
-  uri: Option<String>,
+  uri: Option<Vec<String>>,
   #[serde(rename = "modelType")]
   model_type: Option<String>,
   #[serde(rename = "fileLocation")]
@@ -92,16 +92,16 @@ impl DeployModel {
     self.scale = None;
   }
 
-  pub fn set_uri(&mut self, uri: String) {
+  pub fn set_uri(&mut self, uri: Vec<String>) {
     self.uri = Some(uri);
   }
 
-  pub fn with_uri(mut self, uri: String) -> DeployModel {
+  pub fn with_uri(mut self, uri: Vec<String>) -> DeployModel {
     self.uri = Some(uri);
     self
   }
 
-  pub fn uri(&self) -> Option<&String> {
+  pub fn uri(&self) -> Option<&Vec<String>> {
     self.uri.as_ref()
   }
 

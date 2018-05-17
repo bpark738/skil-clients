@@ -63,7 +63,7 @@ module SkilCient
       {
         :'name' => :'String',
         :'scale' => :'Integer',
-        :'uri' => :'String',
+        :'uri' => :'Array<String>',
         :'model_type' => :'String',
         :'file_location' => :'String',
         :'jvm_args' => :'String',
@@ -93,7 +93,9 @@ module SkilCient
       end
 
       if attributes.has_key?(:'uri')
-        self.uri = attributes[:'uri']
+        if (value = attributes[:'uri']).is_a?(Array)
+          self.uri = value
+        end
       end
 
       if attributes.has_key?(:'modelType')

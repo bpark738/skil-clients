@@ -15,7 +15,7 @@ type DeployModel struct {
 
 	Scale int32 `json:"scale,omitempty"`
 
-	Uri string `json:"uri,omitempty"`
+	Uri []string `json:"uri,omitempty"`
 
 	ModelType string `json:"modelType,omitempty"`
 

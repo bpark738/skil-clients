@@ -5,7 +5,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Name** | **string** |  | [optional] [default to null]
 **Scale** | **int32** |  | [optional] [default to null]
-**Uri** | **string** |  | [optional] [default to null]
+**Uri** | **[]string** |  | [optional] [default to null]
 **ModelType** | **string** |  | [optional] [default to null]
 **FileLocation** | **string** |  | [optional] [default to null]
 **JvmArgs** | **string** |  | [optional] [default to null]

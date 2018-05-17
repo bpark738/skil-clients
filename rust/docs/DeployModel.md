@@ -5,7 +5,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **name** | **String** |  | [optional] [default to null]
 **scale** | **i32** |  | [optional] [default to null]
-**uri** | **String** |  | [optional] [default to null]
+**uri** | **Vec<String>** |  | [optional] [default to null]
 **model_type** | **String** |  | [optional] [default to null]
 **file_location** | **String** |  | [optional] [default to null]
 **jvm_args** | **String** |  | [optional] [default to null]

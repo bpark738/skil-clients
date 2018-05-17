@@ -79,7 +79,7 @@
         obj['scale'] = ApiClient.convertToType(data['scale'], 'Number');
       }
       if (data.hasOwnProperty('uri')) {
-        obj['uri'] = ApiClient.convertToType(data['uri'], 'String');
+        obj['uri'] = ApiClient.convertToType(data['uri'], ['String']);
       }
       if (data.hasOwnProperty('modelType')) {
         obj['modelType'] = ApiClient.convertToType(data['modelType'], 'String');
@@ -121,7 +121,7 @@
    */
   exports.prototype['scale'] = undefined;
   /**
-   * @member {String} uri
+   * @member {Array.<String>} uri
    */
   exports.prototype['uri'] = undefined;
   /**

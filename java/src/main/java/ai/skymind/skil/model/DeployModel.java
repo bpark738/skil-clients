@@ -28,7 +28,7 @@ import java.util.List;
 /**
  * DeployModel
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2018-05-16T11:18:29.789-04:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2018-05-16T22:40:33.924-04:00")
 public class DeployModel {
   @SerializedName("name")
   private String name = null;
@@ -37,7 +37,7 @@ public class DeployModel {
   private Integer scale = null;
 
   @SerializedName("uri")
-  private String uri = null;
+  private List<String> uri = null;
 
   @SerializedName("modelType")
   private String modelType = null;
@@ -102,8 +102,16 @@ public class DeployModel {
     this.scale = scale;
   }
 
-  public DeployModel uri(String uri) {
+  public DeployModel uri(List<String> uri) {
     this.uri = uri;
+    return this;
+  }
+
+  public DeployModel addUriItem(String uriItem) {
+    if (this.uri == null) {
+      this.uri = new ArrayList<String>();
+    }
+    this.uri.add(uriItem);
     return this;
   }
 
@@ -112,11 +120,11 @@ public class DeployModel {
    * @return uri
   **/
   @ApiModelProperty(value = "")
-  public String getUri() {
+  public List<String> getUri() {
     return uri;
   }
 
-  public void setUri(String uri) {
+  public void setUri(List<String> uri) {
     this.uri = uri;
   }
 

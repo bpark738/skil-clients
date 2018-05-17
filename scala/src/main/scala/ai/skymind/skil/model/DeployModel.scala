@@ -16,7 +16,7 @@ package ai.skymind.skil.model
 case class DeployModel (
   Name: Option[String] = None,
   Scale: Option[Integer] = None,
-  Uri: Option[String] = None,
+  Uri: Option[List[String]] = None,
   ModelType: Option[String] = None,
   FileLocation: Option[String] = None,
   JvmArgs: Option[String] = None,

@@ -28,7 +28,7 @@ import java.util.List;
 /**
  * DeploymentObjects
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2018-05-16T11:18:29.789-04:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2018-05-16T22:40:33.924-04:00")
 public class DeploymentObjects {
   @SerializedName("models")
   private List<Object> models = null;

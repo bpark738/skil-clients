@@ -12,7 +12,7 @@ open class DeployModel: JSONEncodable {
 
     public var name: String?
     public var scale: Int32?
-    public var uri: String?
+    public var uri: [String]?
     public var modelType: String?
     public var fileLocation: String?
     public var jvmArgs: String?
@@ -30,7 +30,7 @@ open class DeployModel: JSONEncodable {
         var nillableDictionary = [String:Any?]()
         nillableDictionary["name"] = self.name
         nillableDictionary["scale"] = self.scale?.encodeToJSON()
-        nillableDictionary["uri"] = self.uri
+        nillableDictionary["uri"] = self.uri?.encodeToJSON()
         nillableDictionary["modelType"] = self.modelType
         nillableDictionary["fileLocation"] = self.fileLocation
         nillableDictionary["jvmArgs"] = self.jvmArgs

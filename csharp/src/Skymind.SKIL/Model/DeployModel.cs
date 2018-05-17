@@ -45,7 +45,7 @@ namespace Skymind.SKIL.Model
         /// <param name="EtlJson">EtlJson.</param>
         /// <param name="InputNames">InputNames.</param>
         /// <param name="OutputNames">OutputNames.</param>
-        public DeployModel(string Name = default(string), int? Scale = default(int?), string Uri = default(string), string ModelType = default(string), string FileLocation = default(string), string JvmArgs = default(string), string SubType = default(string), string LabelsFileLocation = default(string), string ExtraArgs = default(string), string EtlJson = default(string), List<string> InputNames = default(List<string>), List<string> OutputNames = default(List<string>))
+        public DeployModel(string Name = default(string), int? Scale = default(int?), List<string> Uri = default(List<string>), string ModelType = default(string), string FileLocation = default(string), string JvmArgs = default(string), string SubType = default(string), string LabelsFileLocation = default(string), string ExtraArgs = default(string), string EtlJson = default(string), List<string> InputNames = default(List<string>), List<string> OutputNames = default(List<string>))
         {
             this.Name = Name;
             this.Scale = Scale;
@@ -77,7 +77,7 @@ namespace Skymind.SKIL.Model
         /// Gets or Sets Uri
         /// </summary>
         [DataMember(Name="uri", EmitDefaultValue=false)]
-        public string Uri { get; set; }
+        public List<string> Uri { get; set; }
 
         /// <summary>
         /// Gets or Sets ModelType
@@ -199,8 +199,8 @@ namespace Skymind.SKIL.Model
                 ) && 
                 (
                     this.Uri == input.Uri ||
-                    (this.Uri != null &&
-                    this.Uri.Equals(input.Uri))
+                    this.Uri != null &&
+                    this.Uri.SequenceEqual(input.Uri)
                 ) && 
                 (
                     this.ModelType == input.ModelType ||

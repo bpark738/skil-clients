@@ -5,7 +5,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **name** | **String** |  | [optional] 
 **scale** | **Integer** |  | [optional] 
-**uri** | **String** |  | [optional] 
+**uri** | **Array&lt;String&gt;** |  | [optional] 
 **model_type** | **String** |  | [optional] 
 **file_location** | **String** |  | [optional] 
 **jvm_args** | **String** |  | [optional] 

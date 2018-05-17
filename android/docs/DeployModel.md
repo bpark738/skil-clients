@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **name** | **String** |  |  [optional]
 **scale** | **Integer** |  |  [optional]
-**uri** | **String** |  |  [optional]
+**uri** | **List&lt;String&gt;** |  |  [optional]
 **modelType** | **String** |  |  [optional]
 **fileLocation** | **String** |  |  [optional]
 **jvmArgs** | **String** |  |  [optional]

@@ -584,7 +584,9 @@ definitions:
       scale:
         type: "integer"
       uri:
-        type: "string"
+        type: "array"
+        items:
+          type: "string"
       modelType:
         type: "string"
       fileLocation:
@@ -613,7 +615,6 @@ definitions:
       uri: "my_deployment/model/new_model/v1"
       modelType: "model"
       fileLocation: "file:///var/skil/storage/models/d8...eb28.zip"
-      jvmArgs: "-Xmx1g"
   Deployment:
     type: "object"
     properties:
