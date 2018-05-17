@@ -5,6 +5,13 @@ Clients for using SKIL's HTTP inference API in Java, Python, Javascript, and mor
 
 Automatically-generated clients are available in each langauge folder in the root of this repository. Clients support SKIL's JWT authentication and currently only work for prediction/inference endpoints.
 
+**Python**
+If you are a user of `pip`, you can install the python client directly from this repository by using the command:
+
+```
+pip install git+https://github.com/SkymindIO/skil-clients#subdirectory=python
+```
+
 ### Configuration
 
 The default host in each client is `localhost:9008`. Because your SKIL instance may be running on a different server or port, you can supply a configuration using the following code:
