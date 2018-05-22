@@ -27,6 +27,9 @@ securityDefinitions:
 security:
   - api_key: []
 paths:
+  # ---------------------------------------------------------------------------------------
+  # Authentication endpoint
+  # ---------------------------------------------------------------------------------------
   /login:
     post:
       operationId: login
@@ -67,6 +70,9 @@ paths:
           description: successful operation
           schema:
             $ref: '#/definitions/FileUploadList'
+  # ---------------------------------------------------------------------------------------
+  # Prediction service endpoints
+  # ---------------------------------------------------------------------------------------
   /endpoints/{deploymentName}/model/{modelName}/default/predict:
     post:
       operationId: predict
@@ -482,6 +488,9 @@ paths:
             example: log_file_path
         500:
           description: Error retrieving log file path
+  # ---------------------------------------------------------------------------------------
+  # Deployment endpoints
+  # ---------------------------------------------------------------------------------------
   /deployment:
     post:
       operationId: deploymentCreate
