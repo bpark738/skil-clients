@@ -973,6 +973,103 @@ paths:
             example: log_file_path
         500:
           description: Error retrieving log file path
+  /endpoints/{deploymentName}/model/{modelName}/default/meta:
+    get:
+      operationId: meta_get
+      summary: this method can be used to get the meta data for the current model which set to the server
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - name: deploymentName
+        in: path
+        description: Name of the deployment group
+        required: true
+        type: string
+      - name: modelName
+        in: path
+        description: ID or name of the deployed model
+        required: true
+        type: string
+      responses:
+        200:
+          schema:
+            $ref: '#/definitions/MetaData'
+    post:
+      operationId: meta_post
+      summary: This method can be used to set meta data for the current model which is set to the server
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: body
+        description: the meta data object
+        required: true
+        schema:
+          $ref: '#/definitions/MetaData'
+      - name: deploymentName
+        in: path
+        description: Name of the deployment group
+        required: true
+        type: string
+      - name: modelName
+        in: path
+        description: ID or name of the deployed model
+        required: true
+        type: string
+      responses:
+        200:
+          description: the meta data object that was set
+          schema:
+            $ref: '#/definitions/MetaData'
+  /endpoints/{deploymentName}/model/{modelName}/default/detectobjects:
+    post:
+      operationId: detectobjects
+      summary: Detect the objects, given a (input) prediction request
+      consumes:
+      - multipart/form-data
+      produces:
+      - application/json
+      parameters:
+      - name: id
+        in: formData
+        type: string
+        required: true
+        description: the GUID for mapping the results in the detections
+      - name: needsPreprocessing
+        in: formData
+        type: boolean
+        required: true
+        description: (true) if the image needs preprocessing
+      - name: threshold
+        in: formData
+        type: number
+        format: float
+        required: true
+        description: A threshold, indicating the required surety for detecting a bounding box. For example, a threshold of 0.1 might give thousand bounding boxes for an image and a threshold of 0.99 might give none.
+      - name: imageFile
+        in: formData
+        type: file
+        required: true
+        description: the image file to detect objects from
+      - name: deploymentName
+        in: path
+        description: Name of the deployment group
+        required: true
+        type: string
+      - name: modelName
+        in: path
+        description: ID or name of the deployed model
+        required: true
+        type: string
+      responses:
+        200:
+          description: the detected objects in the given input
+          schema:
+            $ref: '#/definitions/DetectionResult'
   # ---------------------------------------------------------------------------------------
   # Deployment endpoints
   # ---------------------------------------------------------------------------------------
@@ -1241,16 +1338,11 @@ definitions:
       dataType:
         type: string
         enum:
-        - FP16
-        - FP32
-        - FLOAT8
-        - FLOAT16
-        - GZIP
         - INT8
+        - UINT8
         - INT16
-        - NOOP
-        - UNIT8
-        - CUSTOM
+        - INT16
+        - FLOAT16
   Prediction:
     type: object
     properties:
@@ -1405,3 +1497,38 @@ definitions:
       offset: 0
       rowCount: 2
       logs: logs
+  MetaData:
+    type: object
+  DetectedObject:
+    type: object
+    properties:
+      centerX:
+        type: number
+        format: float
+      centerY:
+        type: number
+        format: float
+      width:
+        type: number
+        format: float
+      height:
+        type: number
+        format: float
+      predictedClasses:
+        type: array
+        items:
+          type: string
+      confidences:
+        type: array
+        items:
+          type: number
+          format: float
+  DetectionResult:
+    type: object
+    properties:
+      id:
+        type: string
+      objects:
+        type: array
+        items:
+          $ref: '#/definitions/DetectedObject'
