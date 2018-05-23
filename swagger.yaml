@@ -251,7 +251,7 @@ paths:
         description: ID or name of the deployed image transform
         required: true
         type: string
-      - name: files
+      - name: files #Docs => https://swagger.io/docs/specification/2-0/file-upload/
         in: formData
         type: array
         required: true
