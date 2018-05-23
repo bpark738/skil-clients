@@ -1191,11 +1191,33 @@ definitions:
   INDArray:
     type: object
     properties:
-      array:
+      shape:
+        type: array
+        items:
+          type: integer
+      ordering:
         type: string
-        format: base64
-    example:
-      array: array
+        enum:
+        - f
+        - c
+      data:
+        type: array
+        items:
+          type: number
+          format: float
+      dataType:
+        type: string
+        enum:
+        - FP16
+        - FP32
+        - FLOAT8
+        - FLOAT16
+        - GZIP
+        - INT8
+        - INT16
+        - NOOP
+        - UNIT8
+        - CUSTOM
   Prediction:
     type: object
     properties:
@@ -1205,6 +1227,8 @@ definitions:
       needsPreProcessing:
         type: boolean
       prediction:
+        $ref: '#/definitions/INDArray'
+      inputMask:
         $ref: '#/definitions/INDArray'
     example:
       needsPreProcessing: true
