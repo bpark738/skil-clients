@@ -1073,6 +1073,55 @@ paths:
   # ---------------------------------------------------------------------------------------
   # Deployment endpoints
   # ---------------------------------------------------------------------------------------
+  /deployments:
+    get:
+      operationId: deployments
+      summary: Get a list of deployments
+      produces:
+      - application/json
+      responses:
+        200:
+          description: List of the deployments retrieved successfully
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/DeploymentResponse'
+  /deployment/{deploymentId}:
+    get:
+      operationId: deployment_get
+      summary: Get a deployment details by id
+      produces:
+      - application/json
+      parameters:
+        - name: deploymentId
+          in: path
+          description: Id of the deployment group
+          required: true
+          type: string
+      responses:
+        200:
+          description: The deployment details
+          schema:
+            $ref: '#/definitions/DeploymentResponse'
+    delete:
+      operationId: deployment_delete
+      summary: Delete a deployment by id
+      produces:
+      - application/json
+      parameters:
+        - name: deploymentId
+          in: path
+          description: Id of the deployment group
+          required: true
+          type: string
+      responses:
+        200:
+          description: The status of the removed deployment
+          schema:
+            type: object
+            properties:
+              status:
+                type: string
   /deployment:
     post:
       operationId: deploymentCreate
@@ -1087,14 +1136,33 @@ paths:
         description: the deployment request
         required: true
         schema:
-          $ref: '#/definitions/NewDeployment'
+          $ref: '#/definitions/CreateDeploymentRequest'
       responses:
         200:
-          description: successful operation
+          description: the added deployment
           schema:
-            $ref: '#/definitions/Deployment'
+            $ref: '#/definitions/DeploymentResponse'
         500:
           description: Error creating deployment
+  /deployment/{deploymentId}/models:
+    get:
+      operationId: models
+      summary: Retrieve a list of all the deployed models given a deployment id
+      produces:
+      - application/json
+      parameters:
+      - name: deploymentId
+        in: path
+        description: ID deployment group
+        required: true
+        type: string
+      responses:
+        200:
+          description: Retrieved model list
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/ModelEntity'
   /deployment/{deploymentId}/model:
     post:
       operationId: deployModel
@@ -1111,17 +1179,99 @@ paths:
         type: string
       - in: body
         name: body
+        description: the model import request
+        required: true
+        schema:
+          $ref: '#/definitions/ImportModelRequest'
+      responses:
+        200:
+          description: the deployed model
+          schema:
+            $ref: '#/definitions/ModelEntity'
+  /deployment/{deploymentId}/model/{modelId}:
+    post:
+      operationId: reimportModel
+      summary: Reimport a model to a previous deployed model in a deployment
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - name: deploymentId
+        in: path
+        description: ID deployment group
+        required: true
+        type: string
+      - name: modelId
+        in: path
+        description: the id of the deployed model
+        required: true
+        type: string
+      - in: body
+        name: body
         description: the deployment request
         required: true
         schema:
-          $ref: '#/definitions/DeployModel'
+          $ref: '#/definitions/ImportModelRequest'
       responses:
         200:
-          description: successful operation
+          description: the reimported model entity
+          schema:
+            $ref: '#/definitions/ModelEntity'
+    delete:
+      operationId: delete_model
+      summary: Delete a model by deployment and model id
+      produces:
+      - application/json
+      parameters:
+      - name: deploymentId
+        in: path
+        description: ID deployment group
+        required: true
+        type: string
+      - name: modelId
+        in: path
+        description: the id of the deployed model
+        required: true
+        type: string
+      responses:
+        200:
+          description: the deleted model status
           schema:
             type: object
-        500:
-          description: Error creating deployment
+            properties:
+              status:
+                type: string
+  /deployment/{deploymentId}/model/{modelId}/state:
+    post:
+      operationId: modelStateChange
+      summary: Modify the state (start/stop) of a deployed model
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - name: deploymentId
+        in: path
+        description: ID deployment group
+        required: true
+        type: string
+      - name: modelId
+        in: path
+        description: the id of the deployed model
+        required: true
+        type: string
+      - in: body
+        name: body
+        description: the model state object
+        required: true
+        schema:
+          $ref: '#/definitions/SetState'
+      responses:
+        200:
+          description: the model entity with its state changed
+          schema:
+            $ref: '#/definitions/ModelEntity'
 definitions:
   TransformProcess:
     type: object
@@ -1205,7 +1355,7 @@ definitions:
         type: array
         items:
           $ref: '#/definitions/NearestNeighborsResult'
-  DeployModel:
+  ImportModelRequest:
     type: object
     properties:
       name:
@@ -1244,7 +1394,7 @@ definitions:
       uri: 'my_deployment/model/new_model/v1'
       modelType: model
       fileLocation: 'file:///var/skil/storage/models/d8...eb28.zip'
-  Deployment:
+  DeploymentResponse:
     type: object
     properties:
       id:
@@ -1263,15 +1413,98 @@ definitions:
       models:
         type: array
         items:
-          type: object
+          $ref: '#/definitions/DeploymentObjects'
       transforms:
         type: array
         items:
-          type: object
+          $ref: '#/definitions/DeploymentObjects'
       knn:
         type: array
         items:
-          type: object
+          $ref: '#/definitions/DeploymentObjects'
+  CreateDeploymentRequest:
+    type: object
+    properties:
+      name:
+        type: string
+        description: name of the deployment
+  ModelEntity:
+    type: object
+    properties:
+      id:
+        type: number
+        format: int64
+      created:
+        type: number
+        format: int64
+      updated:
+        type: number
+        format: int64
+      modelType:
+        type: string
+        enum:
+        - transform
+        - model
+        - knn
+      deploymentId:
+        type: number
+        format: int64
+      name:
+        type: string
+      scale:
+        type: number
+      fileLocation:
+        type: string
+      state:
+        type: string
+        enum:
+        - created
+        - starting
+        - started
+        - stopping
+        - stopped
+        - unhealthy
+        - failed
+      jvmArgs:
+        type: string
+      subType:
+        type: string
+      labelsFileLocation:
+        type: string
+      extraArgs:
+        type: string
+      launchPolicy:
+        type: object
+      modelState:
+        type: string
+        enum:
+        - CREATED
+        - STARTING
+        - STARTED
+        - STOPPING
+        - STOPPED
+        - UNHEALTHY
+        - FAILED
+  SetState:
+    type: string
+    enum:
+    - start
+    - stop
+  ModelResponse:
+    type: object
+    properties:
+      id:
+        type: string
+      name:
+        type: string
+      status:
+        type: string
+      scale:
+        type: integer
+      uri:
+        type: array
+        items:
+          type: string
   NewDeployment:
     type: object
     properties:
