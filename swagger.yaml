@@ -184,7 +184,6 @@ paths:
         description: ID or name of the deployed image transform
         required: true
         type: string
-      parameters:
       - name: file
         in: formData
         type: file
@@ -252,7 +251,6 @@ paths:
         description: ID or name of the deployed image transform
         required: true
         type: string
-      parameters:
       - name: files
         in: formData
         type: array
