@@ -153,6 +153,7 @@ paths:
         type: string
       - in: body
         name: SingleImageRecord
+        required: true
         description: The input record array
         schema:
           $ref: '#/definitions/SingleImageRecord'
@@ -161,6 +162,41 @@ paths:
           description: array transformed and returned successfully
           schema:
             $ref: '#/definitions/Base64NDArrayBody'
+        500:
+          description: internal server error during transforming the array
+  /endpoints/{deploymentName}/datavec/{imageTransformName}/default/transformincrementalimage:
+    post:
+      operationId: transformincrementalimage
+      summary: Takes a single multipart image file to transform and returns Base64NDArrayBody
+      description: Takes a single multipart image file and transforms it into the desired format and returns it in the form of Base64NDArrayBody
+      consumes:
+      - multipart/form-data
+      produces:
+      - application/json
+      parameters:
+      - name: deploymentName
+        in: path
+        description: Name of the deployment group
+        required: true
+        type: string
+      - name: imageTransformName
+        in: path
+        description: ID or name of the deployed image transform
+        required: true
+        type: string
+      parameters:
+      - name: file
+        in: formData
+        type: file
+        required: true
+        description: The image file to upload
+      responses:
+        200:
+          description: array transformed and returned successfully
+          schema:
+            $ref: '#/definitions/Base64NDArrayBody'
+        400:
+          description: No uploaded file found or the file couldn't be loaded
         500:
           description: internal server error during transforming the array
   /endpoints/{deploymentName}/datavec/{imageTransformName}/default/transformarray:
@@ -185,6 +221,7 @@ paths:
         type: string
       - in: body
         name: BatchImageRecord
+        required: true
         description: The input batch of record arrays
         schema:
           $ref: '#/definitions/BatchImageRecord'
@@ -193,6 +230,43 @@ paths:
           description: array transformed and returned successfully
           schema:
             $ref: '#/definitions/Base64NDArrayBody'
+        500:
+          description: internal server error during transforming the array
+  /endpoints/{deploymentName}/datavec/{imageTransformName}/default/transformimage:
+    post:
+      operationId: transformimage
+      summary: Takes multiple multipart image file to transform and returns Base64NDArrayBody
+      description: Takes multiple multipart image file and transforms it into the desired format and returns it in the form of Base64NDArrayBody
+      consumes:
+      - multipart/form-data
+      produces:
+      - application/json
+      parameters:
+      - name: deploymentName
+        in: path
+        description: Name of the deployment group
+        required: true
+        type: string
+      - name: imageTransformName
+        in: path
+        description: ID or name of the deployed image transform
+        required: true
+        type: string
+      parameters:
+      - name: files
+        in: formData
+        type: array
+        required: true
+        description: The image files to upload
+        items:
+           type: file
+      responses:
+        200:
+          description: array transformed and returned successfully
+          schema:
+            $ref: '#/definitions/Base64NDArrayBody'
+        400:
+          description: No uploaded files found
         500:
           description: internal server error during transforming the array
   # ---------------------------------------------------------------------------------------
