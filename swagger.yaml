@@ -75,6 +75,7 @@ paths:
   # ---------------------------------------------------------------------------------------
   /endpoints/{deploymentName}/datavec/{transformName}/default/transformprocess:
     get:
+      operationId: transformprocess_get
       summary: Gets the JSON string of the deployed transform process
       description: |
         Retrieves the JSON string of the deployed transform process
@@ -101,6 +102,7 @@ paths:
         500:
           description: internal server error
     post:
+      operationId: transformprocess_post
       summary: Sets the deployed transform process through the provided JSON string
       description: Sets the transform process with the provided JSON string
       consumes:
@@ -130,6 +132,7 @@ paths:
           description: internal server error
   /endpoints/{deploymentName}/datavec/{transformName}/default/transformincremental:
     post:
+      operationId: transformincremental_csv
       summary: Takes SingleCSVRecord as input and returns the transformed array as SingleCSVRecord
       description: Takes a SingleCSVRecord object and transforms it into the desired format
       consumes:
@@ -161,6 +164,7 @@ paths:
           description: internal server error during transforming the array
   /endpoints/{deploymentName}/datavec/{transformName}/default/transform:
     post:
+      operationId: transform_csv
       summary: Takes a BatchCSVRecord and returns the transformed array as BatchCSVRecord
       description: Takes a batch of SingleCSVRecord object and transforms it into the desired format
       consumes:
@@ -192,6 +196,7 @@ paths:
           description: internal server error during transforming the array
   /endpoints/{deploymentName}/datavec/{transformName}/default/transformincrementalarray:
     post:
+      operationId: transformincrementalarray_csv
       summary: Same as /transformincremental but returns Base64NDArrayBody
       description: Takes a SingleCSVRecord object and transforms it into the desired format and returns it in the form of Base64NDArrayBody
       consumes:
@@ -223,6 +228,7 @@ paths:
           description: internal server error during transforming the array
   /endpoints/{deploymentName}/datavec/{transformName}/default/transformarray:
     post:
+      operationId: transformarray_csv
       summary: Takes a batch input arrays and transforms it
       description: Takes a batch of SingleCSVRecord object and transforms it into the desired format and returns it in the form of Base64NDArrayBody
       consumes:
