@@ -259,7 +259,8 @@ paths:
         required: true
         description: The image files to upload
         items:
-           type: file
+          type: string
+          format: binary
       responses:
         200:
           description: array transformed and returned successfully
