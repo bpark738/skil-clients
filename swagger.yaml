@@ -1,9 +1,9 @@
 ---
 swagger: "2.0"
 info:
-  description: Endpoints API for classification and other prediction services in SKIL
+  description: Endpoints API for different services in SKIL
   version: 1.1.0-beta
-  title: Predict
+  title: Endpoints
 host: localhost:9008
 schemes:
 - https
