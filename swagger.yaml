@@ -80,6 +80,7 @@ paths:
   # ---------------------------------------------------------------------------------------
   /endpoints/{deploymentName}/datavec/{imageTransformName}/default/transformprocess:
     get:
+      operationId: imagetransformprocess_get
       summary: Retrieves the image transform process JSON string
       consumes:
       - application/json
@@ -102,6 +103,7 @@ paths:
           schema:
             $ref: '#/definitions/ImageTransformProcess'
     post:
+      operationId: imagetransformprocess_post
       summary: Sets the image transform process through the provided JSON string
       consumes:
       - application/json
@@ -131,6 +133,7 @@ paths:
             $ref: '#/definitions/ImageTransformProcess'
   /endpoints/{deploymentName}/datavec/{imageTransformName}/default/transformincrementalarray:
     post:
+      operationId: transformincrementalarray_image
       summary: Takes SingleImageRecord to transform and returns Base64NDArrayBody
       description: Takes a SingleImageRecord object and transforms it into the desired format and returns it in the form of Base64NDArrayBody
       consumes:
@@ -162,6 +165,7 @@ paths:
           description: internal server error during transforming the array
   /endpoints/{deploymentName}/datavec/{imageTransformName}/default/transformarray:
     post:
+      operationId: transformarray_image
       summary: Takes a batch of images uri and transforms it and returns Base64NDArrayBody
       description: Takes a batch of SingleImageRecord object and transforms it into the desired format and returns it in the form of Base64NDArrayBody
       consumes:
