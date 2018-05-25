@@ -1554,6 +1554,9 @@ definitions:
   INDArray:
     type: object
     properties:
+      array:
+        type: string
+        format: base64
       shape:
         type: array
         items:
