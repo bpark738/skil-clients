@@ -1272,6 +1272,154 @@ paths:
           description: the model entity with its state changed
           schema:
             $ref: '#/definitions/ModelEntity'
+  # ---------------------------------------------------------------------------------------
+  # Model History endpoints (host:port <-> locahost:9100)
+  # ---------------------------------------------------------------------------------------
+  /experiments:
+    get:
+      operationId: listAllExperiments
+      summary: List all of the experiments in every model history / workspace
+      produces:
+      - application/json
+      responses:
+        200:
+          description: List of all the experiment entities.
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/ExperimentEntity'
+  /experiments/{modelHistoryID}:
+    get:
+      operationId: getExperimentsForModelHistory
+      summary: Obtain all experiments for a model history / workspace
+      produces:
+      - application/json
+      parameters:
+      - name: modelHistoryID
+        in: path
+        type: string
+        required: true
+        format: guid
+        description: the GUID of the model history / workspace
+      responses:
+        200:
+          description: List of all the experiment entities in a model history
+          schema:
+            $ref: '#/definitions/ExperimentEntity'
+  /experiment/{experimentID}:
+    put:
+      operationId: updateExperiment
+      summary: Updates an experiment, given an experiment entity
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - name: experimentID
+        in: path
+        type: string
+        required: true
+        format: guid
+        description: the GUID of the experiment to update
+      - name: experimentEntity
+        in: body
+        type: object
+        required: true
+        description: The experiment entity to update with
+        schema:
+          $ref: '#/definitions/ExperimentEntity'
+      responses:
+        200:
+          description: The updated experiment entity.
+          schema:
+            $ref: '#/definitions/ExperimentEntity'
+    delete:
+      operationId: deleteExperiment
+      summary: Deletes an experiment, given an experiment entity
+      produces:
+      - application/json
+      parameters:
+      - name: experimentID
+        in: path
+        type: string
+        required: true
+        format: guid
+        description: the GUID of the experiment to delete
+      responses:
+        200:
+          description: Experiment deleted successfully
+          schema:
+            type: object
+            properties:
+              status:
+                type: string
+        400:
+          description: Experiment no longer exists
+          schema:
+            type: object
+            properties:
+              status:
+                type: string
+  /experiment:
+    post:
+      operationId: addExperiment
+      summary: Add an experiment, given an experiment entity
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - name: experimentEntity
+        in: body
+        type: object
+        required: true
+        description: The experiment entity to add
+        schema:
+          $ref: '#/definitions/ExperimentEntity'
+      responses:
+        200:
+          description: The added experiment entity.
+          schema:
+            $ref: '#/definitions/ExperimentEntity'
+  /experiment/best:
+    post:
+      operationId: updateBestModelForExperiment
+      summary: Updates the best model for an experiment
+      produces:
+      - application/json
+      parameters:
+      - name: updateBestModel
+        in: body
+        type: object
+        required: true
+        description: Model encapsulating the experiment id to update and the best model id.
+        schema:
+          $ref: '#/definitions/UpdateBestModel'
+      responses:
+        200:
+          description: The updated experiment entity.
+          schema:
+            $ref: '#/definitions/ExperimentEntity'
+  /experiment/{experimentID}/models:
+    get:
+      operationId: getModelsForExperiment
+      summary: Obtain a list of all the models for an experiment
+      produces:
+      - application/json
+      parameters:
+      - name: experimentID
+        in: path
+        type: string
+        required: true
+        format: guid
+        description: the GUID of the experiment
+      responses:
+        200:
+          description: List of all the models for the specified experiment
+          schema:
+            type: object
+            items:
+              $ref: '#/definitions/ModelInstanceEntity'
 definitions:
   TransformProcess:
     type: object
@@ -1432,13 +1580,13 @@ definitions:
     type: object
     properties:
       id:
-        type: number
+        type: integer
         format: int64
       created:
-        type: number
+        type: integer
         format: int64
       updated:
-        type: number
+        type: integer
         format: int64
       modelType:
         type: string
@@ -1447,7 +1595,7 @@ definitions:
         - model
         - knn
       deploymentId:
-        type: number
+        type: integer
         format: int64
       name:
         type: string
@@ -1556,7 +1704,7 @@ definitions:
     properties:
       array:
         type: string
-        format: base64
+        format: guid
       shape:
         type: array
         items:
@@ -1768,3 +1916,93 @@ definitions:
         type: array
         items:
           $ref: '#/definitions/DetectedObject'
+  ExperimentEntity:
+    type: object
+    properties:
+      bestModelId:
+        type: string
+        description: GUID of the best selected model in an experiment
+      inputDataUri:
+        type: string
+        description: Input data URI
+      experimentId:
+        type: string
+        description: GUID of the experiment
+      experimentName:
+        type: string
+        description: Experiment's name
+      experimentDescription:
+        type: string
+        description: Experiment's description
+      notebookJson:
+        type: string
+        description: The associated Zeppelin notebook JSON string
+      notebookUrl:
+        type: string
+        description: URL of the associated Zeppelin notebook
+      zeppelinId:
+        type: string
+        description: Zeppelin ID
+      modelHistoryId:
+        type: string
+        description: Id of the model history / workspace
+      lastUpdated:
+        type: integer
+        format: int64
+        description: Indicates the time when experiment was last updated
+  UpdateBestModel:
+    type: object
+    properties:
+      experimentId:
+        type: string
+        format: guid
+        description: GUID of the experiment to update.
+      bestModelId:
+        type: string
+        format: guid
+        description: GUID of the model to set as the best model.
+  ModelInstanceEntity:
+    type: object
+    properties:
+      uri:
+        type: string
+        format: uri
+        description: The model URI
+      etlJson:
+        type: string
+        description: The json string for the ETL (Extract, Transform and Load)
+      modelId:
+        type: string
+        format: guid
+        description: GUID of the model.
+      modelLabels:
+        type: string
+        description: Comma-separated labels string for the model
+      inputFormats:
+        type: string
+        description: Format for the model input
+      created:
+        type: integer
+        format: int64
+        description: When the model was created
+      notebookJson:
+        type: string
+        description: JSON string of the associated Zeppelin Notebook
+      evalId:
+        type: string
+        format: guid
+        description: GUID for the model evaluation
+      modelName:
+        type: string
+        description: Model's name
+      originalModelId:
+        type: string
+        format: guid
+        description: Original GUID of the model (used for maintaining revisions of a particular model)
+      modelVersion:
+        type: string
+        description: Model version
+      experimentId:
+        type: string
+        format: guid
+        description: GUID of the Experiment which is associated with the model.
