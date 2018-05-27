@@ -1275,6 +1275,117 @@ paths:
   # ---------------------------------------------------------------------------------------
   # Model History endpoints (host:port <-> locahost:9100)
   # ---------------------------------------------------------------------------------------
+  /modelhistories/{numberOfItems}:
+    get:
+      operationId: getModelHistories
+      summary: Gets a list of model histories based on the number of items specified.
+      produces:
+      - application/json
+      parameters:
+      - name: numberOfItems
+        in: path
+        type: string
+        required: true
+        description: the number of model histories to obtain
+      responses:
+        200:
+          description: List of Model history entities
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/ModelHistoryEntity'
+  /model/revision/{modelHistoryID}:
+    get:
+      operationId: getModelHistory
+      summary: Gets a model history, given its ID
+      produces:
+      - application/json
+      parameters:
+      - name: modelHistoryID
+        in: path
+        type: string
+        required: true
+        description: GUID of the model history to get information of.
+      responses:
+        200:
+          description: Model history entity
+          schema:
+            $ref: '#/definitions/ModelHistoryEntity'
+  /modelhistory:
+    post:
+      operationId: addModelHistory
+      summary: Add a model history / workspace
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - name: addModelHistoryRequest
+        in: body
+        type: object
+        required: true
+        description: The model history request object
+        schema:
+          $ref: '#/definitions/AddModelHistoryRequest'
+      responses:
+        200:
+          description: The added model history entity
+          schema:
+            $ref: '#/definitions/ModelHistoryEntity'
+  /modelhistory/{modelHistoryID}:
+    post:
+      operationId: updateModelHistory
+      summary: Update a model history / workspace
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - name: modelHistoryID
+        in: path
+        type: string
+        required: true
+        format: guid
+        description: the GUID of the model history / workspace to update
+      - name: updateModelHistoryRequest
+        in: body
+        type: object
+        required: true
+        description: The model history request object
+        schema:
+          $ref: '#/definitions/AddModelHistoryRequest'
+      responses:
+        200:
+          description: The updated model history entity
+          schema:
+            $ref: '#/definitions/ModelHistoryEntity'
+    delete:
+      operationId: deleteModelHistory
+      summary: Deletes a model history / workspace, given its ID
+      produces:
+      - application/json
+      parameters:
+      - name: modelHistoryID
+        in: path
+        type: string
+        required: true
+        format: guid
+        description: the GUID of the model history / workspace to delete
+      responses:
+        200:
+          description: Workspace deleted
+          schema:
+            type: object
+            properties:
+              status:
+                type: string
+        400:
+          description: The specified Workspace no longer exists
+          schema:
+            type: object
+            properties:
+              status:
+                type: string
   /experiments:
     get:
       operationId: listAllExperiments
@@ -1307,6 +1418,26 @@ paths:
           schema:
             $ref: '#/definitions/ExperimentEntity'
   /experiment/{experimentID}:
+    get:
+      operationId: getExperiment
+      summary: Obtain an experiment's details, given its ID
+      produces:
+      - application/json
+      parameters:
+      - name: experimentID
+        in: path
+        type: string
+        required: true
+        format: guid
+        description: the GUID of the experiment to delete
+      responses:
+        200:
+          description: Experiment Entity
+          schema:
+            type: object
+            properties:
+              status:
+                type: string
     put:
       operationId: updateExperiment
       summary: Updates an experiment, given an experiment entity
@@ -1916,6 +2047,32 @@ definitions:
         type: array
         items:
           $ref: '#/definitions/DetectedObject'
+  ModelHistoryEntity:
+    type: object
+    properties:
+      created:
+        type: integer
+        format: int64
+        description: When the model history / workspace was created
+      modelHistoryId:
+        type: string
+        format: guid
+        description: The GUID of the model history / workspace
+      modelName:
+        type: string
+        description: Name of the model history / workspace
+      modelLabels:
+        type: string
+        description: Model history / workspace labels
+  AddModelHistoryRequest:
+    type: object
+    properties:
+      modelName:
+        type: string
+        description: Name of the model history / workspace
+      modelLabels:
+        type: string
+        description: Model history / workspace labels
   ExperimentEntity:
     type: object
     properties:
