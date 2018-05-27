@@ -1275,25 +1275,6 @@ paths:
   # ---------------------------------------------------------------------------------------
   # Model History endpoints (host:port <-> locahost:9100)
   # ---------------------------------------------------------------------------------------
-  /modelhistories/{numberOfItems}:
-    get:
-      operationId: getModelHistories
-      summary: Gets a list of model histories based on the number of items specified.
-      produces:
-      - application/json
-      parameters:
-      - name: numberOfItems
-        in: path
-        type: string
-        required: true
-        description: the number of model histories to obtain
-      responses:
-        200:
-          description: List of Model history entities
-          schema:
-            type: array
-            items:
-              $ref: '#/definitions/ModelHistoryEntity'
   /model/revision/{modelHistoryID}:
     get:
       operationId: getModelHistory
@@ -1551,6 +1532,42 @@ paths:
             type: object
             items:
               $ref: '#/definitions/ModelInstanceEntity'
+  /model/{modelInstanceID}:
+    get:
+      operationId: getModelInstance
+      summary: Gets a model instance, given its ID
+      produces:
+      - application/json
+      parameters:
+      - name: modelInstanceID
+        in: path
+        type: string
+        required: true
+        description: GUID of the model instance to get information of.
+      responses:
+        200:
+          description: Model instance entity
+          schema:
+            $ref: '#/definitions/ModelInstanceEntity'
+  /model/revisions/evaluations/{modelInstanceID}:
+    get:
+      operationId: getEvaluationForModelID
+      summary: Gets the list of evaluation results entity, given a model instance ID
+      produces:
+      - application/json
+      parameters:
+      - name: modelInstanceID
+        in: path
+        type: string
+        required: true
+        description: GUID of the model instance to get evaluation results for.
+      responses:
+        200:
+          description: List of evaluation result entities
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/EvaluationResultsEntity'
 definitions:
   TransformProcess:
     type: object
@@ -2163,3 +2180,53 @@ definitions:
         type: string
         format: guid
         description: GUID of the Experiment which is associated with the model.
+  EvaluationResultsEntity:
+    type: object
+    properties:
+      evaluation:
+        type: string
+      evalName:
+        type: string
+      modelInstanceId:
+        type: string
+        format: guid
+      created:
+        type: integer
+        format: int64
+        description: When the evaluation result was created
+      f1:
+        type: number
+        format: double
+      precision:
+        type: number
+        format: double
+      recall:
+        type: number
+        format: double
+      accuracy:
+        type: number
+        format: double
+      rmse:
+        type: number
+        format: double
+      auc:
+        type: number
+        format: double
+      meanAbsoluteError:
+        type: number
+        format: double
+      meanRelativeError:
+        type: number
+        format: double
+      r2:
+        type: number
+        format: double
+      evalId:
+        type: string
+      evalVersion:
+        type: integer
+      binaryThreshold:
+        type: number
+        format: double
+      binaryThresholds:
+        type: string
