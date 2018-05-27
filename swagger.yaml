@@ -1497,6 +1497,8 @@ paths:
     post:
       operationId: updateBestModelForExperiment
       summary: Updates the best model for an experiment
+      consumes:
+      - application/json
       produces:
       - application/json
       parameters:
@@ -1568,6 +1570,27 @@ paths:
             type: array
             items:
               $ref: '#/definitions/EvaluationResultsEntity'
+  /model/aggregateresults:
+    post:
+      operationId: aggregateModelResults
+      summary: Aggregates the evaluaition results of a model instance, based on the evaluation type
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - name: aggregatePrediction
+        in: body
+        type: object
+        required: true
+        description: The object encapsulating the model instance id and evaluation type to aggregate
+        schema:
+          $ref: '#/definitions/AggregatePrediction'
+      responses:
+        200:
+          description: Evaluation result entity contained the aggregated/merged results
+          schema:
+            $ref: '#/definitions/EvaluationResultsEntity'
 definitions:
   TransformProcess:
     type: object
@@ -2223,6 +2246,8 @@ definitions:
         format: double
       evalId:
         type: string
+        format: guid
+        description: GUID of the evaluation
       evalVersion:
         type: integer
       binaryThreshold:
@@ -2230,3 +2255,35 @@ definitions:
         format: double
       binaryThresholds:
         type: string
+  AggregatePrediction:
+    type: object
+    properties:
+      modelId:
+        type: string
+        format: guid
+        description: GUID of model instance
+      evalType:
+        type: string
+        enum:
+        - ROC_BINARY
+        - ROC
+        - EVALUATION_BINARY
+        - EVALUATION
+        - REGRESSON_EVALUATION
+        - ROC_MULTI_CLASS
+        description: the evaluation type to aggregate
+  MinibatchEntity:
+    type: object
+    properties:
+      miniBatchId:
+        type: string
+        format: guid
+        description: GUID of mini batch
+      evalId:
+        type: string
+        format: guid
+        description: GUID of the evaluation
+      evalVersion:
+        type: integer
+      batchVersion:
+        type: integer
