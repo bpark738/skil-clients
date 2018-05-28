@@ -1551,6 +1551,104 @@ paths:
           description: Model instance entity
           schema:
             $ref: '#/definitions/ModelInstanceEntity'
+    delete:
+      operationId: deleteModelInstance
+      summary: Deletes a model instance, given its ID
+      produces:
+      - application/json
+      parameters:
+      - name: modelInstanceID
+        in: path
+        type: string
+        required: true
+        description: GUID of the model instance to delete.
+      responses:
+        200:
+          description: Empty content
+  /model:
+    post:
+      operationId: addModelInstance
+      summary: Adds a model
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - name: modelInstanceEntity
+        in: body
+        type: object
+        required: true
+        description: The object encapsulating the model instance id and evaluation type to aggregate
+        schema:
+          $ref: '#/definitions/ModelInstanceEntity'
+      responses:
+        200:
+          description: The added model instance entity
+          schema:
+            $ref: '#/definitions/ModelInstanceEntity'
+  /model/best:
+    post:
+      operationId: getBestModelAmongModelIds
+      summary: Gets the best model among the given model instance IDs, based on the evaluation type and column metric
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - name: bestModel
+        in: body
+        type: object
+        required: true
+        description: Object encapsulating the model ids, eval type and column metric name
+        schema:
+          $ref: '#/definitions/BestModel'
+      responses:
+        200:
+          description: The best model instance entity
+          schema:
+            $ref: '#/definitions/ModelInstanceEntity'
+  /model/revisions:
+    post:
+      operationId: createModelHistory
+      summary: Creates model History
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - name: modelHistoryEntity
+        in: body
+        type: object
+        required: true
+        description: The model history entity
+        schema:
+          $ref: '#/definitions/ModelHistoryEntity'
+      responses:
+        200:
+          description: The created model history
+          schema:
+            $ref: '#/definitions/ModelHistoryEntity'
+  /model/revisions/evaluations:
+    post:
+      operationId: addEvaluationResult
+      summary: Adds an evaluation result
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - name: evaluationResultsEntity
+        in: body
+        type: object
+        required: true
+        description: The evaluation result entity
+        schema:
+          $ref: '#/definitions/EvaluationResultsEntity'
+      responses:
+        200:
+          description: The added evaluation result entity
+          schema:
+            $ref: '#/definitions/EvaluationResultsEntity'
   /model/revisions/evaluations/{modelInstanceID}:
     get:
       operationId: getEvaluationForModelID
@@ -1591,6 +1689,105 @@ paths:
           description: Evaluation result entity contained the aggregated/merged results
           schema:
             $ref: '#/definitions/EvaluationResultsEntity'
+  /model/minibatch/{minibatchId}:
+    get:
+      operationId: getMinibatch
+      summary: Gets a minibatch for the model
+      produces:
+      - application/json
+      parameters:
+      - name: minibatchId
+        in: path
+        type: string
+        required: true
+        description: The GUID of the minibatch
+      responses:
+        200:
+          description: The minibatch entity
+          schema:
+            $ref: '#/definitions/MinibatchEntity'
+  /model/minibatch:
+    post:
+      operationId: addMinibatch
+      summary: Adds a minibatch
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - name: minibatchEntity
+        in: body
+        type: object
+        required: true
+        description: The minibatch entity to add
+        schema:
+          $ref: '#/definitions/MinibatchEntity'
+      responses:
+        200:
+          description: The added minibatch entity
+          schema:
+            $ref: '#/definitions/MinibatchEntity'
+  /model/example/{minibatchId}:
+    get:
+      operationId: getExamplesForMinibatch
+      summary: Gets all the examples for a minibatch ID
+      produces:
+      - application/json
+      parameters:
+      - name: minibatchId
+        in: path
+        type: string
+        required: true
+        description: The GUID of the minibatch
+      responses:
+        200:
+          description: List of the associated examples with the minibatch
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/ExampleEntity'
+  /model/example:
+    post:
+      operationId: addExampleToMinibatch
+      summary: Adds an example to a minibatch
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - name: exampleEntity
+        in: body
+        type: object
+        required: true
+        description: The example to add to the minibatch
+        schema:
+          $ref: '#/definitions/ExampleEntity'
+      responses:
+        200:
+          description: The added example entity
+          schema:
+            $ref: '#/definitions/ExampleEntity'
+  /model/exampleForBatch:
+    post:
+      operationId: addExampleForBatch
+      summary: Adds a number of examples to a minibatch ID given an AddExampleRequest.
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - name: AddExampleRequest
+        in: body
+        type: object
+        required: true
+        description: The add example request, encapsulating minibatch details and examples batch size
+        schema:
+          $ref: '#/definitions/AddExampleRequest'
+      responses:
+        200:
+          description: The add example request
+          schema:
+            $ref: '#/definitions/addExampleRequest'
 definitions:
   TransformProcess:
     type: object
@@ -2285,5 +2482,72 @@ definitions:
         description: GUID of the evaluation
       evalVersion:
         type: integer
+        description: Eval version
       batchVersion:
         type: integer
+        description: Batch version
+  ExampleEntity:
+    type:
+    properties:
+      exampleId:
+        type: string
+        format: guid
+        description: the GUID of the example
+      exampleVersion:
+        type: integer
+        description: Example version
+      int rowNumber:
+        type: integer
+        description: Row Number
+      created:
+        type: integer
+        format: int64
+        description: when the example was created
+      miniBatchId:
+        type: string
+        format: guid
+        description: The GUID of the minibatch
+      miniBatchVersion:
+        type: integer
+        description: minibatch version
+  AddExampleRequest:
+    type: object
+    properties:
+      minibatch:
+        $ref: '#/definitions/MinibatchEntity'
+        description: the minibatch the examples are going to be associated with
+      batchSize:
+        type: integer
+        description: the size of the batch to create
+  BestModel:
+    type: object
+    properties:
+      ids:
+        type: array
+        items:
+          type: string
+          format: guid
+        description: the list of GUIDs for the models to get the best model from
+      columnNameMetric:
+        type: string
+        enum:
+        - f1
+        - precision
+        - recall
+        - accuracy
+        - rmse
+        - auc
+        - meanAbsoluteError
+        - meanRelativeError
+        - r2
+        description: Name of the column metric (in an evaluation result) to get the best model from.
+      evalType:
+        type: string
+        enum:
+        - ROC_BINARY
+        - ROC
+        - EVALUATION_BINARY
+        - EVALUATION
+        - REGRESSON_EVALUATION
+        - ROC_MULTI_CLASS
+        description: the evaluation type to aggregate for each model's revisions
