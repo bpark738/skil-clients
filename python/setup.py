@@ -1,9 +1,9 @@
 # coding: utf-8
 
 """
-    Predict
+    Endpoints
 
-    Endpoints API for classification and other prediction services in SKIL  # noqa: E501
+    Endpoints API for different services in SKIL  # noqa: E501
 
     OpenAPI spec version: 1.1.0-beta
     
@@ -27,14 +27,14 @@ REQUIRES = ["urllib3 >= 1.15", "six >= 1.10", "certifi", "python-dateutil"]
 setup(
     name=NAME,
     version=VERSION,
-    description="Predict",
+    description="Endpoints",
     author_email="",
     url="",
-    keywords=["Swagger", "Predict"],
+    keywords=["Swagger", "Endpoints"],
     install_requires=REQUIRES,
     packages=find_packages(),
     include_package_data=True,
     long_description="""\
-    Endpoints API for classification and other prediction services in SKIL  # noqa: E501
+    Endpoints API for different services in SKIL  # noqa: E501
     """
 )

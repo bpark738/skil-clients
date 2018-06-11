@@ -1,9 +1,9 @@
 # coding: utf-8
 
 """
-    Predict
+    Endpoints
 
-    Endpoints API for classification and other prediction services in SKIL  # noqa: E501
+    Endpoints API for different services in SKIL  # noqa: E501
 
     OpenAPI spec version: 1.1.0-beta
     
@@ -15,6 +15,8 @@ import pprint
 import re  # noqa: F401
 
 import six
+
+from skil_client.models.deployment_objects import DeploymentObjects  # noqa: F401,E501
 
 
 class DeploymentObjects(object):
@@ -31,9 +33,9 @@ class DeploymentObjects(object):
                             and the value is json key in definition.
     """
     swagger_types = {
-        'models': 'list[object]',
-        'transforms': 'list[object]',
-        'knn': 'list[object]'
+        'models': 'list[DeploymentObjects]',
+        'transforms': 'list[DeploymentObjects]',
+        'knn': 'list[DeploymentObjects]'
     }
 
     attribute_map = {
@@ -63,7 +65,7 @@ class DeploymentObjects(object):
 
 
         :return: The models of this DeploymentObjects.  # noqa: E501
-        :rtype: list[object]
+        :rtype: list[DeploymentObjects]
         """
         return self._models
 
@@ -73,7 +75,7 @@ class DeploymentObjects(object):
 
 
         :param models: The models of this DeploymentObjects.  # noqa: E501
-        :type: list[object]
+        :type: list[DeploymentObjects]
         """
 
         self._models = models
@@ -84,7 +86,7 @@ class DeploymentObjects(object):
 
 
         :return: The transforms of this DeploymentObjects.  # noqa: E501
-        :rtype: list[object]
+        :rtype: list[DeploymentObjects]
         """
         return self._transforms
 
@@ -94,7 +96,7 @@ class DeploymentObjects(object):
 
 
         :param transforms: The transforms of this DeploymentObjects.  # noqa: E501
-        :type: list[object]
+        :type: list[DeploymentObjects]
         """
 
         self._transforms = transforms
@@ -105,7 +107,7 @@ class DeploymentObjects(object):
 
 
         :return: The knn of this DeploymentObjects.  # noqa: E501
-        :rtype: list[object]
+        :rtype: list[DeploymentObjects]
         """
         return self._knn
 
@@ -115,7 +117,7 @@ class DeploymentObjects(object):
 
 
         :param knn: The knn of this DeploymentObjects.  # noqa: E501
-        :type: list[object]
+        :type: list[DeploymentObjects]
         """
 
         self._knn = knn

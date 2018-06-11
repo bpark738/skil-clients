@@ -1,8 +1,8 @@
 # coding: utf-8
 """
-    Predict
+    Endpoints
 
-    Endpoints API for classification and other prediction services in SKIL  # noqa: E501
+    Endpoints API for different services in SKIL  # noqa: E501
 
     OpenAPI spec version: 1.1.0-beta
     
@@ -541,7 +541,7 @@ class ApiClient(object):
         try:
             return klass(data)
         except UnicodeEncodeError:
-            return six.u(data)
+            return six.text_type(data)
         except TypeError:
             return data
 

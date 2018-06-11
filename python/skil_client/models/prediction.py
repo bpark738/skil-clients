@@ -1,9 +1,9 @@
 # coding: utf-8
 
 """
-    Predict
+    Endpoints
 
-    Endpoints API for classification and other prediction services in SKIL  # noqa: E501
+    Endpoints API for different services in SKIL  # noqa: E501
 
     OpenAPI spec version: 1.1.0-beta
     
@@ -35,21 +35,24 @@ class Prediction(object):
     swagger_types = {
         'id': 'str',
         'needs_pre_processing': 'bool',
-        'prediction': 'INDArray'
+        'prediction': 'INDArray',
+        'input_mask': 'INDArray'
     }
 
     attribute_map = {
         'id': 'id',
         'needs_pre_processing': 'needsPreProcessing',
-        'prediction': 'prediction'
+        'prediction': 'prediction',
+        'input_mask': 'inputMask'
     }
 
-    def __init__(self, id=None, needs_pre_processing=None, prediction=None):  # noqa: E501
+    def __init__(self, id=None, needs_pre_processing=None, prediction=None, input_mask=None):  # noqa: E501
         """Prediction - a model defined in Swagger"""  # noqa: E501
 
         self._id = None
         self._needs_pre_processing = None
         self._prediction = None
+        self._input_mask = None
         self.discriminator = None
 
         if id is not None:
@@ -58,6 +61,8 @@ class Prediction(object):
             self.needs_pre_processing = needs_pre_processing
         if prediction is not None:
             self.prediction = prediction
+        if input_mask is not None:
+            self.input_mask = input_mask
 
     @property
     def id(self):
@@ -121,6 +126,27 @@ class Prediction(object):
         """
 
         self._prediction = prediction
+
+    @property
+    def input_mask(self):
+        """Gets the input_mask of this Prediction.  # noqa: E501
+
+
+        :return: The input_mask of this Prediction.  # noqa: E501
+        :rtype: INDArray
+        """
+        return self._input_mask
+
+    @input_mask.setter
+    def input_mask(self, input_mask):
+        """Sets the input_mask of this Prediction.
+
+
+        :param input_mask: The input_mask of this Prediction.  # noqa: E501
+        :type: INDArray
+        """
+
+        self._input_mask = input_mask
 
     def to_dict(self):
         """Returns the model properties as a dict"""
